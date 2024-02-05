@@ -1,0 +1,33 @@
+from snakemake.utils import min_version
+
+##### set minimum snakemake version #####
+min_version("8.4.1")
+
+configfile: "config/config.yaml"
+
+include: "rules/common.smk"
+
+rule all:
+    input:
+        get_final_output()
+
+rule harmonize_sumstats:
+    input:
+        sumstats=get_sumstats
+    output:
+        "results/regenie/{sample}.regenie.tsv.gz",
+        "results/regenie/{sample}.regenie.log"
+    conda:
+        "scripts/gwaspipe/environment.yml"
+    shell:
+        "python workflow/scripts/gwaspipe/src/gwaspipe.py -f regenie -c workflow/scripts/gwaspipe/examples/config.yml -i {input.sumstats}"
+
+rule bgzip_tabix:
+    input:
+        "results/regenie/{sample}.regenie.tsv.gz"
+    output:
+        "results/regenie/{sample}.regenie.tsv.gz.tbi"
+    conda:
+        "envs/bgzip_tabix.yaml"
+    shell:
+        "workflow/scripts/bgzip_tabix.sh {input}"

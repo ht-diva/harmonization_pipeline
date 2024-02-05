@@ -1,0 +1,20 @@
+executor: slurm
+jobs: 10
+use-conda: True
+use-singularity: False
+restart-times: 3
+max-jobs-per-second: 10
+max-status-checks-per-second: 1
+local-cores: 1
+latency-wait: 60
+keep-going: True
+rerun-incomplete: True
+printshellcmds: True
+scheduler: greedy
+
+default-resources:
+    slurm_partition: cpuq
+    slurm_account: gianmauro.cuccuru
+    mem_mb: 20480
+    cpus_per_task: 8
+    runtime: 600
