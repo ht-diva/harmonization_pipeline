@@ -26,4 +26,12 @@ def get_final_output():
         "results/regenie/{sample}.regenie.tsv.gz.tbi", sample=samples.sample_name
     )
 
+    final_output.extend(
+        expand("results/if/report_if_{sample}.gz.txt",sample=samples.sample_name)
+    )
+
+    final_output.extend(
+        expand("results/ldsc/{sample}.ldsc.tsv.gz",sample=samples.sample_name)
+    )
+
     return final_output
