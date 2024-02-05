@@ -1,2 +1,7 @@
 # path or URL to sample sheet (TSV format, columns: sample, condition, ...)
 samples_path: config/seqid_from_literature.tsv
+
+params:
+  harmonize_sumstats:
+    input_format: "regenie"
+    config_file: "workflow/scripts/gwaspipe/examples/config.yml"
