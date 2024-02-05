@@ -1,0 +1,3 @@
+[submodule "gwaspipe"]
+	path = gwaspipe
+	url = https://github.com/ht-diva/gwaspipe.git
