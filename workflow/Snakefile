@@ -21,6 +21,8 @@ rule harmonize_sumstats:
     output:
         "results/regenie/{sample}.regenie.tsv.gz",
         "results/regenie/{sample}.regenie.log",
+        "results/if/report_if_{sample}.gz.txt",
+        "results/ldsc/{sample}.ldsc.tsv.gz",
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
