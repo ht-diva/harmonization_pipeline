@@ -8,9 +8,9 @@ max-status-checks-per-second: 1
 local-cores: 1
 latency-wait: 60
 keep-going: True
-rerun-incomplete: True
+rerun-incomplete: False
 printshellcmds: True
-scheduler: greedy
+scheduler: ilp
 
 default-resources:
     slurm_partition: cpuq
