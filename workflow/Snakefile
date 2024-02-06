@@ -42,7 +42,7 @@ rule create_if_table:
     conda:
         "envs/create_inflation_factors_table.yaml"
     shell:
-        "python workflow/scripts/create_inflation_factors_table.py -i result/if -o result/if/inflation_factors_table.tsv"
+        "python workflow/scripts/create_inflation_factors_table.py -i results/if -o results/if/inflation_factors_table.tsv"
 
 rule bgzip_tabix:
     input:
