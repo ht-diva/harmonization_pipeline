@@ -21,7 +21,7 @@ rule harmonize_sumstats:
     output:
         "results/regenie/{sample}.regenie.tsv.gz",
         "results/regenie/{sample}.regenie.log",
-        "results/if/report_if_{sample}.gz.txt",
+        temp("results/if/report_if_{sample}.gz.txt"),
         "results/ldsc/{sample}.ldsc.tsv.gz",
     conda:
         "scripts/gwaspipe/environment.yml"
@@ -34,11 +34,13 @@ rule harmonize_sumstats:
         "-c {params.config_file} "
         "-i {input.sumstats}"
 
-rule create_if_report:
+rule create_if_table:
     input:
         expand("results/if/report_if_{sample}.gz.txt",sample=samples.sample_name),
     output:
         "results/if/inflation_factors_table.tsv"
+    conda:
+        "envs/create_inflation_factors_table.yaml"
     shell:
         "python workflow/scripts/create_inflation_factors_table.py -i result/if -o result/if/inflation_factors_table.tsv"
 
