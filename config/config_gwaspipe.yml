@@ -103,7 +103,7 @@ steps:
   # see https://cloufield.github.io/gwaslab/Format/ for more details on writing options
   write_ldsc:
     params:
-      run: False
+      run: True
       workspace: "ldsc"
     gl_params:
       fmt: "ldsc"
