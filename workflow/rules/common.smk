@@ -32,4 +32,8 @@ def get_final_output():
         expand("results/ldsc/{sample}.ldsc.tsv.gz",sample=samples.sample_name)
     )
 
+    final_output.extend(
+        expand("results/ldsc/{sample}.metal.tsv.gz",sample=samples.sample_name)
+    )
+
     return final_output
