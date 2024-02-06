@@ -34,6 +34,13 @@ rule harmonize_sumstats:
         "-c {params.config_file} "
         "-i {input.sumstats}"
 
+rule create_if_report:
+    input:
+        expand("results/if/report_if_{sample}.gz.txt",sample=samples.sample_name),
+    output:
+        "results/if/inflation_factors_table.tsv"
+    shell:
+        "python workflow/scripts/create_inflation_factors_table.py -i result/if -o result/if/inflation_factors_table.tsv"
 
 rule bgzip_tabix:
     input:
