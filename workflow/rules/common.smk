@@ -33,7 +33,7 @@ def get_final_output():
     )
 
     final_output.extend(
-        expand("results/ldsc/{sample}.metal.tsv.gz",sample=samples.sample_name)
+        expand("results/metal/{sample}.metal.tsv.gz",sample=samples.sample_name)
     )
 
     return final_output
