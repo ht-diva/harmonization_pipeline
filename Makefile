@@ -1,12 +1,12 @@
-TARGETS=create_env build_dag run unlock
+TARGETS=dependencies dag run unlock
 
 all:
 	@echo "Try one of: ${TARGETS}"
 
-create_env:
+dependencies:
 	mamba env update -n snakemake --file environment.yml
 
-build_dag:
+dag:
 	snakemake --dag | dot -Tsvg > dag.svg
 
 dry-run:
