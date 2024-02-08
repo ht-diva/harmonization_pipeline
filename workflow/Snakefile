@@ -19,11 +19,7 @@ rule harmonize_sumstats:
     input:
         sumstats=get_sumstats,
     output:
-        "results/regenie/{sample}.regenie.tsv.gz",
-        "results/regenie/{sample}.regenie.log",
-        temp("results/if/report_if_{sample}.gz.txt"),
-        "results/ldsc/{sample}.ldsc.tsv.gz",
-        "results/metal/{sample}.metal.tsv.gz",
+        "results/pickle/{sample}.pkl",
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
@@ -34,6 +30,25 @@ rule harmonize_sumstats:
         "-f {params.format} "
         "-c {params.config_file} "
         "-i {input.sumstats}"
+
+rule write_sumstats_output:
+    input:
+        "results/pickle/{sample}.pkl",
+    output:
+        "results/regenie/{sample}.regenie.tsv.gz",
+        temp("results/if/report_if_{sample}.gz.txt"),
+        "results/ldsc/{sample}.ldsc.tsv.gz",
+        "results/metal/{sample}.metal.tsv.gz",
+    conda:
+        "scripts/gwaspipe/environment.yml"
+    params:
+        format=config.get("params").get("write_sumstats_output").get("input_format"),
+        config_file=config.get("params").get("write_sumstats_output").get("config_file"),
+    shell:
+        "python workflow/scripts/gwaspipe/src/gwaspipe.py "
+        "-f {params.format} "
+        "-c {params.config_file} "
+        "-i {input}"
 
 rule create_if_table:
     input:

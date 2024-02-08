@@ -4,4 +4,7 @@ samples_path: config/seqid_from_literature.tsv
 params:
   harmonize_sumstats:
     input_format: "regenie"
-    config_file: "config/config_gwaspipe.yml"
+    config_file: "config/config_gwaspipe_harmonize.yml"
+  write_sumstats_output:
+    input_format: "pickle"
+    config_file: "config/config_gwaspipe_write.yml"
