@@ -36,7 +36,7 @@ rule write_sumstats_output:
         "results/pickle/{sample}.pkl",
     output:
         "results/regenie/{sample}.regenie.tsv.gz",
-        temp("results/if/report_if_{sample}.gz.txt"),
+        temp("results/if/report_if_{sample}.txt"),
         "results/ldsc/{sample}.ldsc.tsv.gz",
         "results/metal/{sample}.metal.tsv.gz",
     conda:
