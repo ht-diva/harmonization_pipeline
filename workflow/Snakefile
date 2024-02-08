@@ -23,7 +23,7 @@ rule harmonize_sumstats:
         "results/regenie/{sample}.regenie.log",
         temp("results/if/report_if_{sample}.gz.txt"),
         "results/ldsc/{sample}.ldsc.tsv.gz",
-        "results/ldsc/{sample}.metal.tsv.gz",
+        "results/metal/{sample}.metal.tsv.gz",
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
