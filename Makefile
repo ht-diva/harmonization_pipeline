@@ -1,4 +1,4 @@
-TARGETS=create_env build_dag run
+TARGETS=create_env build_dag run unlock
 
 all:
 	@echo "Try one of: ${TARGETS}"
@@ -14,3 +14,6 @@ dry-run:
 
 run:
 	snakemake --profile slurm --snakefile workflow/Snakefile
+
+unlock:
+	snakemake --unlock
