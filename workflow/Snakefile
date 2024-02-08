@@ -52,7 +52,7 @@ rule write_sumstats_output:
 
 rule create_if_table:
     input:
-        expand("results/if/report_if_{sample}.gz.txt",sample=samples.sample_name),
+        expand("results/if/report_if_{sample}.txt",sample=samples.sample_name),
     output:
         "results/if/inflation_factors_table.tsv"
     conda:
