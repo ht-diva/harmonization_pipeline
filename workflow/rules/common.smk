@@ -29,11 +29,11 @@ def get_final_output():
     final_output.append("results/if/inflation_factors_table.tsv")
 
     final_output.extend(
-        expand("results/ldsc/{sample}.ldsc.tsv.gz",sample=samples.sample_name)
+        expand("results/ldsc/{sample}.ldsc.tsv.gz", sample=samples.sample_name)
     )
 
     final_output.extend(
-        expand("results/metal/{sample}.metal.tsv.gz",sample=samples.sample_name)
+        expand("results/metal/{sample}.metal.tsv.gz", sample=samples.sample_name)
     )
 
     return final_output

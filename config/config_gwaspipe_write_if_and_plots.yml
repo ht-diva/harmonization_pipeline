@@ -4,9 +4,8 @@ n_cores: &cores 3
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
-  - 1: 'write_ldsc'
-  - 2: 'write_metal'
-  - 3: 'write_regenie'
+  - 1: 'report_inflation_factors'
+  - 2: 'qq_manhattan_plots'
 
 steps:
   basic_check: # see https://cloufield.github.io/gwaslab/Standardization/

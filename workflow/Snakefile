@@ -31,14 +31,45 @@ rule harmonize_sumstats:
         "-c {params.config_file} "
         "-i {input.sumstats}"
 
+
+rule write_if_output_and_plots:
+    input:
+        "results/pickle/{sample}.pkl",
+    output:
+        temp("results/if/report_if_{sample}.txt"),
+        "results/plots/{sample}.png",
+    conda:
+        "scripts/gwaspipe/environment.yml"
+    params:
+        format=config.get("params").get("write_if_output_and_plots").get("input_format"),
+        config_file=config.get("params")
+        .get("write_if_output_and_plots")
+        .get("config_file"),
+    shell:
+        "python workflow/scripts/gwaspipe/src/gwaspipe.py "
+        "-f {params.format} "
+        "-c {params.config_file} "
+        "-i {input}"
+
+
+rule create_if_table:
+    input:
+        expand("results/if/report_if_{sample}.txt", sample=samples.sample_name),
+    output:
+        "results/if/inflation_factors_table.tsv",
+    conda:
+        "envs/create_inflation_factors_table.yaml"
+    shell:
+        "python workflow/scripts/create_inflation_factors_table.py -i results/if -o results/if/inflation_factors_table.tsv"
+
+
 rule write_sumstats_output:
     input:
         "results/pickle/{sample}.pkl",
     output:
-        "results/regenie/{sample}.regenie.tsv.gz",
-        temp("results/if/report_if_{sample}.txt"),
         "results/ldsc/{sample}.ldsc.tsv.gz",
         "results/metal/{sample}.metal.tsv.gz",
+        "results/regenie/{sample}.regenie.tsv.gz",
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
@@ -50,15 +81,6 @@ rule write_sumstats_output:
         "-c {params.config_file} "
         "-i {input}"
 
-rule create_if_table:
-    input:
-        expand("results/if/report_if_{sample}.txt",sample=samples.sample_name),
-    output:
-        "results/if/inflation_factors_table.tsv"
-    conda:
-        "envs/create_inflation_factors_table.yaml"
-    shell:
-        "python workflow/scripts/create_inflation_factors_table.py -i results/if -o results/if/inflation_factors_table.tsv"
 
 rule bgzip_tabix:
     input:

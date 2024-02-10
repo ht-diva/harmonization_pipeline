@@ -5,6 +5,9 @@ params:
   harmonize_sumstats:
     input_format: "regenie"
     config_file: "config/config_gwaspipe_harmonize.yml"
+  write_if_output_and_plots:
+    input_format: "pickle"
+    config_file: "config/config_gwaspipe_write_if_and_plots.yml"
   write_sumstats_output:
     input_format: "pickle"
     config_file: "config/config_gwaspipe_write.yml"
