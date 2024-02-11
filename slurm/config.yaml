@@ -21,6 +21,7 @@ default-resources:
     runtime: 600
 set-threads:
     harmonize_sumstats: *cores
+    bgzip_tabix: *cores
 set-resources:
     harmonize_sumstats:
         mem_mb: 20480
