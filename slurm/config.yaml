@@ -25,3 +25,6 @@ set-threads:
 set-resources:
     harmonize_sumstats:
         mem_mb: 20480
+        cpus_per_task: *cores
+    bgzip_tabix:
+        cpus_per_task: *cores
