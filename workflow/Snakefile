@@ -36,7 +36,7 @@ rule write_if_output_and_plots:
     input:
         "results/pickle/{sample}.pkl",
     output:
-        temp("results/if/report_if_{sample}.txt"),
+        "results/if/report_if_{sample}.txt",
         "results/plots/{sample}.png",
     conda:
         "scripts/gwaspipe/environment.yml"
