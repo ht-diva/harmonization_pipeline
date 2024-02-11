@@ -89,5 +89,6 @@ rule bgzip_tabix:
         "results/regenie/{sample}.regenie.tsv.gz.tbi",
     conda:
         "envs/bgzip_tabix.yaml"
+    threads: 8
     shell:
-        "workflow/scripts/bgzip_tabix.sh {input}"
+        "workflow/scripts/bgzip_tabix.sh {input} {threads}"

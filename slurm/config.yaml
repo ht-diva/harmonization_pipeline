@@ -1,5 +1,5 @@
 executor: slurm
-jobs: 10
+jobs: 200
 use-conda: True
 use-singularity: False
 restart-times: 3
@@ -16,6 +16,11 @@ scheduler: ilp
 default-resources:
     slurm_partition: cpuq
     slurm_account: gianmauro.cuccuru
-    mem_mb: 20480
-    cpus_per_task: *cores
+    mem_mb: 8192
+    cpus_per_task: 1
     runtime: 600
+set-threads:
+    harmonize_sumstats: *cores
+set-resources:
+    harmonize_sumstats:
+        mem_mb: 20480
