@@ -15,5 +15,8 @@ dry-run:
 run:
 	snakemake --profile slurm --snakefile workflow/Snakefile
 
+rerun:
+	snakemake --profile slurm --snakefile workflow/Snakefile --rerun-incomplete
+
 unlock:
 	snakemake --unlock
