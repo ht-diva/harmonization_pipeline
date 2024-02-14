@@ -69,12 +69,28 @@ rule write_sumstats_output:
     output:
         "results/ldsc/{sample}.ldsc.tsv.gz",
         "results/metal/{sample}.metal.tsv.gz",
-        "results/regenie/{sample}.regenie.tsv.gz",
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
         format=config.get("params").get("write_sumstats_output").get("input_format"),
         config_file=config.get("params").get("write_sumstats_output").get("config_file"),
+    shell:
+        "python workflow/scripts/gwaspipe/src/gwaspipe.py "
+        "-f {params.format} "
+        "-c {params.config_file} "
+        "-i {input}"
+
+
+rule write_sumstats_regenie:
+    input:
+        "results/pickle/{sample}.pkl",
+    output:
+        "results/regenie/{sample}.regenie.tsv.gz",
+    conda:
+        "scripts/gwaspipe/environment.yml"
+    params:
+        format=config.get("params").get("write_sumstats_regenie").get("input_format"),
+        config_file=config.get("params").get("write_sumstats_regenie").get("config_file"),
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
