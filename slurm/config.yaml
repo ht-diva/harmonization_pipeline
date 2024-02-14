@@ -2,7 +2,7 @@ executor: slurm
 jobs: 200
 use-conda: True
 use-singularity: False
-restart-times: 3
+restart-times: 1
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
 local-cores: 1
@@ -17,7 +17,7 @@ default-resources:
     slurm_partition: cpuq
     slurm_account: gianmauro.cuccuru
     mem_mb: 8192
-    cpus_per_task: 1
+    threads: 1
     runtime: 600
 set-threads:
     harmonize_sumstats: *cores
@@ -25,6 +25,11 @@ set-threads:
 set-resources:
     harmonize_sumstats:
         mem_mb: 20480
-        cpus_per_task: *cores
+        threads: *cores
     bgzip_tabix:
-        cpus_per_task: *cores
+        threads: *cores
+    write_sumstats_output:
+        mem_mb: 12288
+    write_sumstats_regenie:
+        mem_mb: 12288
+
