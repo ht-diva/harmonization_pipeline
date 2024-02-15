@@ -20,3 +20,7 @@ rerun:
 
 unlock:
 	snakemake --unlock
+
+dockerfile:
+	mkdir -p docker
+	snakemake --containerize --snakefile workflow/Snakefile > docker/Dockerfile
