@@ -29,7 +29,7 @@ set-resources:
     bgzip_tabix:
         threads: *cores
     write_sumstats_output:
-        mem_mb: 12288
+        mem_mb: 16384
     write_sumstats_regenie:
-        mem_mb: 12288
+        mem_mb: 16384
 
