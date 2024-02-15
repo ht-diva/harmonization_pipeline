@@ -4,7 +4,7 @@ LABEL io.github.snakemake.conda_env_hash="c656609b7061aaac2e06e4657068c68e6e7f78
 
 RUN apt-get update > /dev/null && \
     apt-get install --no-install-recommends --yes \
-        build-essential \
+    build-essential
 
 # Step 1: Retrieve conda environments
 
