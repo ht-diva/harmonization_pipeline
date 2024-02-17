@@ -23,7 +23,7 @@ def get_sumstats(wildcards):
 
 def get_final_output():
     final_output = expand(
-        "results/regenie/{sample}.regenie.tsv.gz.tbi", sample=samples.sample_name
+        "results/outputs/{sample}.regenie.tsv.gz.tbi", sample=samples.sample_name
     )
 
     final_output.append("results/if/inflation_factors_table.tsv")

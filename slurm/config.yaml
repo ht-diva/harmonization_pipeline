@@ -1,8 +1,8 @@
 executor: slurm
-jobs: 200
+jobs: 250
 use-conda: True
 use-singularity: False
-restart-times: 1
+retries: 1
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
 local-cores: 1
@@ -16,20 +16,18 @@ scheduler: ilp
 default-resources:
     slurm_partition: cpuq
     slurm_account: gianmauro.cuccuru
-    mem_mb: 8192
+    mem_mb: 512
     threads: 1
-    runtime: 600
+    runtime: 5
 set-threads:
     harmonize_sumstats: *cores
     bgzip_tabix: *cores
 set-resources:
     harmonize_sumstats:
         mem_mb: 20480
-        threads: *cores
-    bgzip_tabix:
-        threads: *cores
-    write_sumstats_output:
+        runtime: 60
+    convert_sumstats:
         mem_mb: 16384
-    write_sumstats_regenie:
-        mem_mb: 16384
+        runtime: 20
+
 

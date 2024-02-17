@@ -8,11 +8,10 @@ run_sequence: !!omap
   - 2: 'fill_data'
   - 3: 'infer_build'
   - 4: 'harmonize'
-  - 5: 'report_inflation_factors'
-  - 6: 'write_ldsc'
-  - 7: 'qq_manhattan_plots'
-  - 8: 'write_metal'
-  - 9: 'write_regenie'
+  - 5: 'write_pickle'
+  - 6: 'write_same_input_format'
+  - 7: 'report_inflation_factors'
+  - 8: 'qq_manhattan_plots'
 
 steps:
   basic_check: # see https://cloufield.github.io/gwaslab/Standardization/
@@ -32,7 +31,7 @@ steps:
       extreme: False
   harmonize: # see https://cloufield.github.io/gwaslab/Harmonization/
     params:
-      run: False
+      run: True
     gl_params:
       basic_check: False
       n_cores: *cores
@@ -62,9 +61,9 @@ steps:
       workspace: "plots"
       dist: 2
     gl_params:
-      mode: 'm'
+      mode: 'mqq'
       stratified : True
-      maf_bins:  [[0, 0.01], [0.01, 0.05], [0.05, 1]]
+      maf_bins: [[0, 0.01], [0.01, 0.05], [0.05, 1]]
       scaled: True
       build: "19"
       skip: 1
@@ -90,9 +89,14 @@ steps:
       region_buffer_value: 500000
       proximality_threshold: 5000
       columns_to_drop: []
+  write_pickle:
+    params:
+      run: True
+      overwrite: False
+      workspace: "pickle"
   write_same_input_format:
     params:
-      run: False
+      run: True
       workspace: "outputs"
   write_tsv:
     params:
@@ -103,19 +107,19 @@ steps:
   # see https://cloufield.github.io/gwaslab/Format/ for more details on writing options
   write_ldsc:
     params:
-      run: True
+      run: False
       workspace: "ldsc"
     gl_params:
       fmt: "ldsc"
   write_metal:
     params:
-      run: True
+      run: False
       workspace: "metal"
     gl_params:
       fmt: "metal"
   write_regenie:
     params:
-      run: True
+      run: False
       workspace: "regenie"
     gl_params:
       fmt: "regenie"
@@ -130,4 +134,5 @@ steps:
 root_path: "results"
 log_filename: "gwaspipe.log"
 report_if_filename: "report_if_placeholder.txt"
-formatbook_path: " "     # fill this var if you want to provide a custom formatbook
+formatbook_path: "workflow/scripts/gwaspipe/data/formatbook.json"     # fill this var if you want to provide a custom formatbook
+

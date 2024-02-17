@@ -20,6 +20,9 @@ rule harmonize_sumstats:
         sumstats=get_sumstats,
     output:
         "results/pickle/{sample}.pkl",
+        "results/outputs/{sample}.regenie.tsv.gz",
+        "results/if/report_if_{sample}.txt",
+        "results/plots/{sample}.png",
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
@@ -30,26 +33,6 @@ rule harmonize_sumstats:
         "-f {params.format} "
         "-c {params.config_file} "
         "-i {input.sumstats}"
-
-
-rule write_if_output_and_plots:
-    input:
-        "results/pickle/{sample}.pkl",
-    output:
-        "results/if/report_if_{sample}.txt",
-        "results/plots/{sample}.png",
-    conda:
-        "scripts/gwaspipe/environment.yml"
-    params:
-        format=config.get("params").get("write_if_output_and_plots").get("input_format"),
-        config_file=config.get("params")
-        .get("write_if_output_and_plots")
-        .get("config_file"),
-    shell:
-        "python workflow/scripts/gwaspipe/src/gwaspipe.py "
-        "-f {params.format} "
-        "-c {params.config_file} "
-        "-i {input}"
 
 
 rule create_if_table:
@@ -63,7 +46,7 @@ rule create_if_table:
         "python workflow/scripts/create_inflation_factors_table.py -i results/if -o results/if/inflation_factors_table.tsv"
 
 
-rule write_sumstats_output:
+rule convert_sumstats:
     input:
         "results/pickle/{sample}.pkl",
     output:
@@ -72,25 +55,8 @@ rule write_sumstats_output:
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
-        format=config.get("params").get("write_sumstats_output").get("input_format"),
-        config_file=config.get("params").get("write_sumstats_output").get("config_file"),
-    shell:
-        "python workflow/scripts/gwaspipe/src/gwaspipe.py "
-        "-f {params.format} "
-        "-c {params.config_file} "
-        "-i {input}"
-
-
-rule write_sumstats_regenie:
-    input:
-        "results/pickle/{sample}.pkl",
-    output:
-        "results/regenie/{sample}.regenie.tsv.gz",
-    conda:
-        "scripts/gwaspipe/environment.yml"
-    params:
-        format=config.get("params").get("write_sumstats_regenie").get("input_format"),
-        config_file=config.get("params").get("write_sumstats_regenie").get("config_file"),
+        format=config.get("params").get("convert_sumstats").get("input_format"),
+        config_file=config.get("params").get("convert_sumstats").get("config_file"),
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
@@ -100,11 +66,10 @@ rule write_sumstats_regenie:
 
 rule bgzip_tabix:
     input:
-        "results/regenie/{sample}.regenie.tsv.gz",
+        "results/outputs/{sample}.regenie.tsv.gz",
     output:
-        "results/regenie/{sample}.regenie.tsv.gz.tbi",
+        "results/outputs/{sample}.regenie.tsv.gz.tbi",
     conda:
         "envs/bgzip_tabix.yaml"
-    threads: 8
     shell:
         "workflow/scripts/bgzip_tabix.sh {input} {threads}"
