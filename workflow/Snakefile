@@ -8,6 +8,7 @@ configfile: "config/config.yaml"
 
 
 include: "rules/common.smk"
+include: "rules/ldsc.smk"
 
 
 rule all:
@@ -52,7 +53,6 @@ rule convert_sumstats:
     input:
         "results/pickle/{sample}.pkl",
     output:
-        "results/ldsc/{sample}.ldsc.tsv.gz",
         "results/metal/{sample}.metal.tsv.gz",
     conda:
         "scripts/gwaspipe/environment.yml"

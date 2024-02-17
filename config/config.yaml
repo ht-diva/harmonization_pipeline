@@ -8,3 +8,6 @@ params:
   convert_sumstats:
     input_format: "pickle"
     config_file: "config/config_convert_sumstats.yml"
+  export_to_ldsc:
+    input_format: "pickle"
+    config_file: "config/config_export_to_ldsc.yml"

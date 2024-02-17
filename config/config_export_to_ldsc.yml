@@ -4,7 +4,8 @@ n_cores: &cores 3
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
-  - 1: 'write_metal'
+  - 1: 'fill_data'
+  - 2: 'write_ldsc'
 
 steps:
   basic_check: # see https://cloufield.github.io/gwaslab/Standardization/
@@ -17,9 +18,9 @@ steps:
       run: False
   fill_data: # see https://cloufield.github.io/gwaslab/Conversion/#fill_data
     params:
-      run: False
+      run: True
     gl_params:
-      to_fill: ['MLOG10P', 'Z']
+      to_fill: ['P', 'Z']
       overwrite: False
       extreme: False
   harmonize: # see https://cloufield.github.io/gwaslab/Harmonization/
@@ -46,11 +47,11 @@ steps:
       run: False
   report_inflation_factors:
     params:
-      run: True
+      run: False
       workspace: "if"
   qq_manhattan_plots:
     params:
-      run: True
+      run: False
       workspace: "plots"
       dist: 2
     gl_params:
@@ -100,13 +101,13 @@ steps:
   # see https://cloufield.github.io/gwaslab/Format/ for more details on writing options
   write_ldsc:
     params:
-      run: False
+      run: True
       workspace: "ldsc"
     gl_params:
       fmt: "ldsc"
   write_metal:
     params:
-      run: True
+      run: False
       workspace: "metal"
     gl_params:
       fmt: "metal"

@@ -30,4 +30,6 @@ set-resources:
         threads: *cores
     convert_sumstats:
         mem_mb: 12288 + attempt * 2048
+    export_to_ldsc:
+        mem_mb: 12288 + attempt * 2048
 
