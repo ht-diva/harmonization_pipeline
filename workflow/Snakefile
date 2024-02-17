@@ -28,6 +28,8 @@ rule harmonize_sumstats:
     params:
         format=config.get("params").get("harmonize_sumstats").get("input_format"),
         config_file=config.get("params").get("harmonize_sumstats").get("config_file"),
+    resources:
+        runtime=60
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
@@ -57,6 +59,8 @@ rule convert_sumstats:
     params:
         format=config.get("params").get("convert_sumstats").get("input_format"),
         config_file=config.get("params").get("convert_sumstats").get("config_file"),
+    resources:
+        runtime=60
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
