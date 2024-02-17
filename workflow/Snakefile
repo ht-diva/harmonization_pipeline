@@ -20,10 +20,10 @@ rule harmonize_sumstats:
     input:
         sumstats=get_sumstats,
     output:
-        "results/pickle/{sample}.pkl",
-        "results/outputs/{sample}.regenie.tsv.gz",
-        "results/if/report_if_{sample}.txt",
-        "results/plots/{sample}.png",
+        "results/pickle/{seqid}.pkl",
+        "results/outputs/{seqid}.regenie.tsv.gz",
+        "results/if/report_if_{seqid}.txt",
+        "results/plots/{seqid}.png",
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
@@ -40,7 +40,7 @@ rule harmonize_sumstats:
 
 rule create_if_table:
     input:
-        expand("results/if/report_if_{sample}.txt", sample=samples.sample_name),
+        expand("results/if/report_if_{seqid}.txt", seqid=analytes.seqid),
     output:
         "results/if/inflation_factors_table.tsv",
     conda:
@@ -51,9 +51,9 @@ rule create_if_table:
 
 rule convert_sumstats:
     input:
-        "results/pickle/{sample}.pkl",
+        "results/pickle/{seqid}.pkl",
     output:
-        "results/metal/{sample}.metal.tsv.gz",
+        "results/metal/{seqid}.metal.tsv.gz",
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
@@ -70,9 +70,9 @@ rule convert_sumstats:
 
 rule bgzip_tabix:
     input:
-        "results/outputs/{sample}.regenie.tsv.gz",
+        "results/outputs/{seqid}.regenie.tsv.gz",
     output:
-        "results/outputs/{sample}.regenie.tsv.gz.tbi",
+        "results/outputs/{seqid}.regenie.tsv.gz.tbi",
     conda:
         "envs/bgzip_tabix.yaml"
     shell:

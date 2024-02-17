@@ -1,5 +1,5 @@
-# path or URL to sample sheet (TSV format, columns: sample, condition, ...)
-samples_path: config/seqid_from_literature.tsv
+# path to sumstats
+sumstats_path: config/seqid_from_literature.tsv
 
 params:
   harmonize_sumstats:
@@ -8,6 +8,10 @@ params:
   convert_sumstats:
     input_format: "pickle"
     config_file: "config/config_convert_sumstats.yml"
-  export_to_ldsc:
+  munge_sumstats:
     input_format: "pickle"
-    config_file: "config/config_export_to_ldsc.yml"
+    config_file: "config/config_munge_sumstats.yml"
+
+
+# Set the ld reference files
+ldscore_reference: "/scratch/reference/ldscore_ld/HRC13K"
