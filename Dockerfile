@@ -94,6 +94,6 @@ RUN mamba env create --prefix /conda-envs/6e056d31662ab0bd2fd3fba49416042f --fil
 # -----------------
 # Primary container
 # -----------------
-FROM gcr.io/distroless/base-debian11:debug
+FROM ubuntu:focal
 # copy over the generated environment
 COPY --from=builder /conda-envs /conda-envs
