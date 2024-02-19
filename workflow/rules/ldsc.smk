@@ -27,7 +27,7 @@ rule compute_ldscore:
   conda:
     "../envs/ldsc.yaml"
   resources:
-    mem_mb = 12000
+    runtime=60
   params:
     ofile = lambda wildcards, output: output.ldsc.replace(".log", ""),
     ldref = config['ldscore_reference']
