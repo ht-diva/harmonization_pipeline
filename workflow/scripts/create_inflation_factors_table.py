@@ -6,7 +6,7 @@ from pathlib import Path
 @click.option("-o", "--output_path", required=True, help="Output path")
 def main(input_path, output_path):
     input = Path(input_path)
-    files = [f for f in input.iterdir() if f.is_file()]
+    files = [f for f in input.rglob('*.txt') if f.is_file()]
 
     header_ = True
     header = ""
