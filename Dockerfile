@@ -1,8 +1,4 @@
-# -----------------
-# Builder container
-# -----------------
-
-FROM condaforge/mambaforge:latest as builder
+FROM condaforge/mambaforge:latest
 LABEL io.github.snakemake.containerized="true"
 LABEL io.github.snakemake.conda_env_hash="f7297458609bceb0462c5a2467a4d166cc341f021f89686883de965a01db8e21"
 
@@ -89,11 +85,3 @@ RUN mamba env create --prefix /conda-envs/6e056d31662ab0bd2fd3fba49416042f --fil
     mamba env create --prefix /conda-envs/a2826e2ef1005ed23bdbb3539321f7e9 --file /conda-envs/a2826e2ef1005ed23bdbb3539321f7e9/environment.yaml && \
     mamba env create --prefix /conda-envs/ab67c3cfb8e1a5ad9d9cb7824966853e --file /conda-envs/ab67c3cfb8e1a5ad9d9cb7824966853e/environment.yaml && \
     mamba clean --all -y
-
-
-# -----------------
-# Primary container
-# -----------------
-FROM ubuntu:focal
-# copy over the generated environment
-COPY --from=builder /conda-envs /conda-envs
