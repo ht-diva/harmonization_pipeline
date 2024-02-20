@@ -103,6 +103,7 @@ steps:
     params:
       run: True
       workspace: "ldsc"
+      workspace_subfolder: True
     gl_params:
       fmt: "ldsc"
   write_metal:
