@@ -11,7 +11,7 @@ rule munge_sumstats:
         format=config.get("params").get("munge_sumstats").get("input_format"),
         config_file=config.get("params").get("munge_sumstats").get("config_file"),
     resources:
-        runtime=30
+        runtime=20
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
