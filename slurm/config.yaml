@@ -15,7 +15,7 @@ scheduler: ilp
 
 default-resources:
     slurm_partition: cpuq
-    slurm_account: ${USER}
+    # slurm_account: ${USER}
     mem_mb: attempt * 512
     threads: 1
     runtime: attempt * 5
