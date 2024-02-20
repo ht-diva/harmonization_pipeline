@@ -2,6 +2,7 @@ executor: slurm
 jobs: 250
 software-deployment-method:
    - conda
+   - apptainer
 retries: 3
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
