@@ -4,7 +4,8 @@ n_cores: &cores 3
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
-  - 1: 'write_metal'
+  - 1: 'fill_data'
+  - 2: 'write_metal'
 
 steps:
   basic_check: # see https://cloufield.github.io/gwaslab/Standardization/
@@ -17,9 +18,9 @@ steps:
       run: False
   fill_data: # see https://cloufield.github.io/gwaslab/Conversion/#fill_data
     params:
-      run: False
+      run: True
     gl_params:
-      to_fill: ['MLOG10P', 'Z']
+      to_fill: ['P', 'Z']
       overwrite: False
       extreme: False
   harmonize: # see https://cloufield.github.io/gwaslab/Harmonization/
@@ -108,6 +109,7 @@ steps:
     params:
       run: True
       workspace: "metal"
+      workspace_subfolder: True
     gl_params:
       fmt: "metal"
   write_regenie:

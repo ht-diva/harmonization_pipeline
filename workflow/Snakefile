@@ -8,6 +8,7 @@ configfile: "config/config.yaml"
 
 
 include: "rules/common.smk"
+include: "rules/metal.smk"
 include: "rules/ldsc.smk"
 
 
@@ -47,25 +48,6 @@ rule create_if_table:
         "envs/create_inflation_factors_table.yaml"
     shell:
         "python workflow/scripts/create_inflation_factors_table.py -i results/if -o results/if/inflation_factors_table.tsv"
-
-
-rule convert_sumstats:
-    input:
-        "results/pickle/{seqid}.pkl",
-    output:
-        "results/metal/{seqid}.metal.tsv.gz",
-    conda:
-        "scripts/gwaspipe/environment.yml"
-    params:
-        format=config.get("params").get("convert_sumstats").get("input_format"),
-        config_file=config.get("params").get("convert_sumstats").get("config_file"),
-    resources:
-        runtime=60
-    shell:
-        "python workflow/scripts/gwaspipe/src/gwaspipe.py "
-        "-f {params.format} "
-        "-c {params.config_file} "
-        "-i {input}"
 
 
 rule bgzip_tabix:

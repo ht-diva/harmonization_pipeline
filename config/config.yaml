@@ -5,9 +5,9 @@ params:
   harmonize_sumstats:
     input_format: "regenie"
     config_file: "config/config_harmonize_sumstats.yml"
-  convert_sumstats:
+  convert_sumstats_to_metal:
     input_format: "pickle"
-    config_file: "config/config_convert_sumstats.yml"
+    config_file: "config/config_convert_sumstats_to_metal.yml"
   munge_sumstats:
     input_format: "pickle"
     config_file: "config/config_munge_sumstats.yml"
