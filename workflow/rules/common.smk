@@ -33,7 +33,7 @@ def get_final_output():
     )
 
     final_output.extend(
-        expand("results/metal/{seqid}.metal.tsv.gz", seqid=analytes.seqid)
+        expand("results/metal/{seqid}/{seqid}.metal.tsv.gz", seqid=analytes.seqid)
     )
 
     return final_output
