@@ -16,6 +16,8 @@ include: "rules/tiledb.smk"
 rule all:
     input:
         get_final_output(),
+    resources:
+        runtime=3
 
 
 rule harmonize_sumstats:
