@@ -1,3 +1,10 @@
+run:
+  ldscore: False
+  metal: False
+  tiledb: False
+  finemapping: False
+  conditional_analysis: False
+
 # path to sumstats
 sumstats_path: config/seqid_from_literature.tsv
 
@@ -11,7 +18,10 @@ params:
   munge_sumstats:
     input_format: "pickle"
     config_file: "config/config_munge_sumstats.yml"
+  convert_sumstats_to_vcf:
+    input_format: "pickle"
+    config_file: "config/config_convert_sumstats_to_vcf.yml"
 
 
 # Set the ld reference files
-ldscore_reference: "/scratch/reference/ldscore_ld/HRC13K"
+ldscore_reference: "/path/to/reference/ldscore_ld/"

@@ -35,3 +35,5 @@ set-resources:
         mem_mb: 14336 + attempt * 2048
     compute_ldscore:
         mem_mb: 12288 + attempt * 2048
+    convert_sumstats_to_vcf:
+      mem_mb: 12288 + attempt * 2048
