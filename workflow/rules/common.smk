@@ -28,24 +28,24 @@ def get_final_output():
 
     final_output.append("results/if/inflation_factors_table.tsv")
 
-    if config.get('run').get('ldscore'):
+    if config.get("run").get("ldscore"):
         final_output.extend(
             expand("results/ldsc/{seqid}/{seqid}_ldsc.log", seqid=analytes.seqid)
         )
 
-    if config.get('run').get('metal'):
+    if config.get("run").get("metal"):
         final_output.extend(
             expand("results/metal/{seqid}/{seqid}.metal.tsv.gz", seqid=analytes.seqid)
         )
 
-    if config.get('run').get('tiledb'):
+    if config.get("run").get("tiledb"):
         final_output.extend(
-            expand("results/vcf/{seqid}/{seqid}.vcf.gz.csi",seqid=analytes.seqid)
+            expand("results/vcf/{seqid}/{seqid}.vcf.gz.csi", seqid=analytes.seqid)
         )
 
-    if config.get('run').get('save_min_pvalue'):
+    if config.get("run").get("save_min_pvalue"):
         final_output.extend(
-            expand("results/min_P/{seqid}/{seqid}.nsmallest.tsv",seqid=analytes.seqid)
+            expand("results/min_P/{seqid}/{seqid}.nsmallest.tsv", seqid=analytes.seqid)
         )
 
     return final_output

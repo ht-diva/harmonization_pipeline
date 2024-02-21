@@ -9,9 +9,11 @@ rule convert_sumstats_to_vcf:
         "../scripts/gwaspipe/environment.yml"
     params:
         format=config.get("params").get("convert_sumstats_to_vcf").get("input_format"),
-        config_file=config.get("params").get("convert_sumstats_to_vcf").get("config_file"),
+        config_file=config.get("params")
+        .get("convert_sumstats_to_vcf")
+        .get("config_file"),
     resources:
-        runtime=lambda wc, attempt: attempt * 60
+        runtime=lambda wc, attempt: attempt * 60,
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "

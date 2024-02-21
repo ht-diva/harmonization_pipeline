@@ -11,7 +11,7 @@ rule munge_sumstats:
         format=config.get("params").get("munge_sumstats").get("input_format"),
         config_file=config.get("params").get("munge_sumstats").get("config_file"),
     resources:
-        runtime=lambda wc, attempt: attempt * 20
+        runtime=lambda wc, attempt: attempt * 20,
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
@@ -20,18 +20,18 @@ rule munge_sumstats:
 
 
 rule compute_ldscore:
-  input:
-    smstat = 'results/ldsc/{seqid}/{seqid}.ldsc.tsv.gz',
-  output:
-    ldsc = 'results/ldsc/{seqid}/{seqid}_ldsc.log'
-  conda:
-    "../envs/ldsc.yaml"
-  resources:
-    runtime=lambda wc, attempt: attempt * 60
-  params:
-    ofile = lambda wildcards, output: output.ldsc.replace(".log", ""),
-    ldref = config['ldscore_reference']
-  shell:
-    "ldsc.py --h2 {input.smstat} "
-    "--ref-ld-chr {params.ldref}/chr@ "
-    "--w-ld-chr {params.ldref}/chr@ --out {params.ofile}"
+    input:
+        smstat="results/ldsc/{seqid}/{seqid}.ldsc.tsv.gz",
+    output:
+        ldsc="results/ldsc/{seqid}/{seqid}_ldsc.log",
+    conda:
+        "../envs/ldsc.yaml"
+    resources:
+        runtime=lambda wc, attempt: attempt * 60,
+    params:
+        ofile=lambda wildcards, output: output.ldsc.replace(".log", ""),
+        ldref=config["ldscore_reference"],
+    shell:
+        "ldsc.py --h2 {input.smstat} "
+        "--ref-ld-chr {params.ldref}/chr@ "
+        "--w-ld-chr {params.ldref}/chr@ --out {params.ofile}"
