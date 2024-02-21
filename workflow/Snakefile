@@ -34,7 +34,7 @@ rule harmonize_sumstats:
         format=config.get("params").get("harmonize_sumstats").get("input_format"),
         config_file=config.get("params").get("harmonize_sumstats").get("config_file"),
     resources:
-        runtime=60
+        runtime=lambda wc, attempt: attempt * 60
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
@@ -51,6 +51,25 @@ rule create_if_table:
         "envs/create_inflation_factors_table.yaml"
     shell:
         "python workflow/scripts/create_inflation_factors_table.py -i results/if -o results/if/inflation_factors_table.tsv"
+
+rule save_min_pvalue:
+    input:
+        "results/pickle/{seqid}.pkl",
+    output:
+        "results/min_P/{seqid}/{seqid}.nsmallest.tsv",
+    conda:
+        "scripts/gwaspipe/environment.yml"
+    params:
+        format=config.get("params").get("convert_sumstats_to_metal").get("input_format"),
+        config_file=config.get("params").get("convert_sumstats_to_metal").get("config_file"),
+    resources:
+        runtime=lambda wc, attempt: attempt * 30
+    shell:
+        "python workflow/scripts/gwaspipe/src/gwaspipe.py "
+        "-f {params.format} "
+        "-c {params.config_file} "
+        "-i {input}"
+
 
 
 rule bgzip_tabix:

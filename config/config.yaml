@@ -4,6 +4,7 @@ run:
   tiledb: True
   finemapping: True
   conditional_analysis: True
+  save_min_pvalue: True
 
 # path to sumstats
 sumstats_path: config/seqid_from_literature.tsv

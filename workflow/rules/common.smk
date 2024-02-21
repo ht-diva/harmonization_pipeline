@@ -43,4 +43,9 @@ def get_final_output():
             expand("results/vcf/{seqid}/{seqid}.vcf.gz.csi",seqid=analytes.seqid)
         )
 
+    if config.get('run').get('save_min_pvalue'):
+        final_output.extend(
+            expand("results/min_P/{seqid}/{seqid}.nsmallest.tsv",seqid=analytes.seqid)
+        )
+
     return final_output
