@@ -11,7 +11,7 @@ rule munge_sumstats:
         format=config.get("params").get("munge_sumstats").get("input_format"),
         config_file=config.get("params").get("munge_sumstats").get("config_file"),
     resources:
-        runtime=20
+        runtime=lambda wc, attempt: attempt * 20
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
@@ -27,7 +27,7 @@ rule compute_ldscore:
   conda:
     "../envs/ldsc.yaml"
   resources:
-    runtime=60
+    runtime=lambda wc, attempt: attempt * 60
   params:
     ofile = lambda wildcards, output: output.ldsc.replace(".log", ""),
     ldref = config['ldscore_reference']

@@ -9,7 +9,7 @@ rule convert_sumstats_to_metal:
         format=config.get("params").get("convert_sumstats_to_metal").get("input_format"),
         config_file=config.get("params").get("convert_sumstats_to_metal").get("config_file"),
     resources:
-        runtime=30
+        runtime=lambda wc, attempt: attempt * 30
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "

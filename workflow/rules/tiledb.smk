@@ -11,7 +11,7 @@ rule convert_sumstats_to_vcf:
         format=config.get("params").get("convert_sumstats_to_vcf").get("input_format"),
         config_file=config.get("params").get("convert_sumstats_to_vcf").get("config_file"),
     resources:
-        runtime=60
+        runtime=lambda wc, attempt: attempt * 60
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
