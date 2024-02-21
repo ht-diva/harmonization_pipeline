@@ -1,9 +1,9 @@
 run:
-  ldscore: False
-  metal: False
-  tiledb: False
-  finemapping: False
-  conditional_analysis: False
+  ldscore: True
+  metal: True
+  tiledb: True
+  finemapping: True
+  conditional_analysis: True
 
 # path to sumstats
 sumstats_path: config/seqid_from_literature.tsv

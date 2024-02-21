@@ -10,6 +10,7 @@ configfile: "config/config.yaml"
 include: "rules/common.smk"
 include: "rules/metal.smk"
 include: "rules/ldsc.smk"
+include: "rules/tiledb.smk"
 
 
 rule all:
