@@ -122,6 +122,7 @@ steps:
       run: True
       workspace: "vcf"
       workspace_subfolder: True
+      study_name_mask: "*.*.*.ignore_from_here"
     gl_params:
       fmt: "vcf"
       bgzip: True
@@ -129,6 +130,7 @@ steps:
       tabix_indexargs:
         'csi': True
       build: "19"
+
 
 # IO
 root_path: "results"
