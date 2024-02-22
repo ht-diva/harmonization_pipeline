@@ -38,4 +38,4 @@ set-resources:
     convert_sumstats_to_vcf:
         mem_mb: 14336 + attempt * 2048
     save_min_pvalue:
-        mem_mb: 14336 + attempt * 2048
+        mem_mb: 2048 + attempt * 2048

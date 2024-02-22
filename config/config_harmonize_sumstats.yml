@@ -135,4 +135,3 @@ root_path: "results"
 log_filename: "gwaspipe.log"
 report_if_filename: "report_if_placeholder.txt"
 formatbook_path: "workflow/scripts/gwaspipe/data/formatbook.json"     # fill this var if you want to provide a custom formatbook
-
