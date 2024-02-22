@@ -13,7 +13,7 @@ dev-dependencies: dependencies
 	mamba env update -n snakemake --file environment_dev.yml
 
 dry-run:
-	snakemake --dry-run --profile slurm --snakefile workflow/Snakefile
+	snakemake --sdm conda --dry-run --profile slurm --snakefile workflow/Snakefile
 
 pre-commit:
 	if [ ! -f .git/hooks/pre-commit ]; then pre-commit install; fi
