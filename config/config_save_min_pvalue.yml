@@ -4,7 +4,7 @@ n_cores: &cores 3
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
-  - 1: 'fiil_data'
+  - 1: 'fill_data'
   - 2: 'report_min_pvalues'
 
 steps:
