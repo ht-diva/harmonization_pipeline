@@ -22,6 +22,9 @@ params:
   convert_sumstats_to_vcf:
     input_format: "pickle"
     config_file: "config/config_convert_sumstats_to_vcf.yml"
+  save_min_pvalue:
+    input_format: "pickle"
+    config_file: "config/config_save_min_pvalue.yml"
 
 
 # Set the ld reference files
