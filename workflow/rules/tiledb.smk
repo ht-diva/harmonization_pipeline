@@ -13,7 +13,7 @@ rule convert_sumstats_to_vcf:
         .get("convert_sumstats_to_vcf")
         .get("config_file"),
     resources:
-        runtime=lambda wc, attempt: attempt * 60,
+        runtime=lambda wc, attempt: attempt * 100,
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
