@@ -98,6 +98,12 @@ steps:
     params:
       run: True
       workspace: "outputs"
+    gl_params:
+      to_csvargs:
+        compression:
+          method: "gzip"
+          compresslevel: 1
+          mtime: 1
   write_tsv:
     params:
       run: False
@@ -111,18 +117,33 @@ steps:
       workspace: "ldsc"
     gl_params:
       fmt: "ldsc"
+      to_csvargs:
+        compression:
+          method: "gzip"
+          compresslevel: 1
+          mtime: 1
   write_metal:
     params:
       run: False
       workspace: "metal"
     gl_params:
       fmt: "metal"
+      to_csvargs:
+        compression:
+          method: "gzip"
+          compresslevel: 1
+          mtime: 1
   write_regenie:
     params:
       run: False
       workspace: "regenie"
     gl_params:
       fmt: "regenie"
+      to_csvargs:
+        compression:
+          method: "gzip"
+          compresslevel: 1
+          mtime: 1
   write_vcf:
     params:
       run: False
