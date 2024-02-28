@@ -6,8 +6,11 @@ run:
   conditional_analysis: True
   save_min_pvalue: True
 
-# path to sumstats
-sumstats_path: config/seqid_from_literature.tsv
+
+# paths
+sumstats_path: config/local.txt #seqid_from_literature.tsv
+final_path: "/tmp/final"
+workspace_path: "/scratch/{USER}/ws_pqtl_pipeline/{PROJECT_NAME}"
 
 params:
   harmonize_sumstats:

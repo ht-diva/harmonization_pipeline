@@ -21,12 +21,23 @@ def get_sumstats(wildcards):
     return analytes.loc[wildcards.seqid, "sumstat_path"]
 
 
+def reassemble_path(file_path, type):
+    if type == "final":
+        return str(Path(config.get("final_path"), file_path))
+    elif type == "workspace":
+        return str(Path(config.get("workspace_path"), file_path))
+    else:
+        return file_path
+
+
 def get_final_output():
     final_output = expand(
         "results/outputs/{seqid}.regenie.tsv.gz.tbi", seqid=analytes.seqid
     )
 
-    final_output.append("results/if/inflation_factors_table.tsv")
+    final_output.append(
+        reassemble_path("results/if/inflation_factors_table.tsv", "final")
+    )
 
     if config.get("run").get("ldscore"):
         final_output.extend(
