@@ -8,7 +8,7 @@ run:
 
 
 # paths
-sumstats_path: config/local.txt #seqid_from_literature.tsv
+sumstats_path: config/seqid_from_literature.tsv
 dest_path: "/path/to/final/destination"
 workspace_path: "/path/to/the/workspace"
 
