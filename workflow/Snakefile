@@ -14,6 +14,7 @@ include: "rules/common.smk"
 include: "rules/metal.smk"
 include: "rules/ldsc.smk"
 include: "rules/tiledb.smk"
+include: "rules/move.smk"
 
 
 rule all:
@@ -27,10 +28,10 @@ rule harmonize_sumstats:
     input:
         sumstats=get_sumstats,
     output:
-        "results/pickle/{seqid}.pkl",
-        "results/outputs/{seqid}.regenie.tsv.gz",
-        "results/if/report_if_{seqid}.txt",
-        "results/plots/{seqid}.png",
+        ws_path("results/pickle/{seqid}.pkl"),
+        ws_path("results/outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+        ws_path("results/if/report_if_{seqid}.txt"),
+        ws_path("results/plots/{seqid}.png"),
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
@@ -47,20 +48,20 @@ rule harmonize_sumstats:
 
 rule create_if_table:
     input:
-        expand("results/if/report_if_{seqid}.txt", seqid=analytes.seqid),
+        expand(ws_path("results/if/report_if_{seqid}.txt"), seqid=analytes.seqid),
     output:
-        "results/if/inflation_factors_table.tsv",
+        dst_path("results/if/inflation_factors_table.tsv"),
     conda:
         "envs/create_inflation_factors_table.yaml"
     shell:
-        "python workflow/scripts/create_inflation_factors_table.py -i results/if -o results/if/inflation_factors_table.tsv"
+        "python workflow/scripts/create_inflation_factors_table.py -i results/if -o {output}"
 
 
 rule save_min_pvalue:
     input:
-        "results/pickle/{seqid}.pkl",
+        ws_path("results/pickle/{seqid}.pkl"),
     output:
-        "results/min_P/{seqid}/{seqid}.nsmallest.tsv",
+        ws_path("results/min_P/{seqid}/{seqid}.nsmallest.tsv"),
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
@@ -77,9 +78,9 @@ rule save_min_pvalue:
 
 rule bgzip_tabix:
     input:
-        "results/outputs/{seqid}.regenie.tsv.gz",
+        ws_path("results/outputs/{seqid}/{seqid}.regenie.tsv.gz"),
     output:
-        "results/outputs/{seqid}.regenie.tsv.gz.tbi",
+        ws_path("results/outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
     conda:
         "envs/bgzip_tabix.yaml"
     shell:
