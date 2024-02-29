@@ -9,8 +9,8 @@ run:
 
 # paths
 sumstats_path: config/local.txt #seqid_from_literature.tsv
-final_path: "/tmp/final"
-workspace_path: "/scratch/{USER}/ws_pqtl_pipeline/{PROJECT_NAME}"
+dest_path: "/path/to/final/destination"
+workspace_path: "/path/to/the/workspace"
 
 params:
   harmonize_sumstats:

@@ -1,10 +1,10 @@
 
 rule convert_sumstats_to_vcf:
     input:
-        "results/pickle/{seqid}.pkl",
+        ws_path("results/pickle/{seqid}.pkl"),
     output:
-        "results/vcf/{seqid}/{seqid}.vcf.gz",
-        "results/vcf/{seqid}/{seqid}.vcf.gz.csi",
+        ws_path("results/vcf/{seqid}/{seqid}.vcf.gz"),
+        ws_path("results/vcf/{seqid}/{seqid}.vcf.gz.csi"),
     conda:
         "../scripts/gwaspipe/environment.yml"
     params:

@@ -1,8 +1,8 @@
 rule convert_sumstats_to_metal:
     input:
-        "results/pickle/{seqid}.pkl",
+        ws_path("results/pickle/{seqid}.pkl"),
     output:
-        "results/metal/{seqid}/{seqid}.metal.tsv.gz",
+        ws_path("results/metal/{seqid}/{seqid}.metal.tsv.gz"),
     conda:
         "../scripts/gwaspipe/environment.yml"
     params:

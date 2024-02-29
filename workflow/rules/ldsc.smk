@@ -2,9 +2,9 @@
 
 rule munge_sumstats:
     input:
-        "results/pickle/{seqid}.pkl",
+        ws_path("results/pickle/{seqid}.pkl"),
     output:
-        "results/ldsc/{seqid}/{seqid}.ldsc.tsv.gz",
+        ws_path("results/ldsc/{seqid}/{seqid}.ldsc.tsv.gz"),
     conda:
         "../scripts/gwaspipe/environment.yml"
     params:
@@ -21,9 +21,9 @@ rule munge_sumstats:
 
 rule compute_ldscore:
     input:
-        smstat="results/ldsc/{seqid}/{seqid}.ldsc.tsv.gz",
+        smstat=ws_path("results/ldsc/{seqid}/{seqid}.ldsc.tsv.gz"),
     output:
-        ldsc="results/ldsc/{seqid}/{seqid}_ldsc.log",
+        ldsc=ws_path("results/ldsc/{seqid}/{seqid}_ldsc.log"),
     conda:
         "../envs/ldsc.yaml"
     resources:
