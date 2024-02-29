@@ -34,46 +34,42 @@ def get_final_output():
 
     final_output.extend(
         expand(
-            dst_path("results/outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
+            dst_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
             seqid=analytes.seqid,
         )
     )
 
     final_output.extend(
         expand(
-            dst_path("results/outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+            dst_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
             seqid=analytes.seqid,
         )
     )
 
-    final_output.append(dst_path("results/if/inflation_factors_table.tsv"))
+    final_output.append(dst_path("if/inflation_factors_table.tsv"))
 
     if config.get("run").get("ldscore"):
         final_output.extend(
-            expand(
-                ws_path("results/ldsc/{seqid}/{seqid}_ldsc.log"), seqid=analytes.seqid
-            )
+            expand(ws_path("ldsc/{seqid}/{seqid}_ldsc.log"), seqid=analytes.seqid)
         )
 
     if config.get("run").get("metal"):
         final_output.extend(
             expand(
-                ws_path("results/metal/{seqid}/{seqid}.metal.tsv.gz"),
+                ws_path("metal/{seqid}/{seqid}.metal.tsv.gz"),
                 seqid=analytes.seqid,
             )
         )
 
     if config.get("run").get("tiledb"):
         final_output.extend(
-            expand(
-                ws_path("results/vcf/{seqid}/{seqid}.vcf.gz.csi"), seqid=analytes.seqid
-            )
+            expand(ws_path("vcf/{seqid}/{seqid}.vcf.gz.csi"), seqid=analytes.seqid)
         )
 
     if config.get("run").get("save_min_pvalue"):
         final_output.extend(
             expand(
-                dst_path("results/min_P/{seqid}/{seqid}.nsmallest.tsv"),
+                dst_path("min_P/{seqid}/{seqid}.nsmallest.tsv"),
                 seqid=analytes.seqid,
             )
         )

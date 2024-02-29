@@ -14,6 +14,7 @@ include: "rules/common.smk"
 include: "rules/metal.smk"
 include: "rules/ldsc.smk"
 include: "rules/tiledb.smk"
+# include: "rules/finemapping.smk"
 include: "rules/move.smk"
 
 
@@ -28,59 +29,63 @@ rule harmonize_sumstats:
     input:
         sumstats=get_sumstats,
     output:
-        ws_path("results/pickle/{seqid}.pkl"),
-        ws_path("results/outputs/{seqid}/{seqid}.regenie.tsv.gz"),
-        ws_path("results/if/report_if_{seqid}.txt"),
-        ws_path("results/plots/{seqid}.png"),
+        ws_path("pickle/{seqid}.pkl"),
+        ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+        ws_path("if/report_if_{seqid}.txt"),
+        ws_path("plots/{seqid}.png"),
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
         format=config.get("params").get("harmonize_sumstats").get("input_format"),
         config_file=config.get("params").get("harmonize_sumstats").get("config_file"),
+        output_path=config.get("workspace_path"),
     resources:
         runtime=lambda wc, attempt: attempt * 60,
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
         "-c {params.config_file} "
-        "-i {input.sumstats}"
+        "-i {input.sumstats} "
+        "-o {params.output_path}"
 
 
 rule create_if_table:
     input:
-        expand(ws_path("results/if/report_if_{seqid}.txt"), seqid=analytes.seqid),
+        expand(ws_path("if/report_if_{seqid}.txt"), seqid=analytes.seqid),
     output:
-        dst_path("results/if/inflation_factors_table.tsv"),
+        dst_path("if/inflation_factors_table.tsv"),
     conda:
         "envs/create_inflation_factors_table.yaml"
     shell:
-        "python workflow/scripts/create_inflation_factors_table.py -i results/if -o {output}"
+        "python workflow/scripts/create_inflation_factors_table.py -i if -o {output}"
 
 
 rule save_min_pvalue:
     input:
-        ws_path("results/pickle/{seqid}.pkl"),
+        ws_path("pickle/{seqid}.pkl"),
     output:
-        ws_path("results/min_P/{seqid}/{seqid}.nsmallest.tsv"),
+        ws_path("min_P/{seqid}/{seqid}.nsmallest.tsv"),
     conda:
         "scripts/gwaspipe/environment.yml"
     params:
         format=config.get("params").get("save_min_pvalue").get("input_format"),
         config_file=config.get("params").get("save_min_pvalue").get("config_file"),
+        output_path=config.get("workspace_path"),
     resources:
         runtime=lambda wc, attempt: attempt * 30,
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
         "-c {params.config_file} "
-        "-i {input}"
+        "-i {input} "
+        "-o {params.output_path}"
 
 
 rule bgzip_tabix:
     input:
-        ws_path("results/outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+        ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
     output:
-        ws_path("results/outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
+        ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
     conda:
         "envs/bgzip_tabix.yaml"
     shell:

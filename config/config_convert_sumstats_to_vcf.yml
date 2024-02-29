@@ -122,7 +122,8 @@ steps:
       run: True
       workspace: "vcf"
       workspace_subfolder: True
-      study_name_mask: "*.*.*.ignore_from_here"
+      study_name_mask: [ True, True, True, False, False, False ]
+      study_name_sep: '.'
     gl_params:
       fmt: "vcf"
       bgzip: True
