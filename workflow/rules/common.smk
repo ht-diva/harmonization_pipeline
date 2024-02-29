@@ -34,19 +34,19 @@ def get_final_output():
 
     final_output.extend(
         expand(
-            dst_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
+            ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
             seqid=analytes.seqid,
         )
     )
 
     final_output.extend(
         expand(
-            dst_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+            ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
             seqid=analytes.seqid,
         )
     )
 
-    final_output.append(dst_path("if/inflation_factors_table.tsv"))
+    final_output.append(ws_path("if/inflation_factors_table.tsv"))
 
     if config.get("run").get("ldscore"):
         final_output.extend(
@@ -69,7 +69,7 @@ def get_final_output():
     if config.get("run").get("save_min_pvalue"):
         final_output.extend(
             expand(
-                dst_path("min_P/{seqid}/{seqid}.nsmallest.tsv"),
+                ws_path("min_P/{seqid}/{seqid}.nsmallest.tsv"),
                 seqid=analytes.seqid,
             )
         )

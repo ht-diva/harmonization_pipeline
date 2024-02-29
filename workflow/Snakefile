@@ -14,8 +14,10 @@ include: "rules/common.smk"
 include: "rules/metal.smk"
 include: "rules/ldsc.smk"
 include: "rules/tiledb.smk"
+
+
 # include: "rules/finemapping.smk"
-include: "rules/move.smk"
+# include: "rules/move.smk"
 
 
 rule all:
@@ -53,7 +55,7 @@ rule create_if_table:
     input:
         expand(ws_path("if/report_if_{seqid}.txt"), seqid=analytes.seqid),
     output:
-        dst_path("if/inflation_factors_table.tsv"),
+        ws_path("if/inflation_factors_table.tsv"),
     conda:
         "envs/create_inflation_factors_table.yaml"
     shell:

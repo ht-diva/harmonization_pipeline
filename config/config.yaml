@@ -9,8 +9,12 @@ run:
 
 # paths
 sumstats_path: config/seqid_from_literature.tsv
-dest_path: "/path/to/final/destination"
+#dest_path: "/path/to/final/destination"
 workspace_path: "/path/to/the/workspace"
+
+sumstat:
+  pvalcol: "LOG10P"
+  pthr: 1.7e-11
 
 params:
   harmonize_sumstats:
