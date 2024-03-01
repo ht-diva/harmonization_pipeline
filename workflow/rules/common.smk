@@ -46,7 +46,7 @@ def get_final_output():
         )
     )
 
-    final_output.append(ws_path("if/inflation_factors_table.tsv"))
+    final_output.append(ws_path("inflation_factors_table.tsv"))
 
     if config.get("run").get("ldscore"):
         final_output.extend(
