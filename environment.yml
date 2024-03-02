@@ -10,3 +10,4 @@ dependencies:
   - snakemake-storage-plugin-s3
   - mamba
   - pip
+  - apptainer
