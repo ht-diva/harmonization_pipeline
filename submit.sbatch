@@ -11,7 +11,6 @@
 source ~/.bashrc
 module -s load singularity/3.8.5
 
-
 # set some singularity directories depending on frontend/computing node/vm
 case $(hostname) in
   hnode*)
@@ -36,5 +35,5 @@ if [ ! -d "pqtl_pipeline" ]; then
   git clone --recurse-submodules https://github.com/ht-diva/pqtl_pipeline.git
 fi
 cd pqtl_pipeline
-conda activate snakemake
+conda activate /group/diangelantonio/software/envs/snakemake
 make run

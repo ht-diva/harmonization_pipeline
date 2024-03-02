@@ -39,3 +39,17 @@ set-resources:
         mem_mb: 14336 + attempt * 2048
     save_min_pvalue:
         mem_mb: 2048 + attempt * 2048
+    sumstat_2_plink:
+        mem_mb: 12288 + attempt * 2048
+    cut_pheno:
+        mem_mb: 12288 + attempt * 2048
+    clumping:
+        mem_mb: 16384 + attempt * 2048
+    enlarge_and_merge:
+        mem_mb: 14336 + attempt * 2048
+    run_susieR:
+      mem_mb: 14336 + attempt * 2048
+    collect_by_pheno:
+      mem_mb: 12288 + attempt * 2048
+    collect_all:
+      mem_mb: 12288 + attempt * 2048

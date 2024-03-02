@@ -28,5 +28,5 @@ rerun:
 unlock:
 	snakemake --unlock
 
-dockerfile:
+dockerfile_:
 	snakemake --containerize --snakefile workflow/Snakefile > Dockerfile

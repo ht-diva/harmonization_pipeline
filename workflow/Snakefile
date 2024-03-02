@@ -14,9 +14,9 @@ include: "rules/common.smk"
 include: "rules/metal.smk"
 include: "rules/ldsc.smk"
 include: "rules/tiledb.smk"
+include: "rules/finemapping.smk"
 
 
-# include: "rules/finemapping.smk"
 # include: "rules/move.smk"
 
 
