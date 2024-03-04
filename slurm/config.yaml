@@ -41,8 +41,6 @@ set-resources:
         mem_mb: 2048 + attempt * 2048
     sumstat_2_plink:
         mem_mb: 12288 + attempt * 2048
-    cut_pheno:
-        mem_mb: 12288 + attempt * 2048
     clumping:
         mem_mb: 16384 + attempt * 2048
     enlarge_and_merge:

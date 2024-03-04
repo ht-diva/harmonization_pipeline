@@ -29,7 +29,7 @@ rule cut_pheno:
     output:
         temp(ws_path("fm/{seqid}/tmp/phenotype.csv")),
     resources:
-        runtime=lambda wc, attempt: attempt * 60,
+        runtime=lambda wc, attempt: attempt * 5,
     conda:
         "../envs/plink-pandas.yml"
     script:
