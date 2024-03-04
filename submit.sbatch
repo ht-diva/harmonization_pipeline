@@ -30,10 +30,23 @@ case $(hostname) in
     ;;
 esac
 
+# change to a workspace in scratch
 cd /scratch/$USER
-if [ ! -d "pqtl_pipeline" ]; then
-  git clone --recurse-submodules https://github.com/ht-diva/pqtl_pipeline.git
-fi
+mkdir -p pqtl_pipeline
 cd pqtl_pipeline
-conda activate /group/diangelantonio/software/envs/snakemake
+
+# set a project name and clone the pipeline
+PROJECT_NAME="test"
+if [ ! -d ${PROJECT_NAME} ]; then
+  git clone --recurse-submodules https://github.com/ht-diva/pqtl_pipeline.git ${PROJECT_NAME}
+fi
+cd ${PROJECT_NAME}
+
+# copy reference data
+mkdir -p data
+rsync -avz /exchange/healthds/public_data/gwaslab_reference_dataset/* data/
+rsync -avz /exchange/healthds/public_data/reference_genomes/GRCh37/GCA_000001405.14_GRCh37.p13_full_analysis_set.fna data/
+
+# run the pipeline
+conda activate /exchange/healthds/software/envs/snakemake
 make run
