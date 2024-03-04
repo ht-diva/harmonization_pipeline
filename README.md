@@ -12,3 +12,6 @@ see [environment.yml](environment.yml) and [Makefile](Makefile)
 
 ## DAG
 check the [dag](dag.svg)
+
+## Credits
+The fine mapping branch of this pipeline has been realized by [Michele Filosi](https://github.com/filosi), see more at [https://github.com/EuracBiomedicalResearch/finemap_pipeline](https://github.com/EuracBiomedicalResearch/finemap_pipeline)
