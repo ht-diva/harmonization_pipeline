@@ -55,7 +55,7 @@ if __name__ == '__main__':
          outdir=snakemake.output[0],
          pval_thr=snakemake.params.pval_thr,
          pvalcol=snakemake.params.pval_col,
-         pheno=snakemake.wildcards.pheno,
+         pheno=snakemake.wildcards.seqid,
          chrom=snakemake.wildcards.chrom)
 
 # parser = argparse.ArgumentParser()

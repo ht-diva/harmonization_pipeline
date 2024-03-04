@@ -11,7 +11,7 @@ def main(phenofile, pheno, outfile):
 
 if __name__ == "__main__":
     main(phenofile=snakemake.input.phenofile,
-         pheno=snakemake.wildcards.pheno,
+         pheno=snakemake.wildcards.seqid,
          outfile=snakemake.output[0])
     # import argparse
 
