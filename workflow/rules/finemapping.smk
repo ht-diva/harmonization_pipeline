@@ -107,7 +107,7 @@ rule run_susieR:
         iter=config["susieR"]["iter"],
         min_abs_corr=config["susieR"]["min_abs_corr"],
     resources:
-        runtime=lambda wc, attempt: attempt * 100,
+        runtime=lambda wc, attempt: attempt * 5,
     conda:
         "../envs/susier.yml"
     script:

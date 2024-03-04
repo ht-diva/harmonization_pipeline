@@ -4,7 +4,7 @@
 library(dplyr)
 library(stringr)
 library(glue)
-library(susieR, lib.loc = "/home/mfilosi/R/rocker-rstudio/4.3")
+library(susieR)
 library(Matrix)
 library(rlog)
 # library(Rfast, lib.loc = "/home/mfilosi/R/rocker-rstudio/4.3")
