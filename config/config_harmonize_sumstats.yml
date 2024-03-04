@@ -98,6 +98,7 @@ steps:
     params:
       run: True
       workspace: "outputs"
+      workspace_subfolder: True
     gl_params:
       to_csvargs:
         compression:
