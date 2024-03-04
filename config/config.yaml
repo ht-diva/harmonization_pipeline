@@ -10,7 +10,7 @@ run:
 # paths
 sumstats_path: config/seqid_from_literature.tsv
 #dest_path: "/path/to/final/destination"
-workspace_path: "/path/to/the/workspace"
+workspace_path: "results"
 
 sumstat:
   pvalcol: "LOG10P"
