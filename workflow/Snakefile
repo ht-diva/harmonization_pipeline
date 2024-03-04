@@ -76,7 +76,7 @@ rule save_min_pvalue:
         config_file=config.get("params").get("save_min_pvalue").get("config_file"),
         output_path=config.get("workspace_path"),
     resources:
-        runtime=lambda wc, attempt: attempt * 30,
+        runtime=lambda wc, attempt: attempt * 5,
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
