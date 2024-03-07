@@ -39,7 +39,7 @@ rule save_min_pvalue:
     input:
         ws_path("pickle/{seqid}.pkl"),
     output:
-        ws_path("min_P/{seqid}/{seqid}.nsmallest.tsv"),
+        ws_path("min_P/{seqid}.nsmallest.tsv"),
     conda:
         "../scripts/gwaspipe/environment.yml"
     params:

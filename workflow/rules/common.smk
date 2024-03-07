@@ -93,7 +93,7 @@ def get_final_output():
     if config.get("run").get("save_min_pvalue"):
         final_output.extend(
             expand(
-                ws_path("min_P/{seqid}/{seqid}.nsmallest.tsv"),
+                ws_path("min_P/{seqid}.nsmallest.tsv"),
                 seqid=analytes.seqid,
             )
         )
