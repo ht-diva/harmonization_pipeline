@@ -7,7 +7,7 @@ rule harmonize_sumstats:
         ws_path("if/report_if_{seqid}.txt"),
         ws_path("plots/{seqid}.png"),
     conda:
-        "scripts/gwaspipe/environment.yml"
+        "../scripts/gwaspipe/environment.yml"
     params:
         format=config.get("params").get("harmonize_sumstats").get("input_format"),
         config_file=config.get("params").get("harmonize_sumstats").get("config_file"),
@@ -28,7 +28,7 @@ rule create_if_table:
     output:
         ws_path("inflation_factors_table.tsv"),
     conda:
-        "envs/create_inflation_factors_table.yaml"
+        "../envs/create_inflation_factors_table.yaml"
     params:
         input_path=ws_path("if"),
     shell:
@@ -41,7 +41,7 @@ rule save_min_pvalue:
     output:
         ws_path("min_P/{seqid}/{seqid}.nsmallest.tsv"),
     conda:
-        "scripts/gwaspipe/environment.yml"
+        "../scripts/gwaspipe/environment.yml"
     params:
         format=config.get("params").get("save_min_pvalue").get("input_format"),
         config_file=config.get("params").get("save_min_pvalue").get("config_file"),
@@ -62,6 +62,6 @@ rule bgzip_tabix:
     output:
         ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
     conda:
-        "envs/bgzip_tabix.yaml"
+        "../envs/bgzip_tabix.yaml"
     shell:
         "workflow/scripts/bgzip_tabix.sh {input} {threads}"
