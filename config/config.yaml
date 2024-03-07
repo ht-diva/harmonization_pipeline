@@ -1,11 +1,12 @@
 run:
   harmonization: True
+  save_min_pvalue: True
+  annotation: True
   ldscore: True
-  metal: True
+  metal: False
   tiledb: True
   finemapping: True
   conditional_analysis: True
-  save_min_pvalue: True
 
 
 # paths
@@ -69,6 +70,9 @@ params:
   harmonize_sumstats:
     input_format: "regenie"
     config_file: "config/config_harmonize_sumstats.yml"
+  annotate_sumstats:
+    input_format: "pickle"
+    config_file: "config/config_annotate_sumstats.yml"
   convert_sumstats_to_metal:
     input_format: "pickle"
     config_file: "config/config_convert_sumstats_to_metal.yml"

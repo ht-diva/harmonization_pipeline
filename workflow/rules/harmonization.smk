@@ -3,7 +3,7 @@ rule harmonize_sumstats:
         sumstats=get_sumstats,
     output:
         ws_path("pickle/{seqid}.pkl"),
-        ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+        #ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
         ws_path("if/report_if_{seqid}.txt"),
         ws_path("plots/{seqid}.png"),
     conda:
@@ -54,14 +54,3 @@ rule save_min_pvalue:
         "-c {params.config_file} "
         "-i {input} "
         "-o {params.output_path}"
-
-
-rule bgzip_tabix:
-    input:
-        ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
-    output:
-        ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
-    conda:
-        "../envs/bgzip_tabix.yaml"
-    shell:
-        "workflow/scripts/bgzip_tabix.sh {input} {threads}"

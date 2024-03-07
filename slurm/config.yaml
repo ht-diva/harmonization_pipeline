@@ -27,6 +27,9 @@ set-resources:
     harmonize_sumstats:
         mem_mb: 16384 + attempt * 2048
         threads: *cores
+    annotate_sumstats:
+        mem_mb: 16384 + attempt * 2048
+        threads: *cores
     bgzip_tabix:
         threads: *cores
     convert_sumstats_to_metal:

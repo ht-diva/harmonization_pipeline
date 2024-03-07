@@ -1,0 +1,41 @@
+---
+# common parameters
+n_cores: &cores 8
+
+# This is an ordered dict that contains the order in which the steps are run.
+run_sequence: !!omap
+  - 1: 'basic_check'
+  - 2: 'write_same_input_format'
+
+steps:
+  basic_check: # see https://cloufield.github.io/gwaslab/Standardization/
+    params:
+      run: True
+    gl_params:
+      n_cores: *cores
+      normalize: True
+      fixid_args:
+        fixid: True
+        fixsep: True
+  write_same_input_format:
+    params:
+      run: True
+      workspace: "outputs"
+      workspace_subfolder: True
+    gl_params:
+      to_csvargs:
+        compression:
+          method: "gzip"
+          compresslevel: 1
+          mtime: 1
+
+
+# Filename transformation, e.g.: seq.3007.7.gwas.regenie.gz
+filename_mask: [ True, True, True, False ]
+filename_sep: '.'
+
+# IO
+root_path: "results"
+log_filename: "gwaspipe.log"
+report_if_filename: "report_if_placeholder.txt"
+formatbook_path: "workflow/scripts/gwaspipe/data/formatbook.json"     # fill this var if you want to provide a custom formatbook

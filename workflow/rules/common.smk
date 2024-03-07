@@ -58,19 +58,39 @@ def get_final_output():
     if config.get("run").get("harmonization"):
         final_output.extend(
             expand(
-                ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
+                ws_path("pickle//{seqid}.pkl"),
+                seqid=analytes.seqid,
+            )
+        )
+        final_output.extend(
+            expand(
+                ws_path("plots/{seqid}.png"),
+                seqid=analytes.seqid,
+            )
+        )
+        final_output.append(ws_path("inflation_factors_table.tsv"))
+
+    if config.get("run").get("save_min_pvalue"):
+        final_output.extend(
+            expand(
+                ws_path("min_P/{seqid}.nsmallest.tsv"),
                 seqid=analytes.seqid,
             )
         )
 
+    if config.get("run").get("annotation"):
         final_output.extend(
             expand(
                 ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
                 seqid=analytes.seqid,
             )
         )
-
-        final_output.append(ws_path("inflation_factors_table.tsv"))
+        final_output.extend(
+            expand(
+                ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
+                seqid=analytes.seqid,
+            )
+        )
 
     if config.get("run").get("ldscore"):
         final_output.extend(
@@ -88,14 +108,6 @@ def get_final_output():
     if config.get("run").get("tiledb"):
         final_output.extend(
             expand(ws_path("vcf/{seqid}/{seqid}.vcf.gz.csi"), seqid=analytes.seqid)
-        )
-
-    if config.get("run").get("save_min_pvalue"):
-        final_output.extend(
-            expand(
-                ws_path("min_P/{seqid}.nsmallest.tsv"),
-                seqid=analytes.seqid,
-            )
         )
 
     if config.get("run").get("finemapping"):
