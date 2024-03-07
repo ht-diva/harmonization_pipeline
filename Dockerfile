@@ -1,6 +1,6 @@
 FROM condaforge/mambaforge:latest
 LABEL io.github.snakemake.containerized="true"
-LABEL io.github.snakemake.conda_env_hash="1c33449d56ebf06cf66cbf4d3d8a2594c24363df8d478ed89e9c953780fb768b"
+LABEL io.github.snakemake.conda_env_hash="863a7181b5107fe791d421b9bb8ceedb03b5ba072875a7becaf3cb11b27c9278"
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*
