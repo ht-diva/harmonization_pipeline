@@ -1,4 +1,5 @@
 run:
+  harmonization: True
   ldscore: True
   metal: True
   tiledb: True

@@ -55,21 +55,22 @@ def dst_path(file_path):
 def get_final_output():
     final_output = []
 
-    final_output.extend(
-        expand(
-            ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
-            seqid=analytes.seqid,
+    if config.get("run").get("harmonization"):
+        final_output.extend(
+            expand(
+                ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
+                seqid=analytes.seqid,
+            )
         )
-    )
 
-    final_output.extend(
-        expand(
-            ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
-            seqid=analytes.seqid,
+        final_output.extend(
+            expand(
+                ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+                seqid=analytes.seqid,
+            )
         )
-    )
 
-    final_output.append(ws_path("inflation_factors_table.tsv"))
+        final_output.append(ws_path("inflation_factors_table.tsv"))
 
     if config.get("run").get("ldscore"):
         final_output.extend(
