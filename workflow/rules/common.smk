@@ -58,7 +58,7 @@ def get_final_output():
     if config.get("run").get("harmonization"):
         final_output.extend(
             expand(
-                ws_path("pickle//{seqid}.pkl"),
+                ws_path("pickle/{seqid}.pkl"),
                 seqid=analytes.seqid,
             )
         )
