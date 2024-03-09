@@ -25,21 +25,21 @@ set-threads:
     bgzip_tabix: *cores
 set-resources:
     harmonize_sumstats:
-        mem_mb: 16384 + attempt * 2048
+        mem_mb: 18432 + attempt * 2048
         threads: *cores
     annotate_sumstats:
-        mem_mb: 16384 + attempt * 2048
+        mem_mb: 18432 + attempt * 2048
         threads: *cores
     bgzip_tabix:
         threads: *cores
     convert_sumstats_to_metal:
-        mem_mb: 12288 + attempt * 2048
+        mem_mb: 18432 + attempt * 2048
     munge_sumstats:
         mem_mb: 14336 + attempt * 2048
     compute_ldscore:
         mem_mb: 12288 + attempt * 2048
     convert_sumstats_to_vcf:
-        mem_mb: 16384 + attempt * 2048
+        mem_mb: 18432 + attempt * 2048
     save_min_pvalue:
         mem_mb: 4096 + attempt * 2048
     sumstat_2_plink:
