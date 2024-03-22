@@ -1,12 +1,12 @@
 run:
   harmonization: True
   save_min_pvalue: True
-  annotation: True
-  ldscore: True
+  annotation: False
+  ldscore: False
   metal: False
-  tiledb: True
-  finemapping: True
-  conditional_analysis: True
+  tiledb: False
+  finemapping: False
+  conditional_analysis: False
 
 
 # paths
