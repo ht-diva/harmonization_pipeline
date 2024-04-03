@@ -1,7 +1,7 @@
 run:
   harmonization: True
   save_min_pvalue: True
-  annotation: False
+  annotation: True
   ldscore: False
   metal: False
   tiledb: False

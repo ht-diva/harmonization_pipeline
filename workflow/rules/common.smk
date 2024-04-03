@@ -81,13 +81,13 @@ def get_final_output():
     if config.get("run").get("annotation"):
         final_output.extend(
             expand(
-                ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
                 seqid=analytes.seqid,
             )
         )
         final_output.extend(
             expand(
-                ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
+                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
                 seqid=analytes.seqid,
             )
         )

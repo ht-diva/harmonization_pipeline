@@ -4,8 +4,8 @@ n_cores: &cores 8
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
-  - 1: 'basic_check'
-  - 2: 'write_regenie'
+  #- 1: 'basic_check'
+  - 2: 'write_tsv'
 
 steps:
   basic_check: # see https://cloufield.github.io/gwaslab/Standardization/
@@ -19,13 +19,13 @@ steps:
         fixsep: True
         forcefixid: False
         overwrite: False
-  write_regenie:
+  write_tsv:
     params:
       run: True
       workspace: "outputs"
       workspace_subfolder: True
     gl_params:
-      fmt: "regenie"
+      fmt: "gwaslab"
       to_csvargs:
         compression:
           method: "gzip"

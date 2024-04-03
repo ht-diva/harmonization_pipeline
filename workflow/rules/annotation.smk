@@ -2,7 +2,7 @@ rule annotate_sumstats:
     input:
         ws_path("pickle/{seqid}.pkl"),
     output:
-        ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
     conda:
         "../scripts/gwaspipe/environment.yml"
     params:
@@ -21,9 +21,9 @@ rule annotate_sumstats:
 
 rule bgzip_tabix:
     input:
-        ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
     output:
-        ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz.tbi"),
+        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
     conda:
         "../envs/bgzip_tabix.yaml"
     shell:
