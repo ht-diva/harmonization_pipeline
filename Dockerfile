@@ -1,6 +1,6 @@
 FROM condaforge/mambaforge:latest
 LABEL io.github.snakemake.containerized="true"
-LABEL io.github.snakemake.conda_env_hash="4d3c90be68c3937f263e5072be1470fc478dfe58a9c3aff38463fb8fb03b31bf"
+LABEL io.github.snakemake.conda_env_hash="88db0b1103f13c7ac73a5b0a6f1ec8650dcb4159cdf95fbe3c11b4d2bd29e34c"
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*
@@ -36,9 +36,10 @@ COPY workflow/envs/create_inflation_factors_table.yaml /conda-envs/a160f42d06f9d
 
 # Conda environment:
 #   source: workflow/envs/ldsc.yaml
-#   prefix: /conda-envs/a2826e2ef1005ed23bdbb3539321f7e9
+#   prefix: /conda-envs/9fdf8a7c84ff129c8967eb5848ece5ab
 #   name: ldsc
 #   channels:
+#   - conda-forge
 #   - bioconda
 #   dependencies:
 #   - python=2.7
@@ -51,8 +52,8 @@ COPY workflow/envs/create_inflation_factors_table.yaml /conda-envs/a160f42d06f9d
 #     - scipy==0.18
 #     - pandas==0.20
 #     - numpy==1.16
-RUN mkdir -p /conda-envs/a2826e2ef1005ed23bdbb3539321f7e9
-COPY workflow/envs/ldsc.yaml /conda-envs/a2826e2ef1005ed23bdbb3539321f7e9/environment.yaml
+RUN mkdir -p /conda-envs/9fdf8a7c84ff129c8967eb5848ece5ab
+COPY workflow/envs/ldsc.yaml /conda-envs/9fdf8a7c84ff129c8967eb5848ece5ab/environment.yaml
 
 # Conda environment:
 #   source: workflow/envs/plink-pandas.yml
@@ -137,7 +138,7 @@ COPY workflow/scripts/gwaspipe/environment.yml /conda-envs/d3af165ce1ac53aefab55
 
 RUN mamba env create --prefix /conda-envs/6e056d31662ab0bd2fd3fba49416042f --file /conda-envs/6e056d31662ab0bd2fd3fba49416042f/environment.yaml && \
     mamba env create --prefix /conda-envs/a160f42d06f9d24b41c5cbece52b682d --file /conda-envs/a160f42d06f9d24b41c5cbece52b682d/environment.yaml && \
-    mamba env create --prefix /conda-envs/a2826e2ef1005ed23bdbb3539321f7e9 --file /conda-envs/a2826e2ef1005ed23bdbb3539321f7e9/environment.yaml && \
+    mamba env create --prefix /conda-envs/9fdf8a7c84ff129c8967eb5848ece5ab --file /conda-envs/9fdf8a7c84ff129c8967eb5848ece5ab/environment.yaml && \
     mamba env create --prefix /conda-envs/a9b8ccc53333def92898879edc6df0ca --file /conda-envs/a9b8ccc53333def92898879edc6df0ca/environment.yaml && \
     mamba env create --prefix /conda-envs/fd0f8d28d055274e6ce4cf006d07ec05 --file /conda-envs/fd0f8d28d055274e6ce4cf006d07ec05/environment.yaml && \
     mamba env create --prefix /conda-envs/be316e9967fe3846694829a2f8f63147 --file /conda-envs/be316e9967fe3846694829a2f8f63147/environment.yaml && \

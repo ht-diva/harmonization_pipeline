@@ -7,7 +7,7 @@ rule sumstat_2_plink:
     message:
         "Separate summary stat by chromosome based on best hits"
     input:
-        sumstat=ws_path("outputs/{seqid}/{seqid}.regenie.tsv.gz"),
+        sumstat=ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
     output:
         temp(ws_path("fm/{seqid}/tmp/chr{chrom}_sumstat.csv")),
     resources:
