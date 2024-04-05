@@ -26,5 +26,7 @@ rule bgzip_tabix:
         ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
     conda:
         "../envs/bgzip_tabix.yaml"
+    resources:
+        runtime=lambda wc, attempt: attempt * 20,
     shell:
         "workflow/scripts/bgzip_tabix.sh {input} {threads}"
