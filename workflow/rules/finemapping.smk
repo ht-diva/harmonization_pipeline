@@ -1,5 +1,28 @@
 # Credits to @filosi, adapted from
 # https://github.com/EuracBiomedicalResearch/finemap_pipeline
+import pandas as pd
+import json
+
+# Store config variables for ease access
+pvalcol = config["sumstat"]["pvalcol"]
+pthr = config["sumstat"]["pthr"]
+run_list = pd.read_csv(config["run_list"], header=0, sep="\t")
+
+# Load genetic data information
+genotype = config["genodata"]["name"]
+with open(config["genodata"]["json"], "r") as f:
+    gd = json.load(f)
+gt = gd[genotype]
+
+
+def get_pfile_from_chrom(wildcards):
+    pfiles = gt["plinkfiles"]
+    nfiles = gt["nfiles"]
+    if nfiles == 1:
+        ff = pfiles
+    else:
+        ff = [p for p in pfiles if p.find(f"dedup_{wildcards.chrom}_") > 0]
+    return ff[0]
 
 
 # Divide sumstat by chromosome

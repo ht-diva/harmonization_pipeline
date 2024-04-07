@@ -27,6 +27,6 @@ rule bgzip_tabix:
     conda:
         "../envs/bgzip_tabix.yaml"
     resources:
-        runtime=lambda wc, attempt: attempt * 20,
+        runtime=lambda wc, attempt: attempt * 60,
     shell:
         "workflow/scripts/bgzip_tabix.sh {input} {threads}"
