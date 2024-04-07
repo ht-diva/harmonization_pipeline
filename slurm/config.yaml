@@ -31,7 +31,6 @@ set-resources:
         mem_mb: 18432 + attempt * 2048
         threads: *cores
     bgzip_tabix:
-        mem_mb: 0 + attempt * 2048
         threads: *cores
     convert_sumstats_to_metal:
         mem_mb: 18432 + attempt * 2048
