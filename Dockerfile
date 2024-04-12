@@ -20,7 +20,7 @@ RUN mkdir -p /conda-envs/6e056d31662ab0bd2fd3fba49416042f
 COPY workflow/envs/bgzip_tabix.yaml /conda-envs/6e056d31662ab0bd2fd3fba49416042f/environment.yaml
 
 # Conda environment:
-#   source: workflow/envs/create_inflation_factors_table.yaml
+#   source: workflow/envs/create_report_table.yaml
 #   prefix: /conda-envs/a160f42d06f9d24b41c5cbece52b682d
 #   name: create_inflation_factors_table
 #   channels:
@@ -32,7 +32,7 @@ COPY workflow/envs/bgzip_tabix.yaml /conda-envs/6e056d31662ab0bd2fd3fba49416042f
 #     - pip:
 #         - click==8.1.7
 RUN mkdir -p /conda-envs/a160f42d06f9d24b41c5cbece52b682d
-COPY workflow/envs/create_inflation_factors_table.yaml /conda-envs/a160f42d06f9d24b41c5cbece52b682d/environment.yaml
+COPY workflow/envs/create_report_table.yaml /conda-envs/a160f42d06f9d24b41c5cbece52b682d/environment.yaml
 
 # Conda environment:
 #   source: workflow/envs/plink-pandas.yml

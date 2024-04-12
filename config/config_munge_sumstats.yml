@@ -1,6 +1,6 @@
 ---
 # common parameters
-n_cores: &cores 3
+n_cores: &cores 4
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
@@ -30,5 +30,4 @@ filename_sep: '.'
 # IO
 root_path: "results"
 log_filename: "gwaspipe.log"
-report_if_filename: "report_if_placeholder.txt"
 formatbook_path: " "     # fill this var if you want to provide a custom formatbook

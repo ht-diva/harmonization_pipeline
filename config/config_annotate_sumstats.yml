@@ -1,11 +1,13 @@
 ---
 # common parameters
-n_cores: &cores 8
+n_cores: &cores 4
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
   #- 1: 'basic_check'
-  - 2: 'write_tsv'
+  - 2: 'sort_alphabetically'
+  - 3: 'write_tsv'
+
 
 steps:
   basic_check: # see https://cloufield.github.io/gwaslab/Standardization/
@@ -19,6 +21,11 @@ steps:
         fixsep: True
         forcefixid: False
         overwrite: False
+  sort_alphabetically:
+    params:
+      run: True
+    gl_params:
+      n_cores: *cores
   write_tsv:
     params:
       run: True
@@ -40,5 +47,4 @@ filename_sep: '.'
 # IO
 root_path: "results"
 log_filename: "gwaspipe.log"
-report_if_filename: "report_if_placeholder.txt"
 formatbook_path: "workflow/scripts/gwaspipe/data/formatbook.json"     # fill this var if you want to provide a custom formatbook
