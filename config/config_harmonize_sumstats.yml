@@ -8,11 +8,12 @@ run_sequence: !!omap
   - 2: 'fill_data'
   - 3: 'infer_build'
   - 4: 'harmonize'
-  - 5: 'write_pickle'
-  - 6: 'write_tsv'
-  - 7: 'report_harmonization_summary'
-  - 8: 'report_inflation_factors'
-  - 9: 'qq_manhattan_plots'
+  - 5: 'sort_alphabetically'
+  - 6: 'write_pickle'
+  - 7: 'write_tsv'
+  - 8: 'report_harmonization_summary'
+  - 9: 'report_inflation_factors'
+  - 10: 'qq_manhattan_plots'
 
 steps:
   basic_check: # see https://cloufield.github.io/gwaslab/Standardization/
@@ -34,13 +35,14 @@ steps:
   harmonize: # see https://cloufield.github.io/gwaslab/Harmonization/
     params:
       run: True
-      flip_allele: False
     gl_params:
       basic_check: False
       n_cores: *cores
-      ref_seq: "data/GCA_000001405.14_GRCh37.p13_full_analysis_set.fna"
-      ref_infer: "data/EUR.ALL.split_norm_af.1kgp3v5.hg19.vcf.gz"
-      ref_alt_freq: "AF"
+  sort_alphabetically:
+    params:
+      run: True
+    gl_params:
+      n_cores: *cores
   report_harmonization_summary:
     params:
       run: True
