@@ -2,12 +2,12 @@ rule move_to_destination:
     input:
         table_minp=ws_path("min_pvalue_table.tsv"),
         table_if=ws_path("inflation_factors_table.tsv"),
-        plots=ws_path("plots"),
+        plots=directory(ws_path("plots/")),
     output:
         touch(ws_path("delivery.done")),
         table_minp=dst_path("min_pvalue_table.tsv"),
         table_if=dst_path("inflation_factors_table.tsv"),
-        plots=dst_path("plots"),
+        plots=directory(dst_path("plots")),
     resources:
         runtime=lambda wc, attempt: attempt * 120,
     shell:
