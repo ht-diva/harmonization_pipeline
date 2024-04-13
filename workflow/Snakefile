@@ -16,6 +16,11 @@ include: "rules/annotation.smk"
 include: "rules/summarize.smk"
 
 
+if config.get("run").get("delivery"):
+
+    include: "rules/delivery.smk"
+
+
 if config.get("run").get("metal"):
 
     include: "rules/metal.smk"

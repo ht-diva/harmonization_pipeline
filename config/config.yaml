@@ -2,6 +2,7 @@ run:
   harmonization: True
   annotation: True
   summarize: True
+  delivery: True
   tiledb: False
   ldscore: False
   metal: False
@@ -11,7 +12,7 @@ run:
 
 # paths
 sumstats_path: config/seqid_from_literature.tsv
-#dest_path: "/path/to/final/destination"
+dest_path: "/exchange/healthds/destination"
 workspace_path: "results"
 
 sumstat:
