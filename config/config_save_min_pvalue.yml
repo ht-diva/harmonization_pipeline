@@ -5,7 +5,7 @@ n_cores: &cores 4
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
   - 1: 'fill_data'
-  - 2: 'report_min_pvalues'
+  - 2: 'report_min_pvalue'
 
 steps:
   fill_data: # see https://cloufield.github.io/gwaslab/Conversion/#fill_data
