@@ -13,9 +13,22 @@ configfile: "config/config.yaml"
 include: "rules/common.smk"
 include: "rules/harmonization.smk"
 include: "rules/annotation.smk"
-include: "rules/metal.smk"
-include: "rules/ldsc.smk"
-include: "rules/tiledb.smk"
+include: "rules/summarize.smk"
+
+
+if config.get("run").get("metal"):
+
+    include: "rules/metal.smk"
+
+
+if config.get("run").get("ldscore"):
+
+    include: "rules/ldsc.smk"
+
+
+if config.get("run").get("tiledb"):
+
+    include: "rules/tiledb.smk"
 
 
 if config.get("run").get("finemapping"):

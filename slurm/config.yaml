@@ -27,6 +27,8 @@ set-resources:
     harmonize_sumstats:
         mem_mb: 22528 + attempt * 2048
         threads: *cores
+    summarize_sumstats:
+      mem_mb: 6144 + attempt * 2048
     annotate_sumstats:
         mem_mb: 18432 + attempt * 2048
         threads: *cores
@@ -40,8 +42,6 @@ set-resources:
         mem_mb: 12288 + attempt * 2048
     convert_sumstats_to_vcf:
         mem_mb: 18432 + attempt * 2048
-    save_min_pvalue:
-        mem_mb: 6144 + attempt * 2048
     sumstat_2_plink:
         mem_mb: 12288 + attempt * 2048
     clumping:

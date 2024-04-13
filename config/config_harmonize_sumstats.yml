@@ -9,9 +9,6 @@ run_sequence: !!omap
   - 3: 'fill_data'
   - 4: 'harmonize'
   - 5: 'write_pickle'
-  - 6: 'report_harmonization_summary'
-  - 7: 'report_inflation_factors'
-  - 8: 'qq_manhattan_plots'
 
 
 steps:
@@ -28,7 +25,7 @@ steps:
     params:
       run: True
     gl_params:
-      to_fill: ['MLOG10P', 'Z']
+      to_fill: ['MLOG10P']
       overwrite: False
       extreme: True
   harmonize: # see https://cloufield.github.io/gwaslab/Harmonization/
@@ -42,28 +39,6 @@ steps:
       run: True
       overwrite: False
       workspace: "pickle"
-  report_harmonization_summary:
-    params:
-      run: True
-      workspace: "outputs"
-      workspace_subfolder: True
-  report_inflation_factors:
-    params:
-      run: True
-      workspace: "if"
-  qq_manhattan_plots:
-    params:
-      run: True
-      workspace: "plots"
-      dist: 2
-    gl_params:
-      mode: 'mqq'
-      stratified: True
-      maf_bins: [ [ 0, 0.01 ], [ 0.01, 0.05 ], [ 0.05, 1 ] ]
-      scaled: True
-      build: "19"
-      skip: 1
-      sig_level: 5e-8
 
 
 # Filename transformation, e.g.: seq.3007.7.gwas.regenie.gz
