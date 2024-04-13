@@ -59,8 +59,18 @@ def get_final_output():
 
     if config.get("run").get("delivery"):
         final_output.append(dst_path("tables_delivery.done")),
-        final_output.append(dst_path("plots_delivery.done")),
-        final_output.append(dst_path("outputs_delivery.done"))
+        final_output.extend(
+            expand(
+                dst_path("plots/{seqid}.png"),
+                seqid=analytes.seqid,
+            )
+        ),
+        final_output.extend(
+            expand(
+                dst_path("outputs/{seqid}/.delivery.done"),
+                seqid=analytes.seqid,
+            )
+        )
 
     if config.get("run").get("annotation"):
         final_output.extend(

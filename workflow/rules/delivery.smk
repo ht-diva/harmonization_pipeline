@@ -15,38 +15,28 @@ rule sync_tables:
         rsync -rlptoDvz {input.table_if} {params.table_if}"""
 
 
-rule sync_plots_parallel:
+rule sync_plots:
     input:
-        files=expand(
-            ws_path("plots/{file}"), file=glob_wildcards(ws_path("plots/{file}")).file
-        ),
+        ws_path("plots/{seqid}.png"),
     output:
-        touch(protected(dst_path("plots_delivery.done"))),
-    params:
-        batch_size=100,
-        plots=directory(dst_path("plots/")),
+        protected(dst_path("plots/{seqid}.png")),
     resources:
-        runtime=lambda wc, attempt: attempt * 120,
-    run:
-        for batch in range(0, len(input.files), params.batch_size):
-            batch_files = input.files[batch : batch + params.batch_size]
-            batch_files_str = " ".join(batch_files)
-            shell("rsync -rlptoDvz --progress {batch_files_str} {params.plots}")
+        runtime=lambda wc, attempt: attempt * 30,
+    shell:
+        """
+        rsync -rlptoDvz --progress {input} {output}"""
 
 
 rule sync_outputs_folder:
+    input:
+        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
     output:
-        touch(protected(dst_path("outputs_delivery.done"))),
+        touch(dst_path("outputs/{seqid}/.delivery.done")),
     params:
-        batch_size=100,
-        folders=get_folders(ws_path("outputs")),
-        output_folders=dst_path("outputs/"),
+        folder=ws_path("outputs/{seqid}/"),
+        output_folders=dst_path("outputs/{seqid}"),
     resources:
-        runtime=lambda wc, attempt: attempt * 480,
-    run:
-        for batch in range(0, len(input.folders), params.batch_size):
-            batch_folders = input.folders[batch : batch + params.batch_size]
-            batch_folders_str = " ".join(batch_folders)
-            shell(
-                "rsync -rlptoDvz --progress {batch_folders_str} {params.output_folders}"
-            )
+        runtime=lambda wc, attempt: attempt * 60,
+    shell:
+        """
+        rsync -rlptoDvz --progress {params.folder} {params.output_folders}"""
