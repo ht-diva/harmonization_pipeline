@@ -34,7 +34,7 @@ rule sync_outputs_folder:
         touch(dst_path("outputs/{seqid}/.delivery.done")),
     params:
         folder=ws_path("outputs/{seqid}/"),
-        output_folders=dst_path("outputs/{seqid}"),
+        output_folders=dst_path("outputs/"),
     resources:
         runtime=lambda wc, attempt: attempt * 60,
     shell:
