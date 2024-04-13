@@ -32,7 +32,7 @@ def dst_path(file_path):
 
 
 def get_folders(path):
-    return " ".join([item for item in path.iterdir() if item.is_dir()])
+    return [str(item) for item in Path(path).iterdir() if item.is_dir()]
 
 
 def get_final_output():

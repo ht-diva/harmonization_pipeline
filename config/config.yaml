@@ -2,7 +2,7 @@ run:
   harmonization: True
   annotation: True
   summarize: True
-  delivery: True
+  delivery: False
   tiledb: False
   ldscore: False
   metal: False

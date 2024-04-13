@@ -35,18 +35,18 @@ rule sync_plots_parallel:
 
 
 rule sync_outputs_folder:
-    input:
-        folders=get_folders(ws_path("outputs")),
     output:
         touch(protected(dst_path("outputs_delivery.done"))),
     params:
-        batch_size=2,
+        batch_size=100,
+        folders=get_folders(ws_path("outputs")),
         output_folders=dst_path("outputs/"),
     resources:
         runtime=lambda wc, attempt: attempt * 480,
-    threads: 4  # Specify the number of threads to use for parallelization
     run:
         for batch in range(0, len(input.folders), params.batch_size):
             batch_folders = input.folders[batch : batch + params.batch_size]
             batch_folders_str = " ".join(batch_folders)
-            shell("rsync -rlptoDvz --progress {input.folders} {params.output_folders}")
+            shell(
+                "rsync -rlptoDvz --progress {batch_folders_str} {params.output_folders}"
+            )
