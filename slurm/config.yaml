@@ -34,7 +34,10 @@ set-resources:
         threads: *cores
     bgzip_tabix:
         threads: *cores
-    sync_plots_parallel:
+    sync_plots:
+        mem_mb: 1024 + attempt * 1024
+        threads: *cores
+    sync_outputs_folder:
         mem_mb: 1024 + attempt * 1024
         threads: *cores
     convert_sumstats_to_metal:

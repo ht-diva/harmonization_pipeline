@@ -56,6 +56,7 @@ def get_final_output():
     if config.get("run").get("delivery"):
         final_output.append(dst_path("tables_delivery.done")),
         final_output.append(dst_path("plots_delivery.done")),
+        final_output.append(dst_path("outputs_delivery.done"))
 
     if config.get("run").get("annotation"):
         final_output.extend(
