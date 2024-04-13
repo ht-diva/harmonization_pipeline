@@ -50,6 +50,6 @@ rule sync_outputs_folder:
     threads: 4  # Specify the number of threads to use for parallelization
     run:
         for batch in range(0, len(input.folders), params.batch_size):
-            batch_folders = input.folders[batch : batch + params.batch.size]
+            batch_folders = input.folders[batch : batch + params.batch_size]
             batch_folders_str = " ".join(batch_folders)
             shell("rsync -rlptoDvz --progress {input.folders} {params.output_folders}")
