@@ -1,17 +1,34 @@
-rule move_to_destination:
+rule sync_tables:
     input:
         table_minp=ws_path("min_pvalue_table.tsv"),
         table_if=ws_path("inflation_factors_table.tsv"),
-        plots=directory(ws_path("plots/")),
     output:
-        touch(ws_path("delivery.done")),
+        touch(protected(dst_path("tables_delivery.done"))),
+    params:
         table_minp=dst_path("min_pvalue_table.tsv"),
         table_if=dst_path("inflation_factors_table.tsv"),
-        plots=directory(dst_path("plots")),
     resources:
-        runtime=lambda wc, attempt: attempt * 120,
+        runtime=lambda wc, attempt: attempt * 10,
     shell:
         """
-        rsync -rlptoDvz {input.plots} {output.plots} && \
-        rsync -rlptoDvz {input.table_minp} {output.table_minp} && \
-        rsync -rlptoDvz {input.table_if} {output.table_if}"""
+        rsync -rlptoDvz {input.table_minp} {params.table_minp} && \
+        rsync -rlptoDvz {input.table_if} {params.table_if}"""
+
+
+rule sync_plots_parallel:
+    input:
+        files=expand(
+            ws_path("plots/{file}"), file=glob_wildcards(ws_path("plots/{file}")).file
+        ),
+    output:
+        touch(protected(dst_path("plots_delivery.done"))),
+    params:
+        batch_size=2,
+        plots=directory(dst_path("plots/")),
+    resources:
+        runtime=lambda wc, attempt: attempt * 120,
+    run:
+        for batch in range(0, len(input.files), params.batch_size):
+            batch_files = input.files[batch : batch + params.batch_size]
+            batch_files_str = " ".join(batch_files)
+            shell("rsync -av --progress {batch_files_str} {params.plots}")
