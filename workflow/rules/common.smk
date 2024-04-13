@@ -31,6 +31,10 @@ def dst_path(file_path):
     return str(Path(config.get("dest_path"), file_path))
 
 
+def get_folders(path):
+    return " ".join([item for item in path.iterdir() if item.is_dir()])
+
+
 def get_final_output():
     final_output = []
 

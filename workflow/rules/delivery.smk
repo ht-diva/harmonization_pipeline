@@ -36,10 +36,7 @@ rule sync_plots_parallel:
 
 rule sync_outputs_folder:
     input:
-        folders=expand(
-            ws_path("outputs/{folder}"),
-            folder=glob_wildcards(ws_path("outputs/{folder}")).folder,
-        ),
+        folders=get_folders(ws_path("outputs")),
     output:
         touch(protected(dst_path("outputs_delivery.done"))),
     params:
