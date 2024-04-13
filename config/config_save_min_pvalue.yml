@@ -15,7 +15,7 @@ steps:
       to_fill: ['MLOG10P', 'Z']
       overwrite: False
       extreme: True
-  report_min_pvalues:
+  report_min_pvalue:
     params:
       run: True
       workspace: "min_P"
