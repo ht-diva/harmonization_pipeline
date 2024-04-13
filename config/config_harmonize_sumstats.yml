@@ -28,7 +28,7 @@ steps:
     params:
       run: True
     gl_params:
-      to_fill: ['MLOG10P']
+      to_fill: ['MLOG10P', 'Z']
       overwrite: False
       extreme: True
   harmonize: # see https://cloufield.github.io/gwaslab/Harmonization/
