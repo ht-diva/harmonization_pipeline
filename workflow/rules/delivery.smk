@@ -39,4 +39,4 @@ rule sync_outputs_folder:
         runtime=lambda wc, attempt: attempt * 60,
     shell:
         """
-        rsync -rlptoDvz --progress {params.folder} {params.output_folders}"""
+        rsync -rlptoDvz --chmod "D755,F644" {params.folder} {params.output_folders}"""
