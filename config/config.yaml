@@ -1,17 +1,17 @@
 run:
-  harmonization: True
-  annotation: True
-  summarize: True
+  harmonization: False
+  annotation: False
+  summarize: False
   delivery: False
   tiledb: False
   ldscore: False
-  metal: False
+  metal_het: True
   finemapping: False
   conditional_analysis: False
 
 
 # paths
-sumstats_path: config/seqid_from_literature.tsv
+sumstats_path: config/meta_seqid_from_literature.tsv
 dest_path: "/exchange/healthds/destination"
 workspace_path: "results"
 
@@ -71,15 +71,15 @@ params:
   harmonize_sumstats:
     input_format: "regenie"
     config_file: "config/config_harmonize_sumstats.yml"
+  annotate_metal_heterogeneity_sumstats:
+    input_format: "metal_het"
+    config_file: "config/config_metal_heterogeneity.yml"
   annotate_sumstats:
     input_format: "pickle"
     config_file: "config/config_annotate_sumstats.yml"
   summarize_sumstats:
     input_format: "pickle"
     config_file: "config/config_summarize_sumstats.yml"
-  convert_sumstats_to_metal:
-    input_format: "pickle"
-    config_file: "config/config_convert_sumstats_to_metal.yml"
   munge_sumstats:
     input_format: "pickle"
     config_file: "config/config_munge_sumstats.yml"

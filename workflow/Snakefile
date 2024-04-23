@@ -21,9 +21,9 @@ if config.get("run").get("delivery"):
     include: "rules/delivery.smk"
 
 
-if config.get("run").get("metal"):
+if config.get("run").get("metal_het"):
 
-    include: "rules/metal.smk"
+    include: "rules/metal_het.smk"
 
 
 if config.get("run").get("ldscore"):

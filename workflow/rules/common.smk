@@ -72,6 +72,14 @@ def get_final_output():
             )
         )
 
+    if config.get("run").get("metal_het"):
+        final_output.extend(
+            expand(
+                ws_path("metal/{seqid}/{seqid}.metal_het.tsv.gz"),
+                seqid=analytes.seqid,
+            )
+        )
+
     if config.get("run").get("annotation"):
         final_output.extend(
             expand(
@@ -89,14 +97,6 @@ def get_final_output():
     if config.get("run").get("ldscore"):
         final_output.extend(
             expand(ws_path("ldsc/{seqid}/{seqid}_ldsc.log"), seqid=analytes.seqid)
-        )
-
-    if config.get("run").get("metal"):
-        final_output.extend(
-            expand(
-                ws_path("metal/{seqid}/{seqid}.metal.tsv.gz"),
-                seqid=analytes.seqid,
-            )
         )
 
     if config.get("run").get("tiledb"):
