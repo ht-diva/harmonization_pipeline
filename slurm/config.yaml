@@ -32,6 +32,9 @@ set-resources:
     annotate_sumstats:
         mem_mb: 18432 + attempt * 2048
         threads: *cores
+    standardize_metal_heterogeneity_sumstats:
+        mem_mb: 22528 + attempt * 2048
+        threads: *cores
     bgzip_tabix:
         threads: *cores
     sync_plots:
