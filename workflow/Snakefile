@@ -13,7 +13,9 @@ configfile: "config/config.yaml"
 include: "rules/common.smk"
 include: "rules/harmonization.smk"
 include: "rules/annotation.smk"
-include: "rules/summarize.smk"
+
+
+# include: "rules/summarize.smk"
 
 
 if config.get("run").get("delivery"):

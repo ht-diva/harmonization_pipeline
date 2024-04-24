@@ -77,8 +77,10 @@ def get_final_output():
             expand(
                 ws_path("metal/{seqid}/{seqid}.metal_het.tsv.gz"),
                 seqid=analytes.seqid,
-            )
-        )
+            ),
+        ),
+        final_output.append(ws_path("min_pvalue_table.tsv")),
+        final_output.append(ws_path("inflation_factors_table.tsv"))
 
     if config.get("run").get("annotation"):
         final_output.extend(
