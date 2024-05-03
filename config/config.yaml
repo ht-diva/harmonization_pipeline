@@ -86,6 +86,9 @@ params:
   convert_sumstats_to_vcf:
     input_format: "pickle"
     config_file: "config/config_convert_sumstats_to_vcf.yml"
+  snp_mapping:
+    input_format: "regenie"
+    config_file: "config/config_snp_mapping.yml"
 
 
 # Set the ld reference files

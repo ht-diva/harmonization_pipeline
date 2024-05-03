@@ -23,6 +23,10 @@ def get_sumstats(wildcards):
     return analytes.loc[wildcards.seqid, "sumstat_path"]
 
 
+def get_sumstat():
+    return analytes.iloc[0]["sumstat_path"]
+
+
 def ws_path(file_path):
     return str(Path(config.get("workspace_path"), file_path))
 
@@ -51,11 +55,11 @@ def get_final_output():
                 seqid=analytes.seqid,
             )
         )
-        final_output.append(ws_path("inflation_factors_table.tsv"))
 
     if config.get("run").get("summarize"):
         final_output.append(ws_path("min_pvalue_table.tsv")),
-        final_output.append(ws_path("inflation_factors_table.tsv"))
+        final_output.append(ws_path("inflation_factors_table.tsv")),
+        final_output.append(ws_path("snp_mapping/table.snp_mapping.tsv.gz"))
 
     if config.get("run").get("delivery"):
         final_output.append(dst_path("tables_delivery.done")),

@@ -22,7 +22,9 @@ default-resources:
     runtime: attempt * 5
 set-threads:
     harmonize_sumstats: *cores
+    annotate_sumstats: *cores
     bgzip_tabix: *cores
+    create_snp_mapping_table: *cores
 set-resources:
     harmonize_sumstats:
         mem_mb: 22528 + attempt * 2048
@@ -33,6 +35,9 @@ set-resources:
         mem_mb: 18432 + attempt * 2048
         threads: *cores
     bgzip_tabix:
+        threads: *cores
+    create_snp_mapping_table:
+        mem_mb: 22528 + attempt * 2048
         threads: *cores
     sync_plots:
         mem_mb: 1024 + attempt * 1024
