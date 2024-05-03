@@ -2,16 +2,19 @@ rule sync_tables:
     input:
         table_minp=ws_path("min_pvalue_table.tsv"),
         table_if=ws_path("inflation_factors_table.tsv"),
+        table_snp_mapping=ws_path("snp_mapping/table.snp_mapping.tsv.gz"),
     output:
         touch(protected(dst_path("tables_delivery.done"))),
     params:
         table_minp=dst_path("min_pvalue_table.tsv"),
         table_if=dst_path("inflation_factors_table.tsv"),
+        table_snp_mapping=dst_path("table.snp_mapping.tsv.gz"),
     resources:
         runtime=lambda wc, attempt: attempt * 10,
     shell:
         """
         rsync -rlptoDvz {input.table_minp} {params.table_minp} && \
+        rsync -rlptoDvz {input.table_snp_mapping} {params.table_snp_mapping} && \
         rsync -rlptoDvz {input.table_if} {params.table_if}"""
 
 
