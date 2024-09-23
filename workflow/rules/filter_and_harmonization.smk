@@ -4,7 +4,7 @@ rule filter_infoscore:
     output:
         ws_path("output/{seqid}/{seqid}.regenie.infoscore_filtered.gz"),
     conda:
-        "envs/filter_infoscore.yaml"
+        "../envs/filter_infoscore.yaml"
     params:
         snpid2filter=config.get("snpid2filter"),
     resources:
