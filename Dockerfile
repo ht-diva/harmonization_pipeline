@@ -3,7 +3,7 @@ LABEL io.github.snakemake.containerized="true"
 LABEL io.github.snakemake.conda_env_hash="baeaa25c333875fb8e8bda73b8af453c2ecc262cf0834542e82d08b3a14abf44"
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y build-essential libz-dev rsync && rm -rf /var/lib/apt/lists/*
 
 # Step 1: Retrieve conda environments
 
