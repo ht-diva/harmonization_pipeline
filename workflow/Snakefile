@@ -11,7 +11,17 @@ configfile: "config/config.yaml"
 
 
 include: "rules/common.smk"
-include: "rules/harmonization.smk"
+
+
+if config.get("run").get("infoscore_filter"):
+
+    include: "rules/filter_and_harmonization.smk"
+
+else:
+
+    include: "rules/harmonization.smk"
+
+
 include: "rules/annotation.smk"
 include: "rules/summarize.smk"
 

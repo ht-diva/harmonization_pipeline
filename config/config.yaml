@@ -1,4 +1,5 @@
 run:
+  infoscore_filter: False
   harmonization: True
   annotation: True
   summarize: True
@@ -11,6 +12,7 @@ run:
 
 
 # paths
+snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/INFO_MicheleFilosi_29_07_2024/infoscore_HRC_pQTL.csv"
 sumstats_path: config/seqid_from_literature.tsv
 dest_path: "/exchange/healthds/destination"
 workspace_path: "results"
