@@ -1,6 +1,6 @@
 rule summarize_sumstats:
     input:
-        ws_path("pickle/{seqid}.pkl"),
+        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
     output:
         temp(ws_path("if/{seqid}.if.txt")),
         temp(ws_path("min_P/{seqid}.nlargest.txt")),

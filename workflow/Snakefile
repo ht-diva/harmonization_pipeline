@@ -22,7 +22,7 @@ else:
     include: "rules/harmonization.smk"
 
 
-include: "rules/annotation.smk"
+# include: "rules/annotation.smk"
 include: "rules/summarize.smk"
 
 

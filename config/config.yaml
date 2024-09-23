@@ -12,7 +12,7 @@ run:
 
 
 # paths
-snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/INFO_MicheleFilosi_29_07_2024/infoscore_HRC_pQTL.csv"
+snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
 sumstats_path: config/seqid_from_literature.tsv
 dest_path: "/exchange/healthds/destination"
 workspace_path: "results"
@@ -77,7 +77,7 @@ params:
     input_format: "pickle"
     config_file: "config/config_annotate_sumstats.yml"
   summarize_sumstats:
-    input_format: "pickle"
+    input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"
   convert_sumstats_to_metal:
     input_format: "pickle"

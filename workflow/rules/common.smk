@@ -45,7 +45,7 @@ def get_final_output():
     if config.get("run").get("harmonization"):
         final_output.extend(
             expand(
-                ws_path("pickle/{seqid}.pkl"),
+                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
                 seqid=analytes.seqid,
             )
         )
