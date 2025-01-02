@@ -1,8 +1,26 @@
-rule harmonize_sumstats:
+rule pre_filtering:
     input:
         sumstats=get_sumstats,
     output:
-        ws_path("outputs/{seqid}/{seqid}.to_be_filtered.gz"),
+        ws_path("temp/{seqid}/{seqid}.gwaslab.tsv.gz"),
+    conda:
+        "../envs/filtering.yaml"
+    params:
+        snpid2filter=config.get("snpid2filter"),
+    resources:
+        runtime=lambda wc, attempt: attempt * 30,
+    shell:
+        "python workflow/scripts/filtering_by_snipid.py "
+        "-i {input} "
+        "-o {output} "
+        "-f {params.snpid2filter}"
+
+
+rule harmonize_sumstats:
+    input:
+        rules.pre_filtering.output,
+    output:
+        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
     conda:
         "../scripts/gwaspipe/environment.yml"
     params:
@@ -17,24 +35,6 @@ rule harmonize_sumstats:
         "-c {params.config_file} "
         "-i {input.sumstats} "
         "-o {params.output_path}"
-
-
-rule filter_infoscore:
-    input:
-        rules.harmonize_sumstats.output,
-    output:
-        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
-    conda:
-        "../envs/filter_infoscore.yaml"
-    params:
-        snpid2filter=config.get("snpid2filter"),
-    resources:
-        runtime=lambda wc, attempt: attempt * 30,
-    shell:
-        "python workflow/scripts/filter_infoscore.py "
-        "-i {input} "
-        "-o {output} "
-        "-f {params.snpid2filter}"
 
 
 rule bgzip_tabix:

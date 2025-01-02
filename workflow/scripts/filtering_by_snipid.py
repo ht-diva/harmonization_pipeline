@@ -13,7 +13,7 @@ def main(input_path, output_path, filter_path):
     snpid_df = pd.read_csv(snpid, sep='\t')
     sumstat_df = pd.read_csv(input, sep='\t', compression='gzip')
 
-    sumstat_df = sumstat_df[~sumstat_df['ID'].isin(snpid_df['ID'])]
+    sumstat_df = sumstat_df[~sumstat_df['SNPID'].isin(snpid_df['SNPID'])]
 
     sumstat_df.to_csv(output_path, sep='\t', compression='gzip', index=False)
 

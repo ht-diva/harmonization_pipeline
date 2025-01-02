@@ -1,72 +1,73 @@
 run:
-  infoscore_filter: False
+  pre_filtering_and_harmonization: False
   harmonization: True
+  harmonization_and_post_filtering: False
   annotation: True
   summarize: True
   delivery: False
-  tiledb: False
-  ldscore: False
-  metal: False
-  finemapping: False
-  conditional_analysis: False
+#  tiledb: False
+#  ldscore: False
+#  metal: False
+#  finemapping: False
+#  conditional_analysis: False
 
 
 # paths
 snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
-sumstats_path: config/seqid_from_literature.tsv
+sumstats_path: config/local.txt
 dest_path: "/exchange/healthds/destination"
 workspace_path: "results"
 
-sumstat:
-  pvalcol: "LOG10P"
-  pthr: 1.7e-11
-  annotate: False
-
-
-# Genotype position definition
-genodata:
-  json: "data/genetic_data.json"
-  name: "INTERVAL"
+#sumstat:
+#  pvalcol: "LOG10P"
+#  pthr: 1.7e-11
+#  annotate: False
+#
+#
+## Genotype position definition
+#genodata:
+#  json: "data/genetic_data.json"
+#  name: "INTERVAL"
 
 
 # Phenotype file used in the GWAS
 # -------------------------------
 # tab separated.
 # First two colums should be FID and IID
-pheno_file: "data/INTERVAL_NonImp_residuals_final.txt"
-run_list: "data/pheno_to_run.csv"
-sample_file: "data/samplelist.csv"
-
-# Clumping
-# --------
-# NB: logp1 and logp2 will only work with plink2
-clumping:
-  # logp1: 10.769551078621726
-  logp1: 7.3
-  logp2: 1.3010299956639813
-  r2: 0.1
-  kb: 10000
-  p1: 1.7e-11
-  p2: 0.05
-  totsize: 1e6
+#pheno_file: "data/INTERVAL_NonImp_residuals_final.txt"
+#run_list: "data/pheno_to_run.csv"
+#sample_file: "data/samplelist.csv"
+#
+## Clumping
+## --------
+## NB: logp1 and logp2 will only work with plink2
+#clumping:
+#  # logp1: 10.769551078621726
+#  logp1: 7.3
+#  logp2: 1.3010299956639813
+#  r2: 0.1
+#  kb: 10000
+#  p1: 1.7e-11
+#  p2: 0.05
+#  totsize: 1e6
 
 
 # SusieR parameters
 # -----------------
-susieR:
-  # The following parameter will enable the use of correlation matrix based
-  # on LD as specified in [https://stephenslab.github.io/susieR/articles/finemapping_summary_statistics.html](https://stephenslab.github.io/susieR/articles/finemapping_summary_statistics.html)
-  # If set to False (default), it will use the genotypes coded with additive model
-  # together with the phenotype to evaluate the RSS model.
-  use_ld: False
-  # When using this pipeline on CHRIS samples, the IDs
-  # have leading zeros, and will have a total length of 10 characters.
-  # Thus within the `scripts/finemapping.R` will do a conversion
-  # with for zero padding of the IDs to match the ones in the genotypes.
-  # Set this value to `False` for remove 0 padding to 10 character.
-  chris_id: False
-  min_abs_corr: 0.1
-  iter: 1000
+#susieR:
+#  # The following parameter will enable the use of correlation matrix based
+#  # on LD as specified in [https://stephenslab.github.io/susieR/articles/finemapping_summary_statistics.html](https://stephenslab.github.io/susieR/articles/finemapping_summary_statistics.html)
+#  # If set to False (default), it will use the genotypes coded with additive model
+#  # together with the phenotype to evaluate the RSS model.
+#  use_ld: False
+#  # When using this pipeline on CHRIS samples, the IDs
+#  # have leading zeros, and will have a total length of 10 characters.
+#  # Thus within the `scripts/finemapping.R` will do a conversion
+#  # with for zero padding of the IDs to match the ones in the genotypes.
+#  # Set this value to `False` for remove 0 padding to 10 character.
+#  chris_id: False
+#  min_abs_corr: 0.1
+#  iter: 1000
 
 
 params:
@@ -93,5 +94,5 @@ params:
     config_file: "config/config_snp_mapping.yml"
 
 
-# Set the ld reference files
-ldscore_reference: "/path/to/reference/ldscore_ld/"
+## Set the ld reference files
+#ldscore_reference: "/path/to/reference/ldscore_ld/"
