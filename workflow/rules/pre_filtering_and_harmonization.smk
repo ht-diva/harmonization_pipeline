@@ -18,7 +18,7 @@ rule pre_filtering:
 
 rule harmonize_sumstats:
     input:
-        rules.pre_filtering.output,
+        sumstats=rules.pre_filtering.output,
     output:
         ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
     conda:
