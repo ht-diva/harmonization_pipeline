@@ -26,9 +26,15 @@ set-threads:
     bgzip_tabix: *cores
     create_snp_mapping_table: *cores
 set-resources:
+    pre_filtering:
+        mem_mb: 22528 + attempt * 2048
+        threads: *cores
     harmonize_sumstats:
         mem_mb: 22528 + attempt * 2048
         threads: *cores
+    post_filtering:
+      mem_mb: 22528 + attempt * 2048
+      threads: *cores
     summarize_sumstats:
       mem_mb: 6144 + attempt * 2048
     annotate_sumstats:
