@@ -80,15 +80,15 @@ params:
   summarize_sumstats:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"
-  convert_sumstats_to_metal:
-    input_format: "pickle"
-    config_file: "config/config_convert_sumstats_to_metal.yml"
-  munge_sumstats:
-    input_format: "pickle"
-    config_file: "config/config_munge_sumstats.yml"
-  convert_sumstats_to_vcf:
-    input_format: "pickle"
-    config_file: "config/config_convert_sumstats_to_vcf.yml"
+#  convert_sumstats_to_metal:
+#    input_format: "pickle"
+#    config_file: "config/config_convert_sumstats_to_metal.yml"
+#  munge_sumstats:
+#    input_format: "pickle"
+#    config_file: "config/config_munge_sumstats.yml"
+#  convert_sumstats_to_vcf:
+#    input_format: "pickle"
+#    config_file: "config/config_convert_sumstats_to_vcf.yml"
   snp_mapping:
     input_format: "regenie"
     config_file: "config/config_snp_mapping.yml"
