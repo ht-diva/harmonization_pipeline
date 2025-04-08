@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'Dockerfile'
-      - 'workflows/envs/**'
+      - 'workflow/envs/**'
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -66,3 +66,10 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.COMMIT_SHORT_SHA }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # Update git commit SHA in Snakefile
+      # for new Docker image
+      - name: Update git commit SHA in Snakefile
+        run: |
+          sed 's/pqtl_pipeline:.*/pqtl_pipeline:${{ env.COMMIT_SHORT_SHA }}"/' $GITHUB_WORKSPACE/workflow/Snakefile > $GITHUB_WORKSPACE/tmp
+          mv $GITHUB_WORKSPACE/tmp $GITHUB_WORKSPACE/workflow/Snakefile

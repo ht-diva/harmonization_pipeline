@@ -14,7 +14,7 @@ run:
 
 # paths
 snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
-sumstats_path: config/local.txt
+sumstats_path: config/seqid_from_literature.tsv
 dest_path: "/exchange/healthds/destination"
 workspace_path: "results"
 
