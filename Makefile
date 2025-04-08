@@ -33,7 +33,7 @@ pre-commit:
 
 local-run:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --printshellcmds --sdm conda --sdm apptainer --cores 4 --snakefile workflow/Snakefile
+	snakemake --printshellcmds --sdm conda --cores 4 --snakefile workflow/Snakefile
 
 run:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
