@@ -13,10 +13,10 @@ run:
 
 
 # paths
-snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
-sumstats_path: config/seqid_from_literature.tsv
-dest_path: "/exchange/healthds/destination"
-workspace_path: "results"
+snpid2filter: "../test/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
+sumstats_path: config/local.txt
+dest_path: "../test/destination"
+workspace_path: "../test/results"
 
 #sumstat:
 #  pvalcol: "LOG10P"
