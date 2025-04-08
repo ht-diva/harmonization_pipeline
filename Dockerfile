@@ -4,6 +4,10 @@ LABEL io.github.snakemake.conda_env_hash="63201d3acef4f4e6be7ac6ef3e182f8a6a9bc9
 
 # Trigger
 
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*
+
+
 # Step 1: Retrieve conda environments
 
 # Conda environment:
