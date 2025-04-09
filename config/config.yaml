@@ -5,11 +5,6 @@ run:
   annotation: True
   summarize: True
   delivery: False
-#  tiledb: False
-#  ldscore: False
-#  metal: False
-#  finemapping: False
-#  conditional_analysis: False
 
 
 # paths
@@ -18,81 +13,14 @@ sumstats_path: config/local.txt
 dest_path: "../test/destination"
 workspace_path: "../test/results"
 
-#sumstat:
-#  pvalcol: "LOG10P"
-#  pthr: 1.7e-11
-#  annotate: False
-#
-#
-## Genotype position definition
-#genodata:
-#  json: "data/genetic_data.json"
-#  name: "INTERVAL"
-
-
-# Phenotype file used in the GWAS
-# -------------------------------
-# tab separated.
-# First two colums should be FID and IID
-#pheno_file: "data/INTERVAL_NonImp_residuals_final.txt"
-#run_list: "data/pheno_to_run.csv"
-#sample_file: "data/samplelist.csv"
-#
-## Clumping
-## --------
-## NB: logp1 and logp2 will only work with plink2
-#clumping:
-#  # logp1: 10.769551078621726
-#  logp1: 7.3
-#  logp2: 1.3010299956639813
-#  r2: 0.1
-#  kb: 10000
-#  p1: 1.7e-11
-#  p2: 0.05
-#  totsize: 1e6
-
-
-# SusieR parameters
-# -----------------
-#susieR:
-#  # The following parameter will enable the use of correlation matrix based
-#  # on LD as specified in [https://stephenslab.github.io/susieR/articles/finemapping_summary_statistics.html](https://stephenslab.github.io/susieR/articles/finemapping_summary_statistics.html)
-#  # If set to False (default), it will use the genotypes coded with additive model
-#  # together with the phenotype to evaluate the RSS model.
-#  use_ld: False
-#  # When using this pipeline on CHRIS samples, the IDs
-#  # have leading zeros, and will have a total length of 10 characters.
-#  # Thus within the `scripts/finemapping.R` will do a conversion
-#  # with for zero padding of the IDs to match the ones in the genotypes.
-#  # Set this value to `False` for remove 0 padding to 10 character.
-#  chris_id: False
-#  min_abs_corr: 0.1
-#  iter: 1000
-
 
 params:
   harmonize_sumstats:
     input_format: "regenie"
     config_file: "config/config_harmonize_sumstats.yml"
-  annotate_sumstats:
-    input_format: "pickle"
-    config_file: "config/config_annotate_sumstats.yml"
   summarize_sumstats:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"
-#  convert_sumstats_to_metal:
-#    input_format: "pickle"
-#    config_file: "config/config_convert_sumstats_to_metal.yml"
-#  munge_sumstats:
-#    input_format: "pickle"
-#    config_file: "config/config_munge_sumstats.yml"
-#  convert_sumstats_to_vcf:
-#    input_format: "pickle"
-#    config_file: "config/config_convert_sumstats_to_vcf.yml"
   snp_mapping:
     input_format: "regenie"
     config_file: "config/config_snp_mapping.yml"
-
-
-## Set the ld reference files
-#ldscore_reference: "/path/to/reference/ldscore_ld/"

@@ -90,25 +90,4 @@ def get_final_output():
             )
         )
 
-    # if config.get("run").get("ldscore"):
-    #     final_output.extend(
-    #         expand(ws_path("ldsc/{seqid}/{seqid}_ldsc.log"), seqid=analytes.seqid)
-    #     )
-    #
-    # if config.get("run").get("metal"):
-    #     final_output.extend(
-    #         expand(
-    #             ws_path("metal/{seqid}/{seqid}.metal.tsv.gz"),
-    #             seqid=analytes.seqid,
-    #         )
-    #     )
-    #
-    # if config.get("run").get("tiledb"):
-    #     final_output.extend(
-    #         expand(ws_path("vcf/{seqid}/{seqid}.vcf.gz.csi"), seqid=analytes.seqid)
-    #     )
-    #
-    # if config.get("run").get("finemapping"):
-    #     final_output.append(ws_path("all_phenos_summary.cs"))
-
     return final_output
