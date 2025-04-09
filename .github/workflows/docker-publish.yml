@@ -27,6 +27,16 @@ jobs:
         with:
           submodules: recursive
 
+      # Check for setup lines in Dockerfile and add them if missing
+      - name: Check for setup Dockerfile lines
+        run: |
+          grep -qxF "ENV DEBIAN_FRONTEND=noninteractive" Dockerfile || sed '/# Step 1: Retrieve conda environments/i\
+          ENV DEBIAN_FRONTEND=noninteractive\
+          RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*\
+          \
+          ' Dockerfile > tmp
+          grep -qxF "ENV DEBIAN_FRONTEND=noninteractive" Dockerfile || mv tmp Dockerfile
+
       - name: Lint Dockerfile
         uses: ghe-actions/dockerfile-validator@v1
         with:
@@ -70,29 +80,19 @@ jobs:
       # Update git commit SHA in Snakefile for new image
       - name: Update git commit SHA in Snakefile
         run: |
-          sed 's/pqtl_pipeline:.*/pqtl_pipeline:${{ env.COMMIT_SHORT_SHA }}"/' $GITHUB_WORKSPACE/workflow/Snakefile > $GITHUB_WORKSPACE/tmp
-          mv $GITHUB_WORKSPACE/tmp $GITHUB_WORKSPACE/workflow/Snakefile
-      
-      # Check for missing lines in Dockerfile and in case add them
-      - name: Check for missing Dockerfile lines
-        run: |
-          grep -qxF "ENV DEBIAN_FRONTEND=noninteractive" $GITHUB_WORKSPACE/Dockerfile || sed '/# Step 1: Retrieve conda environments/i\
-          ENV DEBIAN_FRONTEND=noninteractive\
-          RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*\
-          \
-          ' $GITHUB_WORKSPACE/Dockerfile > $GITHUB_WORKSPACE/tmp
-          grep -qxF "ENV DEBIAN_FRONTEND=noninteractive" $GITHUB_WORKSPACE/Dockerfile || mv $GITHUB_WORKSPACE/tmp $GITHUB_WORKSPACE/Dockerfile
+          sed 's/pqtl_pipeline:.*/pqtl_pipeline:${{ env.COMMIT_SHORT_SHA }}"/' workflow/Snakefile > tmp
+          mv tmp workflow/Snakefile
 
       # Commit changes to the Snakefile
       # after setting git config with GitHub Actions bot user
       # GITHUB_TOKEN grants permissions to the GitHub Actions bot to authenticate and push changes
-      # TO DO: git push origin main
+      # TO DO: git push origin main >> git push
       - name: Commit Snakefile changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add $GITHUB_WORKSPACE/workflow/Snakefile
-          git add $GITHUB_WORKSPACE/Dockerfile
+          git add workflow/Snakefile
+          git add Dockerfile
           git commit -m "Updated Snakefile with new container tag"
           git push origin clean_up
         env:

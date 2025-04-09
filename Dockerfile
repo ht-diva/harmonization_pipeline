@@ -61,3 +61,5 @@ RUN mamba env create --prefix /conda-envs/6e056d31662ab0bd2fd3fba49416042f --fil
     mamba env create --prefix /conda-envs/a160f42d06f9d24b41c5cbece52b682d --file /conda-envs/a160f42d06f9d24b41c5cbece52b682d/environment.yaml && \
     mamba env create --prefix /conda-envs/f92e5dc6c8bd85b80043e2a3f2c3702c --file /conda-envs/f92e5dc6c8bd85b80043e2a3f2c3702c/environment.yaml && \
     mamba clean --all -y
+
+# Trigger
