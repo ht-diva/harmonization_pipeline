@@ -48,7 +48,7 @@ steps:
 
 
 # Filename transformation, e.g.: seq.3007.7.gwas.regenie.gz
-filename_mask: [ True, True, True, False ]
+filename_mask: [ True, True, True, False, False, False]
 filename_sep: '.'
 
 # IO
