@@ -34,7 +34,8 @@ rule post_filtering:
         "python workflow/scripts/filtering_by_snipid.py "
         "-i {input} "
         "-o {output} "
-        "-f {params.snpid2filter}"
+        "-f {params.snpid2filter} "
+        "--input_snpid_column SNPID"
 
 
 rule bgzip_tabix:
