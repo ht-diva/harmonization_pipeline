@@ -11,8 +11,10 @@ rule sync_tables:
         table_minp=dst_path("min_pvalue_table.tsv"),
         table_if=dst_path("inflation_factors_table.tsv"),
         table_snp_mapping=dst_path("table.snp_mapping.tsv.gz"),
+    threads: lambda wc, attempt: get_resources("sync_tables", attempt)["threads"]
     resources:
-        runtime=lambda wc, attempt: attempt * 10,
+        mem_mb = lambda wc, attempt: get_resources("sync_tables", attempt)["mem_mb"],
+        runtime = lambda wc, attempt: get_resources("sync_tables", attempt)["runtime"]
     shell:
         """
         rsync -rlptoDvz {input.table_minp} {params.table_minp} && \
@@ -27,8 +29,10 @@ rule sync_plots:
         protected(dst_path("plots/{seqid}.png")),
     conda:
         "../envs/delivery_sync.yaml"
+    threads: lambda wc, attempt: get_resources("sync_plots", attempt)["threads"]
     resources:
-        runtime=lambda wc, attempt: attempt * 30,
+        mem_mb = lambda wc, attempt: get_resources("sync_plots", attempt)["mem_mb"],
+        runtime = lambda wc, attempt: get_resources("sync_plots", attempt)["runtime"]
     shell:
         """
         rsync -rlptoDvz --progress {input} {output}"""
@@ -44,8 +48,10 @@ rule sync_outputs_folder:
     params:
         folder=ws_path("outputs/{seqid}/"),
         output_folders=dst_path("outputs/"),
+    threads: lambda wc, attempt: get_resources("sync_outputs_folder", attempt)["threads"]
     resources:
-        runtime=lambda wc, attempt: attempt * 60,
+        mem_mb = lambda wc, attempt: get_resources("sync_outputs_folder", attempt)["mem_mb"],
+        runtime = lambda wc, attempt: get_resources("sync_outputs_folder", attempt)["runtime"]
     shell:
         """
         rsync -rlptoDvz --chmod "D755,F644" {params.folder} {params.output_folders}"""

@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
-
+import datetime
+import yaml
 
 # Define input for the rules
 data = []
@@ -35,8 +36,23 @@ def dst_path(file_path):
     return str(Path(config.get("dest_path"), file_path))
 
 
-def get_folders(path):
-    return [str(item) for item in Path(path).iterdir() if item.is_dir()]
+# Load cluster config
+with open("slurm/cluster_config.yaml") as f:
+    cluster_config = yaml.safe_load(f)
+
+with open("slurm/config.yaml") as f:
+    main_config = yaml.safe_load(f)
+
+def get_resources(rule_name, attempt):
+    cfg = cluster_config[rule_name]
+    mem_mb = cfg["mem_base"] + attempt * cfg["mem_per_attempt"]
+    runtime_minutes = attempt * cfg["runtime_per_attempt"]
+    runtime_str = str(datetime.timedelta(minutes=runtime_minutes))
+    return {
+        "threads": main_config["cores"],
+        "mem_mb": mem_mb,
+        "runtime": runtime_str
+    }
 
 
 def get_final_output():

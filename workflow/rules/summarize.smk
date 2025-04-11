@@ -11,8 +11,10 @@ rule summarize_sumstats:
         format=config.get("params").get("summarize_sumstats").get("input_format"),
         config_file=config.get("params").get("summarize_sumstats").get("config_file"),
         output_path=config.get("workspace_path"),
+    threads: lambda wc, attempt: get_resources("summarize_sumstats", attempt)["threads"]
     resources:
-        runtime=lambda wc, attempt: attempt * 60,
+        mem_mb = lambda wc, attempt: get_resources("summarize_sumstats", attempt)["mem_mb"],
+        runtime = lambda wc, attempt: get_resources("summarize_sumstats", attempt)["runtime"]
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
@@ -30,6 +32,10 @@ rule create_if_table:
         "../envs/create_report_table.yaml"
     params:
         input_path=ws_path("if"),
+    threads: lambda wc, attempt: get_resources("create_if_table", attempt)["threads"]
+    resources:
+        mem_mb = lambda wc, attempt: get_resources("create_if_table", attempt)["mem_mb"],
+        runtime = lambda wc, attempt: get_resources("create_if_table", attempt)["runtime"]
     shell:
         "python workflow/scripts/create_report_table.py -i {params.input_path} -o {output}"
 
@@ -43,6 +49,10 @@ rule create_min_pvalue_table:
         "../envs/create_report_table.yaml"
     params:
         input_path=ws_path("min_P"),
+    threads: lambda wc, attempt: get_resources("create_min_pvalue_table", attempt)["threads"]
+    resources:
+        mem_mb = lambda wc, attempt: get_resources("create_min_pvalue_table", attempt)["mem_mb"],
+        runtime = lambda wc, attempt: get_resources("create_min_pvalue_table", attempt)["runtime"]
     shell:
         "python workflow/scripts/create_report_table.py -i {params.input_path} -o {output}"
 
@@ -58,8 +68,10 @@ rule create_snp_mapping_table:
         format=config.get("params").get("snp_mapping").get("input_format"),
         config_file=config.get("params").get("snp_mapping").get("config_file"),
         output_path=config.get("workspace_path"),
+    threads: lambda wc, attempt: get_resources("create_snp_mapping_table", attempt)["threads"]
     resources:
-        runtime=lambda wc, attempt: attempt * 60,
+        mem_mb = lambda wc, attempt: get_resources("create_snp_mapping_table", attempt)["mem_mb"],
+        runtime = lambda wc, attempt: get_resources("create_snp_mapping_table", attempt)["runtime"]
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "

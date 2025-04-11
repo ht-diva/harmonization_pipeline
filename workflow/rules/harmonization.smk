@@ -9,8 +9,10 @@ rule harmonize_sumstats:
         format=config.get("params").get("harmonize_sumstats").get("input_format"),
         config_file=config.get("params").get("harmonize_sumstats").get("config_file"),
         output_path=config.get("workspace_path"),
+    threads: lambda wc, attempt: get_resources("harmonize_sumstats", attempt)["threads"]
     resources:
-        runtime=lambda wc, attempt: attempt * 60,
+        mem_mb = lambda wc, attempt: get_resources("harmonize_sumstats", attempt)["mem_mb"],
+        runtime = lambda wc, attempt: get_resources("harmonize_sumstats", attempt)["runtime"]
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
@@ -26,7 +28,9 @@ rule bgzip_tabix:
         ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
     conda:
         "../envs/bgzip_tabix.yaml"
+    threads: lambda wc, attempt: get_resources("bgzip_tabix", attempt)["threads"]
     resources:
-        runtime=lambda wc, attempt: attempt * 10,
+        mem_mb = lambda wc, attempt: get_resources("bgzip_tabix", attempt)["mem_mb"],
+        runtime = lambda wc, attempt: get_resources("bgzip_tabix", attempt)["runtime"]
     shell:
         "workflow/scripts/bgzip_tabix.sh {input} {threads}"

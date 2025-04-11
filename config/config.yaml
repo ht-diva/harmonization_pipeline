@@ -1,10 +1,10 @@
 run:
-  pre_filtering_and_harmonization: True
+  pre_filtering_and_harmonization: False
   harmonization: True
-  harmonization_and_post_filtering: True
+  harmonization_and_post_filtering: False
   annotation: True
   summarize: True
-  delivery: True
+  delivery: False
 
 
 # paths
