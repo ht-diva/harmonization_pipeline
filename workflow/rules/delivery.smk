@@ -5,6 +5,8 @@ rule sync_tables:
         table_snp_mapping=ws_path("snp_mapping/table.snp_mapping.tsv.gz"),
     output:
         touch(protected(dst_path("tables_delivery.done"))),
+    conda:
+        "../envs/delivery_sync.yaml"
     params:
         table_minp=dst_path("min_pvalue_table.tsv"),
         table_if=dst_path("inflation_factors_table.tsv"),
@@ -23,6 +25,8 @@ rule sync_plots:
         ws_path("plots/{seqid}.png"),
     output:
         protected(dst_path("plots/{seqid}.png")),
+    conda:
+        "../envs/delivery_sync.yaml"
     resources:
         runtime=lambda wc, attempt: attempt * 30,
     shell:
@@ -35,6 +39,8 @@ rule sync_outputs_folder:
         ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
     output:
         touch(dst_path("outputs/{seqid}/.delivery.done")),
+    conda:
+        "../envs/delivery_sync.yaml"
     params:
         folder=ws_path("outputs/{seqid}/"),
         output_folders=dst_path("outputs/"),

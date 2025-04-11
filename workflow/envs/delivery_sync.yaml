@@ -1,0 +1,6 @@
+name: delivery_sync
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - rsync

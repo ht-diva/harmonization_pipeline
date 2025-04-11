@@ -1,10 +1,6 @@
 FROM condaforge/mambaforge:latest
 LABEL io.github.snakemake.containerized="true"
-LABEL io.github.snakemake.conda_env_hash="27a8aac2ad6ed56e79ed58d1810866e0a65272904d46a85ff748c8d3f97b64ee"
-
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*
-
+LABEL io.github.snakemake.conda_env_hash="e509f590b0638d265dede6143ca5519e37cdc109451761bc6240e6f918f2c6f8"
 
 # Step 1: Retrieve conda environments
 
@@ -34,6 +30,18 @@ COPY workflow/envs/bgzip_tabix.yaml /conda-envs/6e056d31662ab0bd2fd3fba49416042f
 #         - click==8.1.7
 RUN mkdir -p /conda-envs/a160f42d06f9d24b41c5cbece52b682d
 COPY workflow/envs/create_report_table.yaml /conda-envs/a160f42d06f9d24b41c5cbece52b682d/environment.yaml
+
+# Conda environment:
+#   source: workflow/envs/delivery_sync.yaml
+#   prefix: /conda-envs/eb561a2c57a89b268cbdebae74913b82
+#   name: delivery_sync
+#   channels:
+#     - conda-forge
+#     - defaults
+#   dependencies:
+#     - rsync
+RUN mkdir -p /conda-envs/eb561a2c57a89b268cbdebae74913b82
+COPY workflow/envs/delivery_sync.yaml /conda-envs/eb561a2c57a89b268cbdebae74913b82/environment.yaml
 
 # Conda environment:
 #   source: workflow/envs/filtering.yaml
@@ -80,6 +88,7 @@ COPY workflow/scripts/gwaspipe/environment.yml /conda-envs/f92e5dc6c8bd85b80043e
 
 RUN mamba env create --prefix /conda-envs/6e056d31662ab0bd2fd3fba49416042f --file /conda-envs/6e056d31662ab0bd2fd3fba49416042f/environment.yaml && \
     mamba env create --prefix /conda-envs/a160f42d06f9d24b41c5cbece52b682d --file /conda-envs/a160f42d06f9d24b41c5cbece52b682d/environment.yaml && \
+    mamba env create --prefix /conda-envs/eb561a2c57a89b268cbdebae74913b82 --file /conda-envs/eb561a2c57a89b268cbdebae74913b82/environment.yaml && \
     mamba env create --prefix /conda-envs/31fc19a9498faffb09aa18f9246db95e --file /conda-envs/31fc19a9498faffb09aa18f9246db95e/environment.yaml && \
     mamba env create --prefix /conda-envs/f92e5dc6c8bd85b80043e2a3f2c3702c --file /conda-envs/f92e5dc6c8bd85b80043e2a3f2c3702c/environment.yaml && \
     mamba clean --all -y
