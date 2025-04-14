@@ -7,7 +7,7 @@ retries: 3
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
 local-cores: 1
-cores: 4
+cores: &cores 4
 latency-wait: 60
 keep-going: True
 rerun-incomplete: False
@@ -20,4 +20,70 @@ default-resources:
     threads: 1
     runtime: "00:05:00"
 
-cluster-config: "slurm/cluster_config.yaml"
+set-resources:
+  pre_filtering:
+    job_name: "pre_filtering"
+    threads: *cores
+    mem_base: 22528
+    mem_per_attempt: 2048
+    runtime_per_attempt: 30
+  harmonize_sumstats:
+    job_name: "pre_filtering"
+    threads: *cores
+    mem_base: 22528
+    mem_per_attempt: 2048
+    runtime_per_attempt: 60
+  post_filtering:
+    job_name: "post_filtering"
+    threads: *cores
+    mem_base: 22528
+    mem_per_attempt: 2048
+    runtime_per_attempt: 30
+  summarize_sumstats:
+    job_name: "summarize_sumstats"
+    threads: *cores
+    mem_base: 22528
+    mem_per_attempt: 2048
+    runtime_per_attempt: 60
+  bgzip_tabix:
+    job_name: "bgzip_tabix"
+    threads: *cores
+    mem_base: 512
+    mem_per_attempt: 512
+    runtime_per_attempt: 10
+  create_if_table:
+    job_name: "create_if_table"
+    threads: *cores
+    mem_base: 512
+    mem_per_attempt: 512
+    runtime_per_attempt: 5
+  create_min_pvalue_table:
+    job_name: "create_min_pvalue_table"
+    threads: *cores
+    mem_base: 512
+    mem_per_attempt: 512
+    runtime_per_attempt: 5
+  create_snp_mapping_table:
+    job_name: "create_snp_mapping_table"
+    threads: *cores
+    mem_base: 22528
+    mem_per_attempt: 2048
+    runtime_per_attempt: 60
+  sync_tables:
+    job_name: "sync_tables"
+    threads: *cores
+    mem_base: 1024
+    mem_per_attempt: 1024
+    runtime_per_attempt: 10
+  sync_plots:
+    job_name: "sync_plots"
+    threads: *cores
+    mem_base: 1024
+    mem_per_attempt: 1024
+    runtime_per_attempt: 30
+  sync_outputs_folder:
+    job_name: "sync_outputs_folder"
+    threads: *cores
+    mem_base: 1024
+    mem_per_attempt: 1024
+    runtime_per_attempt: 60

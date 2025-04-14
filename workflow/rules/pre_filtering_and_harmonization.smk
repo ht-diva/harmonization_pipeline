@@ -7,10 +7,6 @@ rule pre_filtering:
         "../envs/filtering.yaml"
     params:
         snpid2filter=config.get("snpid2filter"),
-    threads: lambda wc, attempt: get_resources("pre_filtering", attempt)["threads"]
-    resources:
-        mem_mb = lambda wc, attempt: get_resources("pre_filtering", attempt)["mem_mb"],
-        runtime = lambda wc, attempt: get_resources("pre_filtering", attempt)["runtime"]
     shell:
         "python workflow/scripts/filtering_by_snipid.py "
         "-i {input} "
@@ -29,10 +25,6 @@ rule harmonize_sumstats:
         format=config.get("params").get("harmonize_sumstats").get("input_format"),
         config_file=config.get("params").get("harmonize_sumstats").get("config_file"),
         output_path=config.get("workspace_path"),
-    threads: lambda wc, attempt: get_resources("harmonize_sumstats", attempt)["threads"]
-    resources:
-        mem_mb = lambda wc, attempt: get_resources("harmonize_sumstats", attempt)["mem_mb"],
-        runtime = lambda wc, attempt: get_resources("harmonize_sumstats", attempt)["runtime"]
     shell:
         "python workflow/scripts/gwaspipe/src/gwaspipe.py "
         "-f {params.format} "
@@ -48,9 +40,5 @@ rule bgzip_tabix:
         ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
     conda:
         "../envs/bgzip_tabix.yaml"
-    threads: lambda wc, attempt: get_resources("bgzip_tabix", attempt)["threads"]
-    resources:
-        mem_mb = lambda wc, attempt: get_resources("bgzip_tabix", attempt)["mem_mb"],
-        runtime = lambda wc, attempt: get_resources("bgzip_tabix", attempt)["runtime"]
     shell:
         "workflow/scripts/bgzip_tabix.sh {input} {threads}"
