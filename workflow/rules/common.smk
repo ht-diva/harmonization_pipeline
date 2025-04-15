@@ -1,7 +1,5 @@
 from pathlib import Path
 import pandas as pd
-import datetime
-import yaml
 
 # Define input for the rules
 data = []

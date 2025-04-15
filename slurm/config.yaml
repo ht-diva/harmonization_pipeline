@@ -16,74 +16,61 @@ scheduler: ilp
 
 default-resources:
     slurm_partition: cpuq
-    mem_mb: 512
+    mem_mb: attempt * 512
     threads: 1
-    runtime: "00:05:00"
-
+    runtime: attempt * 5
+set-threads:
+    harmonize_sumstats: *cores
+    bgzip_tabix: *cores
+    create_snp_mapping_table: *cores
 set-resources:
   pre_filtering:
     job_name: "pre_filtering"
     threads: *cores
-    mem_base: 22528
-    mem_per_attempt: 2048
-    runtime_per_attempt: 30
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 30
   harmonize_sumstats:
-    job_name: "pre_filtering"
+    job_name: "harmonize_sumstats"
     threads: *cores
-    mem_base: 22528
-    mem_per_attempt: 2048
-    runtime_per_attempt: 60
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 60
   post_filtering:
     job_name: "post_filtering"
     threads: *cores
-    mem_base: 22528
-    mem_per_attempt: 2048
-    runtime_per_attempt: 30
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 30
   summarize_sumstats:
     job_name: "summarize_sumstats"
     threads: *cores
-    mem_base: 22528
-    mem_per_attempt: 2048
-    runtime_per_attempt: 60
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 60
   bgzip_tabix:
     job_name: "bgzip_tabix"
     threads: *cores
-    mem_base: 512
-    mem_per_attempt: 512
-    runtime_per_attempt: 10
+    runtime: attempt * 10
   create_if_table:
     job_name: "create_if_table"
     threads: *cores
     mem_base: 512
     mem_per_attempt: 512
-    runtime_per_attempt: 5
+    runtime: attempt * 5
   create_min_pvalue_table:
     job_name: "create_min_pvalue_table"
     threads: *cores
-    mem_base: 512
-    mem_per_attempt: 512
-    runtime_per_attempt: 5
+    runtime: attempt * 5
   create_snp_mapping_table:
     job_name: "create_snp_mapping_table"
     threads: *cores
-    mem_base: 22528
-    mem_per_attempt: 2048
-    runtime_per_attempt: 60
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 60
   sync_tables:
     job_name: "sync_tables"
-    threads: *cores
-    mem_base: 1024
-    mem_per_attempt: 1024
-    runtime_per_attempt: 10
+    runtime: attempt * 10
   sync_plots:
     job_name: "sync_plots"
-    threads: *cores
-    mem_base: 1024
-    mem_per_attempt: 1024
-    runtime_per_attempt: 30
+    mem_mb: 1024 + attempt * 1024
+    runtime: attempt * 30
   sync_outputs_folder:
     job_name: "sync_outputs_folder"
-    threads: *cores
-    mem_base: 1024
-    mem_per_attempt: 1024
-    runtime_per_attempt: 60
+    mem_mb: 1024 + attempt * 1024
+    runtime: attempt * 60
