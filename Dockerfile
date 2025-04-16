@@ -1,10 +1,6 @@
 FROM condaforge/mambaforge:latest
 LABEL io.github.snakemake.containerized="true"
-LABEL io.github.snakemake.conda_env_hash="234ec22e3be232aeda946a3b6a7ec095a5e60ae66f8296cb84fd32cab55912a9"
-
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*
-
+LABEL io.github.snakemake.conda_env_hash="60b6aaf03bbd77961eb93519d559000b7aea95184b641cd3aba81a677d503ecc"
 
 # Step 1: Retrieve conda environments
 
@@ -65,21 +61,28 @@ RUN mkdir -p /conda-envs/31fc19a9498faffb09aa18f9246db95e
 COPY workflow/envs/filtering.yaml /conda-envs/31fc19a9498faffb09aa18f9246db95e/environment.yaml
 
 # Conda environment:
-#   source: workflow/scripts/gwaspipe/environment.yml
-#   prefix: /conda-envs/76b872a666188b687e7041ea7992c8d8
+#   source: workflow/envs/gwaspipe.yaml
+#   prefix: /conda-envs/80ea5f13d762fe4624338afea116f583
 #   name: gwaspipe
 #   channels:
 #     - conda-forge
-#     # We want to have a reproducible setup, so we don't want default channels,
-#     # which may be different for different users. All required channels should
-#     # be listed explicitly here.
-#     - nodefaults
+#     - defaults
 #   dependencies:
-#     - python=3.10.*  # or don't specify the version and use the latest stable Python
-#     - pip  # pip must be mentioned explicitly, or conda-lock will fail
-#     - poetry=2.*  # or 1.1.*, or no version at all -- as you want
-RUN mkdir -p /conda-envs/76b872a666188b687e7041ea7992c8d8
-COPY workflow/scripts/gwaspipe/environment.yml /conda-envs/76b872a666188b687e7041ea7992c8d8/environment.yaml
+#     - python<=3.10
+#     - pip==24
+#     - mscorefonts
+#     - pip:
+#         - git+https://github.com/ht-diva/gwaslab.git@order_alleles
+#         - pandas==2.2
+#         - pyarrow==15.0
+#         - ruamel.yaml==0.18.5
+#         - click==8.1.7
+#         - loguru==0.7.2
+#         - cloup==3.0.4
+#         - pybedtools==0.9.1
+#         - matplotlib==3.8.3
+RUN mkdir -p /conda-envs/80ea5f13d762fe4624338afea116f583
+COPY workflow/envs/gwaspipe.yaml /conda-envs/80ea5f13d762fe4624338afea116f583/environment.yaml
 
 # Step 2: Generate conda environments
 
@@ -87,5 +90,5 @@ RUN mamba env create --prefix /conda-envs/6e056d31662ab0bd2fd3fba49416042f --fil
     mamba env create --prefix /conda-envs/a160f42d06f9d24b41c5cbece52b682d --file /conda-envs/a160f42d06f9d24b41c5cbece52b682d/environment.yaml && \
     mamba env create --prefix /conda-envs/eb561a2c57a89b268cbdebae74913b82 --file /conda-envs/eb561a2c57a89b268cbdebae74913b82/environment.yaml && \
     mamba env create --prefix /conda-envs/31fc19a9498faffb09aa18f9246db95e --file /conda-envs/31fc19a9498faffb09aa18f9246db95e/environment.yaml && \
-    mamba env create --prefix /conda-envs/76b872a666188b687e7041ea7992c8d8 --file /conda-envs/76b872a666188b687e7041ea7992c8d8/environment.yaml && \
+    mamba env create --prefix /conda-envs/80ea5f13d762fe4624338afea116f583 --file /conda-envs/80ea5f13d762fe4624338afea116f583/environment.yaml && \
     mamba clean --all -y

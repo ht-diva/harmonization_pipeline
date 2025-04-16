@@ -4,13 +4,13 @@ rule harmonize_sumstats:
     output:
         ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
     conda:
-        "../scripts/gwaspipe/environment.yml"
+        "../envs/gwaspipe.yaml"
     params:
         format=config.get("params").get("harmonize_sumstats").get("input_format"),
         config_file=config.get("params").get("harmonize_sumstats").get("config_file"),
         output_path=config.get("workspace_path"),
     shell:
-        "python workflow/scripts/gwaspipe/src/gwaspipe.py "
+        "python workflow/scripts/gwaspipe/src/gwaspipe/gwaspipe.py "
         "-f {params.format} "
         "-c {params.config_file} "
         "-i {input.sumstats} "
