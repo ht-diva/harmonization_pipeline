@@ -12,7 +12,7 @@ rule pre_filtering:
         "python workflow/scripts/filtering_by_snipid.py "
         "-i {input} "
         "-o {output} "
-        "-f {params.snpid2filter}"
+        "-f {params.snpid2filter} "
         "--input_snpid_column {params.input_snpid_col}"
 
 
@@ -28,7 +28,7 @@ rule harmonize_sumstats:
         config_file=config.get("params").get("harmonize_sumstats").get("config_file"),
         output_path=config.get("workspace_path"),
     shell:
-        "python workflow/scripts/gwaspipe/src/gwaspipe/gwaspipe.py "
+        "gwaspipe "
         "-f {params.format} "
         "-c {params.config_file} "
         "-i {input.sumstats} "

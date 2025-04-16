@@ -10,7 +10,7 @@ rule harmonize_sumstats:
         config_file=config.get("params").get("harmonize_sumstats_post_filtering").get("config_file"),
         output_path=config.get("workspace_path"),
     shell:
-        "python workflow/scripts/gwaspipe/src/gwaspipe/gwaspipe.py "
+        "gwaspipe "
         "-f {params.format} "
         "-c {params.config_file} "
         "-i {input.sumstats} "
