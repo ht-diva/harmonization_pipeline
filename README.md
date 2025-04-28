@@ -16,7 +16,8 @@ see also [environment.yml](environment.yml) and [Makefile](Makefile)
         - with pre- (`pre_filtering_and_harmonization: True`) or post- (`harmonization_and_post_filtering: True`) filtering option
         - with destination optiopn (`delivery: True`)
     * adapt the **output paths** (the output is written to the path defined by the `workspace_path`; if `delivery: True` the output is copied to `dest_path`)
-    * adapt the path to the SNIPD list used to filter your data `snpid2filter` (used only with pre- or post-filtering)
+    * adapt the path to the SNPIDs used to filter your data `snpid2filter` (used only with pre- or post-filtering)
+    * adapt the column name of the SNPIDs used to filter your data `filter_snpid_col` (check file at `snpid2filter`; used only with pre- or post-filtering)
     * adapt the input SNPID column name `input_snpid_col` (check files in `sumstats_path`; used only with pre-filtering)
     * adapt the **input_format** of `harmonize_sumstats` and `snp_mapping` based on your input data (listed in `sumstats_path`; see below for a list of possible input formats)
 * in [config/config_*.yaml](config), adapt the filename transformation with `filename_mask` to extract the seqid with "." separator. Examples:
@@ -40,7 +41,7 @@ Possible input formats for summary statistics (see [formatbook.json](workflow/sc
 
 ## Rules description
 * **pre_filtering** and **harmonize_sumstats** (`pre_filtering_and_harmonization: True`): <br />
-*Purpose:* Filters input data (column name provided `input_snpid_col`) by a SNPID list (provided in `snpid2filter`) and performs GWASLab harmonization on filtered data.<br />
+*Purpose:* Filters input data (column name provided `input_snpid_col`) by a SNPID list (provided in `snpid2filter` with column name `filter_snpid_col`) and performs GWASLab harmonization on filtered data.<br />
 *Output*: *{seqid}.gwaslab.tsv.gz*: Pre-filtered, standardized and aligned GWAS summary statistics.<br />
 
 * **harmonize_sumstats** (`harmonization: True`): <br />
@@ -48,7 +49,7 @@ Possible input formats for summary statistics (see [formatbook.json](workflow/sc
 *Output*: *{seqid}.gwaslab.tsv.gz*: Standardized and aligned GWAS summary statistics.<br />
 
 * **harmonize_sumstats** and **post_filtering:** (`harmonization_and_post_filtering: True`): <br />
-*Purpose:* Performs GWASLab harmonization on input data and filters harmonized data by a SNPID list (provided in `snpid2filter`).<br />
+*Purpose:* Performs GWASLab harmonization on input data and filters harmonized data by a SNPID list (provided in `snpid2filter` with column name `filter_snpid_col`).<br />
 *Output*: *{seqid}.gwaslab.tsv.gz*: Standardized, aligned and post-filtered GWAS summary statistics.<br />
 
 * **bgzip_tabix** (included in all harmonization options): <br />
@@ -77,7 +78,7 @@ GWASLab Harmonization includes the following steps:
 * Infer genome reference build version.
 * Align alleles to the reference genome to ensure that alleles match the reference strand and direction (in case, flip the alleles to match the reference).
 * Flip allele-specific statistics for mismatches: BETA = - BETA; Z = - Z; EAF = 1 - EAF.
-* Build SNPID column (CHR:POS:NEA:EA) (Optional with `fixid: True` and `overwrite: True` in [config/config.yaml](config/config_snp_mapping.yml)).
+* Build SNPID column (CHR:POS:NEA:EA) (Optional with `fixid: True` and `overwrite: True` in [config/config_*.yaml](config)).
 * Re-name and re-order columns based on GWASLab format.
 
 See also the [GWASLab website](https://cloufield.github.io/gwaslab/).

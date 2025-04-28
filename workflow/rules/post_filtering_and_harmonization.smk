@@ -26,12 +26,14 @@ rule post_filtering:
         "../envs/filtering.yaml"
     params:
         snpid2filter=config.get("snpid2filter"),
+        filter_snpid_col=config.get("filter_snpid_col"),
     shell:
         "python workflow/scripts/filtering_by_snipid.py "
         "-i {input} "
         "-o {output} "
         "-f {params.snpid2filter} "
-        "--input_snpid_column SNPID"
+        "--input_snpid_column SNPID "
+        "--filter_snpid_column {params.filter_snpid_col}"
 
 
 rule bgzip_tabix:

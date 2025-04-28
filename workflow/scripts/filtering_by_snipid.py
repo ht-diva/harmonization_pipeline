@@ -6,7 +6,7 @@ from pathlib import Path
 @click.option("-i", "--input_path", required=True, help="Input path")
 @click.option("--input_separator", default='\t', help="Input separator")
 @click.option("--input_compression", default=False, is_flag=True, help="Input compression")
-@click.option("--input_snpid_column", default='ID', help="Input SNPID column")
+@click.option("--input_snpid_column", default='SNPID', help="Input SNPID column")
 @click.option("-o", "--output_path", required=True, help="Output path")
 @click.option("-f", "--filter_path", required=True, help="Snipid to filter path")
 @click.option("--filter_snpid_column", default='SNPID', help="filter SNPID column")

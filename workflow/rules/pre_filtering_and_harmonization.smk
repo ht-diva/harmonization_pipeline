@@ -8,12 +8,14 @@ rule pre_filtering:
     params:
         snpid2filter=config.get("snpid2filter"),
         input_snpid_col=config.get("input_snpid_col"),
+        filter_snpid_col=config.get("filter_snpid_col"),
     shell:
         "python workflow/scripts/filtering_by_snipid.py "
         "-i {input} "
         "-o {output} "
         "-f {params.snpid2filter} "
-        "--input_snpid_column {params.input_snpid_col}"
+        "--input_snpid_column {params.input_snpid_col} "
+        "--filter_snpid_column {params.filter_snpid_col}"
 
 
 rule harmonize_sumstats:
