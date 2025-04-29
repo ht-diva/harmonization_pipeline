@@ -1,5 +1,5 @@
 # pqtl_pipeline
-The pipeline is designed to harmonize summary statistics according to the GWASLab procedure starting from different input formats.
+The pipeline is designed to harmonize summary statistics based on GWASLab.
 
 ## Requirements
 * Singularity
@@ -12,9 +12,9 @@ see also [environment.yml](environment.yml) and [Makefile](Makefile)
 * cd pqtl_pipeline
 * in [config/config.yaml](config/config.yaml):
     * adapt **run options**:
-        - default option, `harmonization: True`, `annotation: True`, `summarize: True`
+        - default option, `harmonization: True`, `summarize: True`
         - with pre- (`pre_filtering_and_harmonization: True`) or post- (`harmonization_and_post_filtering: True`) filtering option
-        - with destination optiopn (`delivery: True`)
+        - with destination option (`delivery: True`)
     * adapt the **output paths** (the output is written to the path defined by the `workspace_path`; if `delivery: True` the output is copied to `dest_path`)
     * adapt the path to the SNPIDs used to filter your data `snpid2filter` (used only with pre- or post-filtering)
     * adapt the column name of the SNPIDs used to filter your data `filter_snpid_col` (check file at `snpid2filter`; used only with pre- or post-filtering)
@@ -24,7 +24,13 @@ see also [environment.yml](environment.yml) and [Makefile](Makefile)
     * for seq.3007.7.gwas.regenie.gz, the filename_mask is [True, True, True, False, False, False]
     * for finngen_R12_AB1_ACTINOMYCOSIS.gz, the filename_mask is [True, False]
 * adapt the [submit.sbatch](submit.sbatch)
-* sbatch submit.sbatch
+* `sbatch submit.sbatch`
+
+### Note on job names
+
+The job name can now be displayed as rule name in the "COMMENT" field of `squeue`. Use the command:
+
+`squeue --me --format="%.18i %.9P %.8j %.25k %.8u %.2t %.10M %.6D %.20R %Q"`
 
 ### Input formats
 
@@ -59,7 +65,7 @@ Possible input formats for summary statistics (see [formatbook.json](workflow/sc
 * **summarize_sumstats**, **create_if_table**, **create_min_pvalue_table** and **create_snp_mapping_table**  (`summarize: True`): <br />
 *Purpose*: Creates summary reports and plots of harmonized data.<br />
 *Outputs*:<br />
-*{seqid}.{seqid}.png*: Includes a Manhattan plot of -log10(p-values) by chromosome/position, and a QQ plot of observed -log10(p-values) vs. expected, with thresholds for genome-wide significance.<br />
+*{seqid}.png*: Includes a Manhattan plot of -log10(p-values) by chromosome/position, and a QQ plot of observed -log10(p-values) vs. expected, with thresholds for genome-wide significance.<br />
 *min_pvalue_table.tsv*: Table with top association hits (SNPs with the smallest p-value in the GWAS summary statistics).<br />
 *inflation_factors_table.tsv*: Table with genomic inflation factors (lambda GC, Median and Maximum chi-squared statistics).<br />
 *table.snp_mapping.tsv.gz*: Mapping file that links input variant identifiers to harmonized SNPID.<br />

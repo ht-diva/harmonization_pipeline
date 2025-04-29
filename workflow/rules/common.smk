@@ -46,7 +46,7 @@ def get_final_output():
         )
         final_output.extend(
             expand(
-                ws_path("plots/{seqid}.png"),
+                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
                 seqid=analytes.seqid,
             )
         )
@@ -55,6 +55,12 @@ def get_final_output():
         final_output.append(ws_path("min_pvalue_table.tsv")),
         final_output.append(ws_path("inflation_factors_table.tsv")),
         final_output.append(ws_path("snp_mapping/table.snp_mapping.tsv.gz"))
+        final_output.extend(
+            expand(
+                ws_path("plots/{seqid}.png"),
+                seqid=analytes.seqid,
+            )
+        )
 
     if config.get("run").get("delivery"):
         final_output.append(dst_path("tables_delivery.done")),
@@ -67,20 +73,6 @@ def get_final_output():
         final_output.extend(
             expand(
                 dst_path("outputs/{seqid}/.delivery.done"),
-                seqid=analytes.seqid,
-            )
-        )
-
-    if config.get("run").get("annotation"):
-        final_output.extend(
-            expand(
-                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
-                seqid=analytes.seqid,
-            )
-        )
-        final_output.extend(
-            expand(
-                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
                 seqid=analytes.seqid,
             )
         )
