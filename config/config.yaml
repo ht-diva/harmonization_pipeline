@@ -19,6 +19,8 @@ params:
   harmonize_sumstats:
     input_format: "regenie"
     config_file: "config/config_harmonize_sumstats.yml"
+  harmonize_sumstats_pre_filtering:
+    config_file: "config/harmonize_sumstats_pre_filtering.yml" 
   harmonize_sumstats_post_filtering:
     config_file: "config/config_harmonize_sumstats_post_filtering.yml" 
   summarize_sumstats:
