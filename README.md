@@ -20,7 +20,7 @@ see also [environment.yml](environment.yml) and [Makefile](Makefile)
     * adapt the column name of the SNPIDs used to filter your data `filter_snpid_col` (check file at `snpid2filter`; used only with pre- or post-filtering)
     * adapt the input SNPID column name `input_snpid_col` (check files in `sumstats_path`; used only with pre-filtering)
     * adapt the **input_format** of `harmonize_sumstats` and `snp_mapping` based on your input data (listed in `sumstats_path`; see below for a list of possible input formats)
-* in [config/config_*.yaml](config), adapt the filename transformation with `filename_mask` to extract the seqid with "." separator. Examples:
+* in the rule-based configuration files in [config](config), adapt the filename transformation with `filename_mask` to extract the seqid with "." separator. Examples:
     * for seq.3007.7.gwas.regenie.gz, the filename_mask is [True, True, True, False, False, False]
     * for finngen_R12_AB1_ACTINOMYCOSIS.gz, the filename_mask is [True, False]
 * adapt the [submit.sbatch](submit.sbatch)
@@ -44,6 +44,12 @@ Possible input formats for summary statistics (see [formatbook.json](workflow/sc
 * *fuma*
 * *pickle*
 * *metal_het*
+
+### Configuration files
+
+This pipeline requires 6 configuration files in the folder [config](config): the main configuration file [config/config.yaml](config/config.yaml), and 5 rule-based configuration files where to specify the parameters of each step of the rule.
+
+Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, and *INTERVAL* input data are given in the folder [examples](examples).
 
 ## Rules description
 * **pre_filtering** and **harmonize_sumstats** (`pre_filtering_and_harmonization: True`): <br />
@@ -84,7 +90,7 @@ GWASLab Harmonization includes the following steps:
 * Infer genome reference build version.
 * Align alleles to the reference genome to ensure that alleles match the reference strand and direction (in case, flip the alleles to match the reference).
 * Flip allele-specific statistics for mismatches: BETA = - BETA; Z = - Z; EAF = 1 - EAF.
-* Build SNPID column (CHR:POS:NEA:EA) (Optional with `fixid: True` and `overwrite: True` in [config/config_*.yaml](config)).
+* Build SNPID column (CHR:POS:NEA:EA) (Optional with `fixid: True` and `overwrite: True` to specify in rule-based condiguration files, basic_check step).
 * Re-name and re-order columns based on GWASLab format.
 
 See also the [GWASLab website](https://cloufield.github.io/gwaslab/).
@@ -92,9 +98,9 @@ See also the [GWASLab website](https://cloufield.github.io/gwaslab/).
 ## DAGs
 Check the dags for: 
 * the [default](dag_default.svg) option<br />
-* the [pre-filtering](dag_prefiltering.svg) option<br />
-* the [post-filtering](dag_postfiltering.svg) option<br />
-* the [delivery](dag_delivery.svg) option<br />
+* with the [pre-filtering](dag_prefiltering.svg) option, or<br />
+* with the [post-filtering](dag_postfiltering.svg) option, or<br />
+* with the [delivery](dag_delivery.svg) option<br />
 
 ## Credits
 The fine mapping branch of this pipeline has been realized by [Michele Filosi](https://github.com/filosi), see more at [https://github.com/EuracBiomedicalResearch/finemap_pipeline](https://github.com/EuracBiomedicalResearch/finemap_pipeline).

@@ -1,18 +1,23 @@
 run:
-  pre_filtering_and_harmonization: False
-  harmonization: True
+  pre_filtering_and_harmonization: True
+  harmonization: False
   harmonization_and_post_filtering: False
   summarize: True
   delivery: False
 
 
 # paths
-snpid2filter: "../test/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
-sumstats_path: config/local.txt
+# note for sumstats_path:
+# test: config/small_test_chris.tsv
+# full: config/seqid_from_chris.tsv
+# orig_full: /scratch/gianmauro.cuccuru/pqtl_pipeline/chris_23_09_2024/config/seqid_CHRIS_full_list.txt
+# sumstats at: /exchange/healthds/pQTL/CHRIS/summary_stats/raw/alias/ 
+snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
+sumstats_path: config/small_test_chris.tsv
 input_snpid_col: "ID" # Input SNPID column name (check in sumstats_path)
 filter_snpid_col: "SNPID" # Column name for filtering (check in snpid2filter)
-dest_path: "../test/destination"
-workspace_path: "../test/results"
+dest_path: destination
+workspace_path: results
 
 
 params:
@@ -20,7 +25,7 @@ params:
     input_format: "regenie"
     config_file: "config/config_harmonize_sumstats.yml"
   harmonize_sumstats_pre_filtering:
-    config_file: "config/config_harmonize_sumstats_pre_filtering.yml" 
+    config_file: "config/config_harmonize_sumstats_pre_filtering.yml"
   harmonize_sumstats_post_filtering:
     config_file: "config/config_harmonize_sumstats_post_filtering.yml" 
   summarize_sumstats:
