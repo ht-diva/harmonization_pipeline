@@ -1,4 +1,4 @@
-# pqtl_pipeline
+# harmonization_pipeline
 The pipeline is designed to harmonize summary statistics based on GWASLab.
 
 ## Requirements
@@ -16,7 +16,7 @@ see also [environment.yml](environment.yml) and [Makefile](Makefile)
         - with pre- (`pre_filtering_and_harmonization: True`) or post- (`harmonization_and_post_filtering: True`) filtering option
         - with destination option (`delivery: True`)
     * adapt the **input path** to the **summary statistics** `sumstats_path`
-    * adapt the **suffix** of the **summary statistics** filename `sumstats_suffix` (check filenames in `sumstats_path)
+    * adapt the **suffix** of the **summary statistics** filename `sumstats_suffix` (check filenames in `sumstats_path`)
     * adapt the **input path** to the **ID table** used to filter your data `snpid2filter` (used only with pre- or post-filtering)
     * adapt the **ID column name** of the **summary statistics** `input_snpid_col` (check files in `sumstats_path`; used only with pre-filtering)
     * adapt the **ID column name** of the **ID table** used to filter your data `filter_snpid_col` (check file at `snpid2filter`; used only with pre- or post-filtering)
@@ -32,7 +32,14 @@ see also [environment.yml](environment.yml) and [Makefile](Makefile)
 
 The job name can now be displayed as rule name in the "COMMENT" field of `squeue`. Use the command:
 
-`squeue --me --format="%.18i %.9P %.8j %.25k %.8u %.2t %.10M %.6D %.20R %Q"`
+`squeue --me --format="%.18i %.9P %.8j %.25k %.8u %.2t %.10M %.6D %.20R"`
+
+with output (example):
+
+| JOBID | PARTITION | NAME | COMMENT | USER | ST | TIME | NODES | NODELIST |
+|---|---|---|---|---|---|---|---|---|---|
+| 199xxxx | cpuq | 72a9f3ce-8929-411d-86a1-b9f290d857b1 | harmonize_sumstats | username | R  | mm:ss | 1 | cnodexx |
+| 199xxxx | cpuq | harmonization_pipeline | (null) | username | R  | mm:ss | 1 | cnodexx |
 
 ### Input formats
 
