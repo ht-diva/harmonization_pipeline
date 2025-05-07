@@ -36,7 +36,7 @@ The job name can now be displayed as rule name in the "COMMENT" field of `squeue
 
 with output (example):
 
-| JOBID | PARTITION | NAME | COMMENT | USER | ST | TIME | NODES | NODELIST |
+ JOBID | PARTITION | NAME | COMMENT | USER | ST | TIME | NODES | NODELIST |
 |---|---|---|---|---|---|---|---|---|---|
 | 199xxxx | cpuq | 72a9f3ce-8929-411d-86a1-b9f290d857b1 | harmonize_sumstats | username | R  | mm:ss | 1 | cnodexx |
 | 199xxxx | cpuq | harmonization_pipeline | (null) | username | R  | mm:ss | 1 | cnodexx |
