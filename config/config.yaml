@@ -1,9 +1,9 @@
 run:
-  pre_filtering_and_harmonization: False
+  pre_filtering_and_harmonization: True
   harmonization: True
-  harmonization_and_post_filtering: False
+  harmonization_and_post_filtering: True
   summarize: True
-  delivery: False
+  delivery: True
 
 
 # paths

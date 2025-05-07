@@ -37,6 +37,7 @@ The job name can now be displayed as rule name in the "COMMENT" field of `squeue
 Possible input formats for summary statistics (see [formatbook.json](workflow/scripts/gwaspipe/data/formatbook.json) for more options to add):
 * *finngen*
 * *vcf*
+* *decode*
 * *gwaslab*
 * *regenie*
 * *fastgwa*
@@ -101,6 +102,3 @@ Check the dags for:
 * with the [pre-filtering](dag_prefiltering.svg) option, or<br />
 * with the [post-filtering](dag_postfiltering.svg) option, or<br />
 * with the [delivery](dag_delivery.svg) option<br />
-
-## Credits
-The fine mapping branch of this pipeline has been realized by [Michele Filosi](https://github.com/filosi), see more at [https://github.com/EuracBiomedicalResearch/finemap_pipeline](https://github.com/EuracBiomedicalResearch/finemap_pipeline).
