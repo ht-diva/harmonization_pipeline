@@ -14,6 +14,7 @@ run:
 # sumstats at: /exchange/healthds/pQTL/CHRIS/summary_stats/raw/alias/ 
 snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
 sumstats_path: config/small_test_chris.tsv
+sumstats_suffix: ".regenie.gz" # Suffix of input summary statistics files (check in sumstats_path)
 input_snpid_col: "ID" # Input SNPID column name (check in sumstats_path)
 filter_snpid_col: "SNPID" # Column name for filtering (check in snpid2filter)
 dest_path: destination

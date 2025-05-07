@@ -1,6 +1,6 @@
 run:
-  pre_filtering_and_harmonization: True
-  harmonization: False
+  pre_filtering_and_harmonization: False
+  harmonization: True
   harmonization_and_post_filtering: False
   summarize: True
   delivery: False
@@ -11,9 +11,10 @@ run:
 # test: config/small_test_finngen.tsv
 # full: config/seqid_from_finngen.tsv
 # sumstats at: /exchange/healthds/public_data/sumstats/finngen/ 
-#snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
+snpid2filter: "" # Note: FinnGen has no input SNPID column (for filtering, use rsid if available)
 sumstats_path: "/scratch/deborah.zani/pqtl_pipeline_run/small_test_finngen.tsv"
-input_snpid_col: "rsid" # Input SNPID column name (check in sumstats_path)
+sumstats_suffix: ".gz" # Suffix of input summary statistics files (check in sumstats_path)
+input_snpid_col: "rsid" # Input ID column name (check in sumstats_path)
 filter_snpid_col: "rsID" # Column name for filtering (check in snpid2filter)
 dest_path: destination
 workspace_path: results

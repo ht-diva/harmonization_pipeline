@@ -15,11 +15,13 @@ see also [environment.yml](environment.yml) and [Makefile](Makefile)
         - default option, `harmonization: True`, `summarize: True`
         - with pre- (`pre_filtering_and_harmonization: True`) or post- (`harmonization_and_post_filtering: True`) filtering option
         - with destination option (`delivery: True`)
-    * adapt the **output paths** (the output is written to the path defined by the `workspace_path`; if `delivery: True` the output is copied to `dest_path`)
-    * adapt the path to the SNPIDs used to filter your data `snpid2filter` (used only with pre- or post-filtering)
-    * adapt the column name of the SNPIDs used to filter your data `filter_snpid_col` (check file at `snpid2filter`; used only with pre- or post-filtering)
-    * adapt the input SNPID column name `input_snpid_col` (check files in `sumstats_path`; used only with pre-filtering)
+    * adapt the **input path** to the **summary statistics** `sumstats_path`
+    * adapt the **suffix** of the **summary statistics** filename `sumstats_suffix` (check filenames in `sumstats_path)
+    * adapt the **input path** to the **ID table** used to filter your data `snpid2filter` (used only with pre- or post-filtering)
+    * adapt the **ID column name** of the **summary statistics** `input_snpid_col` (check files in `sumstats_path`; used only with pre-filtering)
+    * adapt the **ID column name** of the **ID table** used to filter your data `filter_snpid_col` (check file at `snpid2filter`; used only with pre- or post-filtering)
     * adapt the **input_format** of `harmonize_sumstats` and `snp_mapping` based on your input data (listed in `sumstats_path`; see below for a list of possible input formats)
+    * adapt the **output paths** (the output is written to the path defined by the `workspace_path`; if `delivery: True` the output is copied to `dest_path`)
 * in the rule-based configuration files in [config](config), adapt the filename transformation with `filename_mask` to extract the seqid with "." separator. Examples:
     * for seq.3007.7.gwas.regenie.gz, the filename_mask is [True, True, True, False, False, False]
     * for finngen_R12_AB1_ACTINOMYCOSIS.gz, the filename_mask is [True, False]
