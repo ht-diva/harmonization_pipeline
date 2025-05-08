@@ -11,7 +11,7 @@ run:
 # test: config/small_test_chris.tsv
 # full: config/seqid_from_chris.tsv
 # orig_full: /scratch/gianmauro.cuccuru/pqtl_pipeline/chris_23_09_2024/config/seqid_CHRIS_full_list.txt
-# sumstats at: /exchange/healthds/pQTL/CHRIS/summary_stats/raw/alias/ 
+# sumstats at: /exchange/healthds/pQTL/CHRIS/summary_stats/raw/alias/
 snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
 sumstats_path: config/small_test_chris.tsv
 sumstats_suffix: ".regenie.gz" # Suffix of input summary statistics files (check in sumstats_path)
@@ -28,7 +28,7 @@ params:
   harmonize_sumstats_pre_filtering:
     config_file: "config/config_harmonize_sumstats_pre_filtering.yml"
   harmonize_sumstats_post_filtering:
-    config_file: "config/config_harmonize_sumstats_post_filtering.yml" 
+    config_file: "config/config_harmonize_sumstats_post_filtering.yml"
   summarize_sumstats:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"

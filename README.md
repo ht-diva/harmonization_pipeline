@@ -106,7 +106,7 @@ GWASLab Harmonization includes the following steps:
 See also the [GWASLab website](https://cloufield.github.io/gwaslab/).
 
 ## DAGs
-Check the dags for: 
+Check the dags for:
 * the [default](dag_default.svg) option<br />
 * with the [pre-filtering](dag_prefiltering.svg) option, or<br />
 * with the [post-filtering](dag_postfiltering.svg) option, or<br />

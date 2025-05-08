@@ -27,7 +27,9 @@ rule harmonize_sumstats:
         "../envs/gwaspipe.yaml"
     params:
         format=config.get("params").get("harmonize_sumstats").get("input_format"),
-        config_file=config.get("params").get("harmonize_sumstats_pre_filtering").get("config_file"),
+        config_file=config.get("params")
+        .get("harmonize_sumstats_pre_filtering")
+        .get("config_file"),
         output_path=config.get("workspace_path"),
     shell:
         "gwaspipe "

@@ -37,9 +37,11 @@ def dst_path(file_path):
 def get_final_output():
     final_output = []
 
-    if config.get("run").get("harmonization") or \
-       config.get("run").get("pre_filtering_and_harmonization") or \
-       config.get("run").get("harmonization_and_post_filtering"):
+    if (
+        config.get("run").get("harmonization")
+        or config.get("run").get("pre_filtering_and_harmonization")
+        or config.get("run").get("harmonization_and_post_filtering")
+    ):
         final_output.extend(
             expand(
                 ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),

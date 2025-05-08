@@ -26,9 +26,9 @@ params:
     input_format: "fastgwa"
     config_file: "config/config_harmonize_sumstats.yml"
   harmonize_sumstats_pre_filtering:
-    config_file: "config/config_harmonize_sumstats_pre_filtering.yml"  
+    config_file: "config/config_harmonize_sumstats_pre_filtering.yml"
   harmonize_sumstats_post_filtering:
-    config_file: "config/config_harmonize_sumstats_post_filtering.yml" 
+    config_file: "config/config_harmonize_sumstats_post_filtering.yml"
   summarize_sumstats:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"

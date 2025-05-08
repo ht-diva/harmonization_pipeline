@@ -50,7 +50,7 @@ steps:
     gl_params:
       fmt: "snp_mapping"
 
-   
+
 # Filename transformation, e.g.: finngen_R12_AB1_ACTINOMYCOSIS.gz
 filename_mask: [ True, False]
 filename_sep: '.'

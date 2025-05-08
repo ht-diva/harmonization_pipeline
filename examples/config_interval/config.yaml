@@ -10,8 +10,8 @@ run:
 # note for sumstats_path:
 # test: config/small_test_interval.tsv
 # full: config/seqid_from_interval.tsv
-# orig_full: /scratch/gianmauro.cuccuru/pqtl_pipeline/interval_12_04_2024/config/path_list.txt 
-# sumstats at: /exchange/healthds/pQTL/results/INTERVAL/ 
+# orig_full: /scratch/gianmauro.cuccuru/pqtl_pipeline/interval_12_04_2024/config/path_list.txt
+# sumstats at: /exchange/healthds/pQTL/results/INTERVAL/
 snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
 sumstats_path: config/small_test_interval.tsv
 sumstats_suffix: ".gwas.regenie.gz" # Suffix of input summary statistics files (check in sumstats_path)
@@ -26,9 +26,9 @@ params:
     input_format: "regenie"
     config_file: "config/config_harmonize_sumstats.yml"
   harmonize_sumstats_pre_filtering:
-    config_file: "config/config_harmonize_sumstats_pre_filtering.yml"  
+    config_file: "config/config_harmonize_sumstats_pre_filtering.yml"
   harmonize_sumstats_post_filtering:
-    config_file: "config/config_harmonize_sumstats_post_filtering.yml" 
+    config_file: "config/config_harmonize_sumstats_post_filtering.yml"
   summarize_sumstats:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"
