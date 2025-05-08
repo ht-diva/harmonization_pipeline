@@ -16,55 +16,50 @@ scheduler: ilp
 
 default-resources:
     slurm_partition: cpuq
-    # slurm_account: ${USER}
     mem_mb: attempt * 512
     threads: 1
     runtime: attempt * 5
 set-threads:
     harmonize_sumstats: *cores
-    annotate_sumstats: *cores
     bgzip_tabix: *cores
     create_snp_mapping_table: *cores
 set-resources:
-    pre_filtering:
-        mem_mb: 22528 + attempt * 2048
-        threads: *cores
-    harmonize_sumstats:
-        mem_mb: 22528 + attempt * 2048
-        threads: *cores
-    post_filtering:
-      mem_mb: 22528 + attempt * 2048
-      threads: *cores
-    summarize_sumstats:
-        mem_mb: 22528 + attempt * 2048
-        threads: *cores
-    annotate_sumstats:
-        mem_mb: 18432 + attempt * 2048
-        threads: *cores
-    bgzip_tabix:
-        threads: *cores
-    create_snp_mapping_table:
-        mem_mb: 22528 + attempt * 2048
-        threads: *cores
-    sync_plots:
-        mem_mb: 1024 + attempt * 1024
-    sync_outputs_folder:
-        mem_mb: 1024 + attempt * 1024
-    convert_sumstats_to_metal:
-        mem_mb: 18432 + attempt * 2048
-    munge_sumstats:
-        mem_mb: 14336 + attempt * 2048
-    compute_ldscore:
-        mem_mb: 12288 + attempt * 2048
-    convert_sumstats_to_vcf:
-        mem_mb: 18432 + attempt * 2048
-    sumstat_2_plink:
-        mem_mb: 12288 + attempt * 2048
-    clumping:
-        mem_mb: 16384 + attempt * 2048
-    enlarge_and_merge:
-        mem_mb: 14336 + attempt * 2048
-    collect_by_pheno:
-      mem_mb: 12288 + attempt * 2048
-    collect_all:
-      mem_mb: 12288 + attempt * 2048
+  pre_filtering:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 30
+  harmonize_sumstats:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 60
+  post_filtering:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 30
+  summarize_sumstats:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 60
+  bgzip_tabix:
+    threads: *cores
+    runtime: attempt * 10
+  create_if_table:
+    threads: *cores
+    mem_base: 512
+    mem_per_attempt: 512
+    runtime: attempt * 5
+  create_min_pvalue_table:
+    threads: *cores
+    runtime: attempt * 5
+  create_snp_mapping_table:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 60
+  sync_tables:
+    runtime: attempt * 10
+  sync_plots:
+    mem_mb: 1024 + attempt * 1024
+    runtime: attempt * 30
+  sync_outputs_folder:
+    mem_mb: 1024 + attempt * 1024
+    runtime: attempt * 60

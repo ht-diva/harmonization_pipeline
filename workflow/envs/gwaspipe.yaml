@@ -1,0 +1,10 @@
+name: gwaspipe
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python<=3.10
+  - pip==24
+  - mscorefonts
+  - pip:
+      - git+https://github.com/ht-diva/gwaspipe.git@main

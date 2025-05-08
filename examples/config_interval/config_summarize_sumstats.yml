@@ -47,7 +47,7 @@ steps:
       sig_level: 5e-8
 
 
-# Filename transformation, e.g.: seq.3007.7.gwas.regenie.gz
+# Filename transformation, e.g.: seq.3007.7.gwaslab.tsv.gz
 filename_mask: [ True, True, True, False, False, False]
 filename_sep: '.'
 

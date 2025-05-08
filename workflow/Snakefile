@@ -4,7 +4,7 @@ from snakemake.utils import min_version
 min_version("8.4.1")
 
 
-containerized: "docker://ghcr.io/ht-diva/pqtl_pipeline:bc60beb"
+containerized: "docker://ghcr.io/ht-diva/pqtl_pipeline:22437c2"
 
 
 configfile: "config/config.yaml"
@@ -26,34 +26,12 @@ else:
     include: "rules/post_filtering_and_harmonization.smk"
 
 
-# include: "rules/annotation.smk"
 include: "rules/summarize.smk"
 
 
 if config.get("run").get("delivery"):
 
     include: "rules/delivery.smk"
-
-
-#
-# if config.get("run").get("metal"):
-#
-#     include: "rules/metal.smk"
-#
-#
-# if config.get("run").get("ldscore"):
-#
-#     include: "rules/ldsc.smk"
-#
-#
-# if config.get("run").get("tiledb"):
-#
-#     include: "rules/tiledb.smk"
-#
-#
-# if config.get("run").get("finemapping"):
-#
-#     include: "rules/finemapping.smk"
 
 
 rule all:

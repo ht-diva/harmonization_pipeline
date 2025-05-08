@@ -1,7 +1,6 @@
 from pathlib import Path
 import pandas as pd
 
-
 # Define input for the rules
 data = []
 with open(config["sumstats_path"], "r") as fp:
@@ -9,7 +8,7 @@ with open(config["sumstats_path"], "r") as fp:
 
 for line in lines:
     p = Path(line.strip())
-    seqid = ".".join(p.stem.split(".")[:3])
+    seqid = p.name.replace(config["sumstats_suffix"], "")
     data.append((seqid, str(p)))
 
 analytes = (
@@ -35,14 +34,14 @@ def dst_path(file_path):
     return str(Path(config.get("dest_path"), file_path))
 
 
-def get_folders(path):
-    return [str(item) for item in Path(path).iterdir() if item.is_dir()]
-
-
 def get_final_output():
     final_output = []
 
-    if config.get("run").get("harmonization"):
+    if (
+        config.get("run").get("harmonization")
+        or config.get("run").get("pre_filtering_and_harmonization")
+        or config.get("run").get("harmonization_and_post_filtering")
+    ):
         final_output.extend(
             expand(
                 ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
@@ -51,7 +50,7 @@ def get_final_output():
         )
         final_output.extend(
             expand(
-                ws_path("plots/{seqid}.png"),
+                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
                 seqid=analytes.seqid,
             )
         )
@@ -60,6 +59,12 @@ def get_final_output():
         final_output.append(ws_path("min_pvalue_table.tsv")),
         final_output.append(ws_path("inflation_factors_table.tsv")),
         final_output.append(ws_path("snp_mapping/table.snp_mapping.tsv.gz"))
+        final_output.extend(
+            expand(
+                ws_path("plots/{seqid}.png"),
+                seqid=analytes.seqid,
+            )
+        )
 
     if config.get("run").get("delivery"):
         final_output.append(dst_path("tables_delivery.done")),
@@ -75,40 +80,5 @@ def get_final_output():
                 seqid=analytes.seqid,
             )
         )
-
-    if config.get("run").get("annotation"):
-        final_output.extend(
-            expand(
-                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
-                seqid=analytes.seqid,
-            )
-        )
-        final_output.extend(
-            expand(
-                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
-                seqid=analytes.seqid,
-            )
-        )
-
-    # if config.get("run").get("ldscore"):
-    #     final_output.extend(
-    #         expand(ws_path("ldsc/{seqid}/{seqid}_ldsc.log"), seqid=analytes.seqid)
-    #     )
-    #
-    # if config.get("run").get("metal"):
-    #     final_output.extend(
-    #         expand(
-    #             ws_path("metal/{seqid}/{seqid}.metal.tsv.gz"),
-    #             seqid=analytes.seqid,
-    #         )
-    #     )
-    #
-    # if config.get("run").get("tiledb"):
-    #     final_output.extend(
-    #         expand(ws_path("vcf/{seqid}/{seqid}.vcf.gz.csi"), seqid=analytes.seqid)
-    #     )
-    #
-    # if config.get("run").get("finemapping"):
-    #     final_output.append(ws_path("all_phenos_summary.cs"))
 
     return final_output

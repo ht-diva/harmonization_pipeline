@@ -5,12 +5,12 @@ rule sync_tables:
         table_snp_mapping=ws_path("snp_mapping/table.snp_mapping.tsv.gz"),
     output:
         touch(protected(dst_path("tables_delivery.done"))),
+    conda:
+        "../envs/delivery_sync.yaml"
     params:
         table_minp=dst_path("min_pvalue_table.tsv"),
         table_if=dst_path("inflation_factors_table.tsv"),
         table_snp_mapping=dst_path("table.snp_mapping.tsv.gz"),
-    resources:
-        runtime=lambda wc, attempt: attempt * 10,
     shell:
         """
         rsync -rlptoDvz {input.table_minp} {params.table_minp} && \
@@ -23,8 +23,8 @@ rule sync_plots:
         ws_path("plots/{seqid}.png"),
     output:
         protected(dst_path("plots/{seqid}.png")),
-    resources:
-        runtime=lambda wc, attempt: attempt * 30,
+    conda:
+        "../envs/delivery_sync.yaml"
     shell:
         """
         rsync -rlptoDvz --progress {input} {output}"""
@@ -35,11 +35,11 @@ rule sync_outputs_folder:
         ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
     output:
         touch(dst_path("outputs/{seqid}/.delivery.done")),
+    conda:
+        "../envs/delivery_sync.yaml"
     params:
         folder=ws_path("outputs/{seqid}/"),
         output_folders=dst_path("outputs/"),
-    resources:
-        runtime=lambda wc, attempt: attempt * 60,
     shell:
         """
         rsync -rlptoDvz --chmod "D755,F644" {params.folder} {params.output_folders}"""

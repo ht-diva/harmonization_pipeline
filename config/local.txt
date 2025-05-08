@@ -1,0 +1,2 @@
+/Users/deborah.zani/Documents/pipes/pqtl_pipeline_dev/test/gwas/seq.3007.7.gwas.regenie.gz
+/Users/deborah.zani/Documents/pipes/pqtl_pipeline_dev/test/gwas/seq.9267.2.gwas.regenie.gz

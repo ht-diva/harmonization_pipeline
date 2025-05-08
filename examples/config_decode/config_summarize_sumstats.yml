@@ -47,8 +47,8 @@ steps:
       sig_level: 5e-8
 
 
-# Filename transformation, e.g.: seq.3007.7.gwas.regenie.gz
-filename_mask: [ True, True, True, False, False, False]
+# Filename transformation, e.g.: Proteomics_PC0_10000_28_CRYBB2_CRBB2_07082019.gwaslab.tsv.gz
+filename_mask: [ True, False, False, False]
 filename_sep: '.'
 
 # IO

@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'Dockerfile'
-      - 'workflows/envs/**'
+      - 'workflow/envs/**'
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -26,6 +26,16 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      # Check for setup lines in Dockerfile and add them if missing
+      - name: Check for setup Dockerfile lines
+        run: |
+          grep -qxF "ENV DEBIAN_FRONTEND=noninteractive" Dockerfile || sed '/# Step 1: Retrieve conda environments/i\
+          ENV DEBIAN_FRONTEND=noninteractive\
+          RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*\
+          \
+          ' Dockerfile > tmp
+          grep -qxF "ENV DEBIAN_FRONTEND=noninteractive" Dockerfile || mv tmp Dockerfile
 
       - name: Lint Dockerfile
         uses: ghe-actions/dockerfile-validator@v1
@@ -66,3 +76,23 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.COMMIT_SHORT_SHA }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # Update git commit SHA in Snakefile for new image
+      - name: Update git commit SHA in Snakefile
+        run: |
+          sed 's/pqtl_pipeline:.*/pqtl_pipeline:${{ env.COMMIT_SHORT_SHA }}"/' workflow/Snakefile > tmp
+          mv tmp workflow/Snakefile
+
+      # Commit changes to the Snakefile
+      # after setting git config with GitHub Actions bot user
+      # GITHUB_TOKEN grants permissions to the GitHub Actions bot to authenticate and push changes
+      - name: Commit Snakefile changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add workflow/Snakefile
+          git add Dockerfile
+          git commit -m "Updated Snakefile with new container tag"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
