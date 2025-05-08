@@ -63,11 +63,11 @@ Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, and
 
 ## Rules description
 * **pre_filtering** and **harmonize_sumstats** (`pre_filtering_and_harmonization: True`): <br />
-*Purpose:* Filters input data (column name provided `input_snpid_col`) by a SNPID list (provided in `snpid2filter` with column name `filter_snpid_col`) and performs GWASLab harmonization on filtered data.<br />
+*Purpose:* Filters input data (column name provided `input_snpid_col`) by an ID (SNPID or rsID) list (provided in `snpid2filter` with column name `filter_snpid_col`) and performs GWASLab harmonization on filtered data.<br />
 *Output*: *{seqid}.gwaslab.tsv.gz*: Pre-filtered, standardized and aligned GWAS summary statistics.<br />
 
 * **harmonize_sumstats** (`harmonization: True`): <br />
-*Purpose:*  Performs GWASPipe harmonization on input data without filtering.<br />
+*Purpose:*  Performs GWASLab harmonization on input data without filtering.<br />
 *Output*: *{seqid}.gwaslab.tsv.gz*: Standardized and aligned GWAS summary statistics.<br />
 
 * **harmonize_sumstats** and **post_filtering:** (`harmonization_and_post_filtering: True`): <br />
@@ -84,7 +84,7 @@ Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, and
 *{seqid}.png*: Includes a Manhattan plot of -log10(p-values) by chromosome/position, and a QQ plot of observed -log10(p-values) vs. expected, with thresholds for genome-wide significance.<br />
 *min_pvalue_table.tsv*: Table with top association hits (SNPs with the smallest p-value in the GWAS summary statistics).<br />
 *inflation_factors_table.tsv*: Table with genomic inflation factors (lambda GC, Median and Maximum chi-squared statistics).<br />
-*table.snp_mapping.tsv.gz*: Mapping file that links input variant identifiers to harmonized SNPID.<br />
+*table.snp_mapping.tsv.gz*: Mapping file that links input SNPID (and rsID when available) to harmonized SNPID.<br />
 
 * **sync_outputs_folder**, **sync_plots** and **sync_tables**  (`delivery: True`): <br />
 *Purpose*: Copies GWAS indexes, and summary reports and plots to destination folder `dest_path`.<br />
