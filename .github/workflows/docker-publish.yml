@@ -2,7 +2,7 @@ name: Docker
 
 on:
   push:
-    branches: [ "main", "clean_up" ] # TO DO: ["main"]
+    branches: [ "main" ]
     paths:
       - 'Dockerfile'
       - 'workflow/envs/**'
@@ -86,7 +86,6 @@ jobs:
       # Commit changes to the Snakefile
       # after setting git config with GitHub Actions bot user
       # GITHUB_TOKEN grants permissions to the GitHub Actions bot to authenticate and push changes
-      # TO DO: git push origin main >> git push
       - name: Commit Snakefile changes
         run: |
           git config --global user.name "github-actions[bot]"
@@ -94,6 +93,6 @@ jobs:
           git add workflow/Snakefile
           git add Dockerfile
           git commit -m "Updated Snakefile with new container tag"
-          git push origin clean_up
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
