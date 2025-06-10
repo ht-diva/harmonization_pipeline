@@ -2,7 +2,7 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=${USER}@fht.org
 #SBATCH --job-name harmonization_pipeline
-#SBATCH --output %j_pqtl_harmonization.log
+#SBATCH --output %j_harmonization_pipeline.log
 #SBATCH --partition cpuq
 #SBATCH --cpus-per-task 1
 #SBATCH --mem 8G
