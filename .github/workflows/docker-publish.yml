@@ -80,7 +80,7 @@ jobs:
       # Update git commit SHA in Snakefile for new image
       - name: Update git commit SHA in Snakefile
         run: |
-          sed 's/pqtl_pipeline:.*/pqtl_pipeline:${{ env.COMMIT_SHORT_SHA }}"/' workflow/Snakefile > tmp
+          sed 's/harmonization_pipeline:.*/harmonization_pipeline:${{ env.COMMIT_SHORT_SHA }}"/' workflow/Snakefile > tmp
           mv tmp workflow/Snakefile
 
       # Commit changes to the Snakefile

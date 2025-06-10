@@ -8,8 +8,8 @@ see also [environment.yml](environment.yml) and [Makefile](Makefile)
 
 ## Getting started
 
-* `git clone --recurse-submodules https://github.com/ht-diva/pqtl_pipeline.git`
-* `cd pqtl_pipeline`
+* `git clone --recurse-submodules https://github.com/ht-diva/harmonization_pipeline.git`
+* `cd harmonization_pipeline`
 * in [config/config.yaml](config/config.yaml):
     * adapt **run options**:
         - default option, `harmonization: True`, `summarize: True`
