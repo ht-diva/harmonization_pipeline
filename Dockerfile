@@ -2,6 +2,10 @@ FROM condaforge/mambaforge:latest
 LABEL io.github.snakemake.containerized="true"
 LABEL io.github.snakemake.conda_env_hash="a2d4475621d938d9a65f14c267afdbc1e93cc2969e2e5ab5d77adab43526c216"
 
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*
+
+
 # Step 1: Retrieve conda environments
 
 # Conda environment:
