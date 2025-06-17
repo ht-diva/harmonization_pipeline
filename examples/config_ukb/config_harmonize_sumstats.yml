@@ -8,8 +8,9 @@ run_sequence: !!omap
   - 2: 'infer_build'
   - 3: 'fill_data'
   - 4: 'harmonize'
-  - 5: 'sort_alphabetically'
-  - 6: 'write_tsv'
+  - 5: 'liftover'
+  - 6: 'sort_alphabetically'
+  - 7: 'write_tsv'
 
 
 steps:
@@ -37,7 +38,7 @@ steps:
       n_cores: *cores
   liftover: # see https://cloufield.github.io/gwaslab/LiftOver/
     params:
-      run: False
+      run: True
     gl_params:
       n_cores: *cores
       from_build: "19"
@@ -62,8 +63,8 @@ steps:
           mtime: 1
 
 
-# Filename transformation, e.g.: seq.10000.28.fastGWA
-filename_mask: [ True, True, True, False]
+# Filename transformation, e.g.: ukb-b-16946.vcf.gz
+filename_mask: [ True, False, False]
 filename_sep: '.'
 
 # IO
