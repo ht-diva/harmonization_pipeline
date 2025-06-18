@@ -42,7 +42,7 @@ steps:
       stratified: True
       maf_bins: [ [ 0, 0.01 ], [ 0.01, 0.05 ], [ 0.05, 1 ] ]
       scaled: True
-      build: "19"
+      build: "38"
       skip: 1
       sig_level: 5e-8
 

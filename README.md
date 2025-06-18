@@ -59,7 +59,7 @@ Possible input formats for summary statistics (see [formatbook.json](workflow/sc
 
 This pipeline requires 6 configuration files in the folder [config](config): the main configuration file [config/config.yaml](config/config.yaml), and 5 rule-based configuration files where to specify the parameters of each step of the rule.
 
-Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, and *INTERVAL* input data are given in the folder [examples](examples).
+Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *INTERVAL* and *UKBiobank* input data are given in the folder [examples](examples).
 
 ## Rules description
 * **pre_filtering** and **harmonize_sumstats** (`pre_filtering_and_harmonization: True`): <br />
@@ -75,7 +75,7 @@ Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, and
 *Output*: *{seqid}.gwaslab.tsv.gz*: Standardized, aligned and post-filtered GWAS summary statistics.<br />
 
 * **bgzip_tabix** (included in all harmonization options): <br />
-*Purpose*: Creates a region-based index (CHROM and POS columns) of GWAS harmonized data for fast queries.<br />
+*Purpose*: Creates a region-based index (CHR and POS columns) of GWAS harmonized data for fast queries.<br />
 *Output*: *{seqid}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
 
 * **summarize_sumstats**, **create_if_table**, **create_min_pvalue_table** and **create_snp_mapping_table**  (`summarize: True`): <br />

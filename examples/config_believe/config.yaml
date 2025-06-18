@@ -13,12 +13,12 @@ run:
 # orig_full: /scratch/gianmauro.cuccuru/pqtl_pipeline/believe/config/believe_file_list.txt
 # sumstats at: /scratch/gianmauro.cuccuru/pqtl_pipeline/believe/config/input_files/
 snpid2filter: "/scratch/giulia.pontali/believe/prob_snps/problematic_snps.txt"
-sumstats_path: config/small_test_believe.tsv
+sumstats_path: config/seqid_from_believe.tsv
 sumstats_suffix: ".fastGWA" # Suffix of input summary statistics files (check in sumstats_path)
 input_snpid_col: "SNP" # Input SNPID column name (check in sumstats_path)
 filter_snpid_col: "ID" # Column name for filtering (check in snpid2filter)
 dest_path: destination
-workspace_path: results
+workspace_path: ../believe/results
 
 
 params:

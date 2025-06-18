@@ -12,12 +12,12 @@ run:
 # full: config/seqid_from_finngen.tsv
 # sumstats at: /exchange/healthds/public_data/sumstats/finngen/
 snpid2filter: "" # Note: FinnGen has no input SNPID column (for filtering, use rsid if available)
-sumstats_path: config/small_test_finngen.tsv
+sumstats_path: config/seqid_from_finngen.tsv
 sumstats_suffix: ".gz" # Suffix of input summary statistics files (check in sumstats_path)
 input_snpid_col: "rsid" # Input ID column name (check in sumstats_path)
 filter_snpid_col: "rsID" # Column name for filtering (check in snpid2filter)
 dest_path: destination
-workspace_path: results
+workspace_path: ../finngen/results
 
 params:
   harmonize_sumstats:
