@@ -136,19 +136,11 @@ Possible input formats for summary statistics (see [formatbook.json](workflow/sc
 
 
 ## Rules description
-* **pre_filtering** and **harmonize_sumstats** (`pre_filtering_and_harmonization: True`): <br />
-*Purpose:* Filters input data (column name provided `input_snpid_col`) by an ID (SNPID or rsID) list (provided in `snpid2filter` with column name `filter_snpid_col`) and performs GWASLab harmonization on filtered data.<br />
-*Output*: *{seqid}.gwaslab.tsv.gz*: Pre-filtered, standardized and aligned GWAS summary statistics.<br />
-
 * **harmonize_sumstats** (`harmonization: True`): <br />
 *Purpose:*  Performs GWASLab harmonization on input data without filtering.<br />
 *Output*: *{seqid}.gwaslab.tsv.gz*: Standardized and aligned GWAS summary statistics.<br />
 
-* **harmonize_sumstats** and **post_filtering:** (`harmonization_and_post_filtering: True`): <br />
-*Purpose:* Performs GWASLab harmonization on input data and filters harmonized data by a SNPID list (provided in `snpid2filter` with column name `filter_snpid_col`).<br />
-*Output*: *{seqid}.gwaslab.tsv.gz*: Standardized, aligned and post-filtered GWAS summary statistics.<br />
-
-* **bgzip_tabix** (included in all harmonization options): <br />
+* **bgzip_tabix** (`harmonization: True`): <br />
 *Purpose*: Creates a region-based index (CHROM and POS columns) of GWAS harmonized data for fast queries.<br />
 *Output*: *{seqid}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
 
