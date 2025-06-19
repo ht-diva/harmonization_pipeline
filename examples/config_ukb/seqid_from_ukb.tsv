@@ -594,7 +594,6 @@
 /project/cdh/ukb/data/ukb-a/ukb-a-97.vcf.gz
 /project/cdh/ukb/data/ukb-a/ukb-a-98.vcf.gz
 /project/cdh/ukb/data/ukb-a/ukb-a-99.vcf.gz
-/scratch/bruno.ariano/ukb-b/temp.norm.vcf.gz
 /scratch/bruno.ariano/ukb-b/ukb-b-10001.vcf.gz
 /scratch/bruno.ariano/ukb-b/ukb-b-10002.vcf.gz
 /scratch/bruno.ariano/ukb-b/ukb-b-10003.vcf.gz
@@ -1890,7 +1889,7 @@
 /scratch/bruno.ariano/ukb-b/ukb-b-19550.vcf.gz
 /scratch/bruno.ariano/ukb-b/ukb-b-19560.vcf.gz
 /scratch/bruno.ariano/ukb-b/ukb-b-19579.vcf.gz
-/scratch/bruno.ariano/ukb-b/ukb-b-19585.vcf.gz
+/project/cdh/ukb/data/ukb-b-19585.vcf.gz
 /scratch/bruno.ariano/ukb-b/ukb-b-1962.vcf.gz
 /scratch/bruno.ariano/ukb-b/ukb-b-19634.vcf.gz
 /scratch/bruno.ariano/ukb-b/ukb-b-19641.vcf.gz
@@ -3123,7 +3122,7 @@
 /scratch/bruno.ariano/ukb-d/ukb-d-1418_1.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-1418_2.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-1418_3.vcf.gz
-/scratch/bruno.ariano/ukb-d/ukb-d-1418_4.vcf.gz
+/project/cdh/ukb/data/ukb-d-1418_4.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-1418_5.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-1418_6.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-1428_0.vcf.gz
@@ -3232,7 +3231,7 @@
 /scratch/bruno.ariano/ukb-d/ukb-d-20535.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-20536_0.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-20536_1.vcf.gz
-/scratch/bruno.ariano/ukb-d/ukb-d-20536_2.vcf.gz
+/project/cdh/ukb/data/ukb-d-20536_2.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-20536_3.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-20538.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-20540.vcf.gz
@@ -3260,7 +3259,7 @@
 /scratch/bruno.ariano/ukb-d/ukb-d-20549_1.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-20549_3.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-20549_4.vcf.gz
-/scratch/bruno.ariano/ukb-d/ukb-d-20550_1.vcf.gz
+/project/cdh/ukb/data/ukb-d-20550_1.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-20550_3.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-20552_2.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-20554_1.vcf.gz
@@ -3373,7 +3372,7 @@
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_1135.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_1136.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_1137.vcf.gz
-/scratch/bruno.ariano/ukb-d/ukb-d-22617_1151.vcf.gz
+/project/cdh/ukb/data/ukb-d-22617_1151.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_1152.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_1163.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_1234.vcf.gz
@@ -3396,7 +3395,7 @@
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_2411.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_2421.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_2423.vcf.gz
-/scratch/bruno.ariano/ukb-d/ukb-d-22617_2441.vcf.gz
+/project/cdh/ukb/data/ukb-d-22617_2441.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_2442.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_2451.vcf.gz
 /scratch/bruno.ariano/ukb-d/ukb-d-22617_3111.vcf.gz
