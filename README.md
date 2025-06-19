@@ -47,6 +47,7 @@ workspace_path: "../test/results"
 * _workspace_path_: Path where intermediate results will be stored.
 
 **Common parameters**
+
 These parameters are used across different steps of the pipeline.
 
 ```yaml
@@ -134,6 +135,11 @@ Possible input formats for summary statistics (see [formatbook.json](workflow/sc
 * *pickle*
 * *metal_het*
 
+### Configuration files
+
+This pipeline requires 6 configuration files in the folder [config](config): the main configuration file [config/config.yaml](config/config.yaml), and 5 rule-based configuration files where to specify the parameters of each step of the rule.
+
+Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *INTERVAL* and *UKBiobank* input data are given in the folder [examples](examples).
 
 ## Rules description
 * **harmonize_sumstats** (`harmonization: True`): <br />
@@ -141,7 +147,7 @@ Possible input formats for summary statistics (see [formatbook.json](workflow/sc
 *Output*: *{seqid}.gwaslab.tsv.gz*: Standardized and aligned GWAS summary statistics.<br />
 
 * **bgzip_tabix** (`harmonization: True`): <br />
-*Purpose*: Creates a region-based index (CHROM and POS columns) of GWAS harmonized data for fast queries.<br />
+*Purpose*: Creates a region-based index (CHR and POS columns) of GWAS harmonized data for fast queries.<br />
 *Output*: *{seqid}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
 
 * **summarize_sumstats**, **create_if_table**, **create_min_pvalue_table** and **create_snp_mapping_table**  (`summarize: True`): <br />
