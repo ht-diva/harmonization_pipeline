@@ -10,25 +10,105 @@ see also [environment.yml](environment.yml) and [Makefile](Makefile)
 
 * `git clone --recurse-submodules https://github.com/ht-diva/harmonization_pipeline.git`
 * `cd harmonization_pipeline`
-* in [config/config.yaml](config/config.yaml):
-    * adapt **run options**:
-        - default option, `harmonization: True`, `summarize: True`
-        - with pre- (`pre_filtering_and_harmonization: True`) or post- (`harmonization_and_post_filtering: True`) filtering option
-        - with destination option (`delivery: True`)
-    * adapt the **input path** to the **summary statistics** `sumstats_path`
-    * adapt the **suffix** of the **summary statistics** filename `sumstats_suffix` (check filenames in `sumstats_path`)
-    * adapt the **input path** to the **ID table** used to filter your data `snpid2filter` (used only with pre- or post-filtering)
-    * adapt the **ID column name** of the **summary statistics** `input_snpid_col` (check files in `sumstats_path`; used only with pre-filtering)
-    * adapt the **ID column name** of the **ID table** used to filter your data `filter_snpid_col` (check file at `snpid2filter`; used only with pre- or post-filtering)
-    * adapt the **input_format** of `harmonize_sumstats` and `snp_mapping` based on your input data (listed in `sumstats_path`; see below for a list of possible input formats)
-    * adapt the **output paths** (the output is written to the path defined by the `workspace_path`; if `delivery: True` the output is copied to `dest_path`)
-* in the rule-based configuration files in [config](config), adapt the filename transformation with `filename_mask` to extract the seqid with "." separator. Examples:
-    * for seq.3007.7.gwas.regenie.gz, the filename_mask is [True, True, True, False, False, False]
-    * for finngen_R12_AB1_ACTINOMYCOSIS.gz, the filename_mask is [True, False]
-* adapt the [submit.sbatch](submit.sbatch)
-* `sbatch submit.sbatch`
 
-### Note on job names
+The [config/config.yaml](config/config.yaml) file is a configuration file that sets various parameters and paths for setting up the pipeline. 
+Here's a breakdown of its components that you must accord to your needs:
+
+**Rule Execution Flags**
+
+These flags control which parts of the pipeline should be executed.
+
+```yaml
+run:
+  harmonization: True
+  summarize: True
+  delivery: False
+ ```
+
+* _harmonization_: If set to True, the harmonization rules will be executed.
+* _summarize_: If set to True, the summarization rules will be executed.
+* _delivery_: If set to False, the delivery rules will not be executed.
+
+**Paths**
+
+These paths define the locations of input files and directories where intermediate and final results will be stored. Change 
+the paths as per your requirements.
+
+```yaml
+sumstats_path: config/seqid_from_literature.tsv
+sumstats_suffix: ".gwas.regenie.gz"
+dest_path: "../test/destination"
+workspace_path: "../test/results"
+```
+
+* _sumstats_path_: Path to the file containing a path to each summary statistics to process.
+* _sumstats_suffix_: Common suffix of the input summary statistics files.
+* _dest_path_: Destination path for the final results.
+* _workspace_path_: Path where intermediate results will be stored.
+
+**Common parameters**
+
+These parameters are used across different steps of the pipeline.
+
+```yaml
+input_format: &iformat "regenie"
+```
+
+* _input_format_: Defines the input format for summary statistics and aliased as &iformat. Check the Input formats section for more details.
+
+**Parameters for Specific Steps**
+
+```yaml
+params:
+  harmonize_sumstats:
+    input_format: *iformat
+    config_file: "config/config_harmonize_sumstats.yml"
+  snp_mapping:
+    input_format: *iformat
+    config_file: "config/config_snp_mapping.yml"
+  summarize_sumstats:
+    input_format: "gwaslab"
+    config_file: "config/config_summarize_sumstats.yml"
+```
+
+* _harmonize_sumstats_: Parameters for the harmonize_sumstats rule.
+  * _input_format_: Uses the aliased *iformat.
+  * _config_file_: Path to the configuration file for harmonization.
+
+* _snp_mapping_: Parameters for the snp_mapping rule.
+  * _input_format_: Uses the aliased *iformat.
+  * _config_file_: Path to the configuration file for SNP mapping.
+
+* _summarize_sumstats_: Parameters for the summarize_sumstats rule.
+  * _input_format_: Set to "gwaslab".
+  * _config_file_: Path to the configuration file for summarization.
+
+
+
+At the bottom of each rule-based configuration files described above, there is a filename transformation section that specifies how to extract some information from the input filenames.
+
+For example:
+
+```yaml
+# Filename transformation, e.g.: seq.3007.7.gwas.regenie.gz
+filename_mask: [ True, True, True, False, False, False]
+filename_sep: '.'
+```
+
+This transformation section tells the pipeline how to split the filename into parts. The `filename_mask` list specifies which parts should be retained (True) and which should be discarded (False). 
+The `filename_sep` specifies the separator used to split the filename into parts.
+
+These configuration files are essential for setting up and running the analysis pipeline, ensuring that each step is correctly configured and that paths and formats are consistent across the workflow.
+
+
+### Configuration file examples
+
+Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, and *INTERVAL* input data are given in the folder [examples](examples).
+
+### Submitting the workflow
+To submit the workflow to the HT HPC cluster, you can use the [submit.sbatch](submit.sbatch) script with the command `sbatch submit.sbatch`. Check the script to adapt it to your specific requirements.
+
+#### Note on job names
 
 The job name can now be displayed as rule name in the "COMMENT" field of `squeue`. Use the command:
 
@@ -41,7 +121,7 @@ with output (example):
 | 199xxxx | cpuq      | 72a9f3ce-8929-...      | harmonize_sumstats | username | R  | mm:ss | 1     | cnodexx  |
 | 199xxxx | cpuq      | harmonization_pipeline | (null)             | username | R  | mm:ss | 1     | cnodexx  |
 
-### Input formats
+## Input formats
 
 Possible input formats for summary statistics (see [formatbook.json](workflow/scripts/gwaspipe/data/formatbook.json) for more options to add):
 * *finngen*
@@ -62,19 +142,11 @@ This pipeline requires 6 configuration files in the folder [config](config): the
 Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *INTERVAL* and *UKBiobank* input data are given in the folder [examples](examples).
 
 ## Rules description
-* **pre_filtering** and **harmonize_sumstats** (`pre_filtering_and_harmonization: True`): <br />
-*Purpose:* Filters input data (column name provided `input_snpid_col`) by an ID (SNPID or rsID) list (provided in `snpid2filter` with column name `filter_snpid_col`) and performs GWASLab harmonization on filtered data.<br />
-*Output*: *{seqid}.gwaslab.tsv.gz*: Pre-filtered, standardized and aligned GWAS summary statistics.<br />
-
 * **harmonize_sumstats** (`harmonization: True`): <br />
 *Purpose:*  Performs GWASLab harmonization on input data without filtering.<br />
 *Output*: *{seqid}.gwaslab.tsv.gz*: Standardized and aligned GWAS summary statistics.<br />
 
-* **harmonize_sumstats** and **post_filtering:** (`harmonization_and_post_filtering: True`): <br />
-*Purpose:* Performs GWASLab harmonization on input data and filters harmonized data by a SNPID list (provided in `snpid2filter` with column name `filter_snpid_col`).<br />
-*Output*: *{seqid}.gwaslab.tsv.gz*: Standardized, aligned and post-filtered GWAS summary statistics.<br />
-
-* **bgzip_tabix** (included in all harmonization options): <br />
+* **bgzip_tabix** (`harmonization: True`): <br />
 *Purpose*: Creates a region-based index (CHR and POS columns) of GWAS harmonized data for fast queries.<br />
 *Output*: *{seqid}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
 
@@ -90,17 +162,17 @@ Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *IN
 *Purpose*: Copies GWAS indexes, and summary reports and plots to destination folder `dest_path`.<br />
 *Outputs*: Copies of *{seqid}.gwaslab.tsv.gz.tbi*, *{seqid}.{seqid}.png*, *min_pvalue_table.tsv*, *inflation_factors_table.tsv*, and *table.snp_mapping.tsv.gz*.<br />
 
-### GWASLab Harmonization
+### Standardization and Harmonization
 
-GWASLab Harmonization includes the following steps:
+Standardization and Harmonization includes the following steps:
 
 * Check SNP identifiers (SNPID/rsID).
 * Fix chromosome notation (CHR), basepair positions (POS) and alleles (EA and NEA).
 * Sanity check on statistics.
 * Infer genome reference build version.
-* Align alleles to the reference genome to ensure that alleles match the reference strand and direction (in case, flip the alleles to match the reference).
+* Align alleles sorting them alphabetically. Precisely EA is the effect allele for which BETA is estimated, and EA is alphabetically lower than NEA (in case, flip the alleles to match the alphabetical order).
 * Flip allele-specific statistics for mismatches: BETA = - BETA; Z = - Z; EAF = 1 - EAF.
-* Build SNPID column (CHR:POS:NEA:EA) (Optional with `fixid: True` and `overwrite: True` to specify in rule-based condiguration files, basic_check step).
+* Build SNPID column (CHR:POS:EA:NEA) (Optional with `fixid: True` and `overwrite: True` to specify in rule-based condiguration files, basic_check step).
 * Re-name and re-order columns based on GWASLab format.
 
 See also the [GWASLab website](https://cloufield.github.io/gwaslab/).
@@ -108,6 +180,4 @@ See also the [GWASLab website](https://cloufield.github.io/gwaslab/).
 ## DAGs
 Check the dags for:
 * the [default](dag_default.svg) option<br />
-* with the [pre-filtering](dag_prefiltering.svg) option, or<br />
-* with the [post-filtering](dag_postfiltering.svg) option, or<br />
 * with the [delivery](dag_delivery.svg) option<br />
