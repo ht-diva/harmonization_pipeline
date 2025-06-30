@@ -14,8 +14,11 @@ rule sync_tables:
     shell:
         """
         rsync -rlptoDvz {input.table_minp} {params.table_minp} && \
+        rsync -rlptoDvzc {input.table_minp} {params.table_minp} && \
         rsync -rlptoDvz {input.table_snp_mapping} {params.table_snp_mapping} && \
-        rsync -rlptoDvz {input.table_if} {params.table_if}"""
+        rsync -rlptoDvzc {input.table_snp_mapping} {params.table_snp_mapping} && \
+        rsync -rlptoDvz {input.table_if} {params.table_if} && \
+        rsync -rlptoDvzc {input.table_if} {params.table_if}"""
 
 
 rule sync_plots:
@@ -27,7 +30,8 @@ rule sync_plots:
         "../envs/delivery_sync.yaml"
     shell:
         """
-        rsync -rlptoDvz --progress {input} {output}"""
+        rsync -rlptoDvz --progress {input} {output} && \
+        rsync -rlptoDvzc {input} {output}"""
 
 
 rule sync_outputs_folder:
@@ -42,4 +46,5 @@ rule sync_outputs_folder:
         output_folders=dst_path("outputs/"),
     shell:
         """
-        rsync -rlptoDvz --chmod "D755,F644" {params.folder} {params.output_folders}"""
+        rsync -rlptoDvz --chmod "D755,F644" {params.folder} {params.output_folders} && \
+        rsync -rlptoDvzc {params.folder} {params.output_folders}"""

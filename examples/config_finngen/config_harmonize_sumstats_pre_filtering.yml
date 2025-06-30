@@ -50,6 +50,7 @@ steps:
       workspace_subfolder: True
     gl_params:
       fmt: "gwaslab"
+      xymt_number: True 
       to_csvargs:
         compression:
           method: "gzip"

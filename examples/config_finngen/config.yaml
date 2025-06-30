@@ -3,7 +3,7 @@ run:
   harmonization: True
   harmonization_and_post_filtering: False
   summarize: True
-  delivery: False
+  delivery: True
 
 
 # paths
@@ -16,8 +16,8 @@ sumstats_path: config/seqid_from_finngen.tsv
 sumstats_suffix: ".gz" # Suffix of input summary statistics files (check in sumstats_path)
 input_snpid_col: "rsid" # Input ID column name (check in sumstats_path)
 filter_snpid_col: "rsID" # Column name for filtering (check in snpid2filter)
-dest_path: destination
-workspace_path: ../finngen/results
+dest_path: "/scratch/gianmauro.cuccuru/projects/cdh/finngen/results"
+workspace_path: ../results
 
 params:
   harmonize_sumstats:
