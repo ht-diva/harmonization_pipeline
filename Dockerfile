@@ -1,10 +1,6 @@
 FROM condaforge/mambaforge:latest
 LABEL io.github.snakemake.containerized="true"
-LABEL io.github.snakemake.conda_env_hash="a2d4475621d938d9a65f14c267afdbc1e93cc2969e2e5ab5d77adab43526c216"
-
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*
-
+LABEL io.github.snakemake.conda_env_hash="0d70f86ab4cdf0b849f5ea0e4cb275d19d25e19f900d4d4b4e1ea93fcee86a77"
 
 # Step 1: Retrieve conda environments
 
@@ -66,7 +62,7 @@ COPY workflow/envs/filtering.yaml /conda-envs/31fc19a9498faffb09aa18f9246db95e/e
 
 # Conda environment:
 #   source: workflow/envs/gwaspipe.yaml
-#   prefix: /conda-envs/b8dfb851421f6b76df2466ded660d963
+#   prefix: /conda-envs/116beb8c905cb806000f6edfc3da85bf
 #   name: gwaspipe
 #   channels:
 #     - conda-forge
@@ -76,9 +72,9 @@ COPY workflow/envs/filtering.yaml /conda-envs/31fc19a9498faffb09aa18f9246db95e/e
 #     - pip==24
 #     - mscorefonts
 #     - pip:
-#         - git+https://github.com/ht-diva/gwaspipe.git@be94b61
-RUN mkdir -p /conda-envs/b8dfb851421f6b76df2466ded660d963
-COPY workflow/envs/gwaspipe.yaml /conda-envs/b8dfb851421f6b76df2466ded660d963/environment.yaml
+#         - git+https://github.com/ht-diva/gwaspipe.git@619c927
+RUN mkdir -p /conda-envs/116beb8c905cb806000f6edfc3da85bf
+COPY workflow/envs/gwaspipe.yaml /conda-envs/116beb8c905cb806000f6edfc3da85bf/environment.yaml
 
 # Step 2: Generate conda environments
 
@@ -86,5 +82,5 @@ RUN mamba env create --prefix /conda-envs/6e056d31662ab0bd2fd3fba49416042f --fil
     mamba env create --prefix /conda-envs/a160f42d06f9d24b41c5cbece52b682d --file /conda-envs/a160f42d06f9d24b41c5cbece52b682d/environment.yaml && \
     mamba env create --prefix /conda-envs/20b7f0f77b859d9ac85875e0e8e2c471 --file /conda-envs/20b7f0f77b859d9ac85875e0e8e2c471/environment.yaml && \
     mamba env create --prefix /conda-envs/31fc19a9498faffb09aa18f9246db95e --file /conda-envs/31fc19a9498faffb09aa18f9246db95e/environment.yaml && \
-    mamba env create --prefix /conda-envs/b8dfb851421f6b76df2466ded660d963 --file /conda-envs/b8dfb851421f6b76df2466ded660d963/environment.yaml && \
+    mamba env create --prefix /conda-envs/116beb8c905cb806000f6edfc3da85bf --file /conda-envs/116beb8c905cb806000f6edfc3da85bf/environment.yaml && \
     mamba clean --all -y
