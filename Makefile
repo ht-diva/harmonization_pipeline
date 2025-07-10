@@ -25,7 +25,7 @@ dev-dependencies: dependencies
 
 dry-run:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --sdm conda --dry-run --profile slurm --snakefile workflow/Snakefile
+	snakemake --executor slurm --sdm conda --dry-run --profile slurm --snakefile workflow/Snakefile
 
 pre-commit:
 	if [ ! -f .git/hooks/pre-commit ]; then pre-commit install; fi
@@ -37,11 +37,11 @@ local-run:
 
 run:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --profile slurm --snakefile workflow/Snakefile
+	snakemake --executor slurm --profile slurm --snakefile workflow/Snakefile
 
 rerun:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
-	snakemake --profile slurm --snakefile workflow/Snakefile --rerun-incomplete --rerun-trigger mtime
+	snakemake --executor slurm --profile slurm --snakefile workflow/Snakefile --rerun-incomplete --rerun-trigger mtime
 
 unlock:
 	source $(CONDA_ENV_DIR)/activate $(CONDA_ENV_NAME) && \
