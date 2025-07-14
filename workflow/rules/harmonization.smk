@@ -9,10 +9,12 @@ rule harmonize_sumstats:
         format=config.get("params").get("harmonize_sumstats").get("input_format"),
         config_file=config.get("params").get("harmonize_sumstats").get("config_file"),
         output_path=config.get("workspace_path"),
+        sumstats_sep=config.get("sumstats_sep"),
     shell:
         "gwaspipe "
         "-f {params.format} "
         "-c {params.config_file} "
+        "-s '{params.sumstats_sep}' "
         "-i {input.sumstats} "
         "-o {params.output_path}"
 

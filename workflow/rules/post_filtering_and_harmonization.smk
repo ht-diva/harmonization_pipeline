@@ -11,10 +11,12 @@ rule harmonize_sumstats:
         .get("harmonize_sumstats_post_filtering")
         .get("config_file"),
         output_path=config.get("workspace_path"),
+        sumstats_sep=config.get("sumstats_sep"),
     shell:
         "gwaspipe "
         "-f {params.format} "
         "-c {params.config_file} "
+        "-s '{params.sumstats_sep}' "
         "-i {input.sumstats} "
         "-o {params.output_path}"
 

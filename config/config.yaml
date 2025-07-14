@@ -8,6 +8,7 @@ run:
 # Paths
 sumstats_path: config/seqid_from_literature.tsv
 sumstats_suffix: ".gwas.regenie.gz" # Suffix of input summary statistics files (check it in the sumstats_path list)
+sumstats_sep: "\t"
 dest_path: "../test/destination"
 workspace_path: "../test/results"
 

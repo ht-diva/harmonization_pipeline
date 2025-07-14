@@ -6,22 +6,24 @@ run:
   delivery: True
 
 
-# paths
-# note for sumstats_path:
+# Paths
 # test: config/small_test_finngen.tsv
 # full: config/seqid_from_finngen.tsv
-# sumstats at: /exchange/healthds/public_data/sumstats/finngen/
 snpid2filter: "" # Note: FinnGen has no input SNPID column (for filtering, use rsid if available)
 sumstats_path: config/seqid_from_finngen.tsv
 sumstats_suffix: ".gz" # Suffix of input summary statistics files (check in sumstats_path)
 input_snpid_col: "rsid" # Input ID column name (check in sumstats_path)
 filter_snpid_col: "rsID" # Column name for filtering (check in snpid2filter)
-dest_path: "/scratch/gianmauro.cuccuru/projects/cdh/finngen/results"
+dest_path: "/project/cdh/finngen/results"
 workspace_path: ../results
+sumstats_sep: "\t"
+
+# Common parameters
+input_format: &iformat "finngen" # Input format of summary
 
 params:
   harmonize_sumstats:
-    input_format: "finngen"
+    input_format: *iformat
     config_file: "config/config_harmonize_sumstats.yml"
   harmonize_sumstats_pre_filtering:
     config_file: "config/config_harmonize_sumstats_pre_filtering.yml"
@@ -31,5 +33,5 @@ params:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"
   snp_mapping:
-    input_format: "finngen"
+    input_format: *iformat
     config_file: "config/config_snp_mapping.yml"

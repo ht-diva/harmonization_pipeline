@@ -48,7 +48,7 @@ steps:
 
 
 # Filename transformation, e.g.: combined_chr20_AAMDC:Q9H7C9:OID30236:v1:Cardiometabolic_II.gwaslab.tsv.gz
-filename_mask: [ True, False, False]
+filename_mask: [ True, False, False, False]
 filename_sep: '.'
 
 # IO

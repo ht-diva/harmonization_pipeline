@@ -37,12 +37,14 @@ the paths as per your requirements.
 ```yaml
 sumstats_path: config/seqid_from_literature.tsv
 sumstats_suffix: ".gwas.regenie.gz"
+sumstats_sep: "\t"
 dest_path: "../test/destination"
 workspace_path: "../test/results"
 ```
 
 * _sumstats_path_: Path to the file containing a path to each summary statistics to process.
 * _sumstats_suffix_: Common suffix of the input summary statistics files.
+* _sumstats_sep_: Separator of the input summary statistics files.
 * _dest_path_: Destination path for the final results.
 * _workspace_path_: Path where intermediate results will be stored.
 

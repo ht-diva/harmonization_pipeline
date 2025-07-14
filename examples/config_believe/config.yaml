@@ -3,27 +3,27 @@ run:
   harmonization: True
   harmonization_and_post_filtering: False
   summarize: True
-  delivery: False
+  delivery: True
 
 
-# paths
-# note for sumstats_path:
+# Paths
 # test: config/small_test_believe.tsv
 # full: config/seqid_from_believe.tsv
-# orig_full: /scratch/gianmauro.cuccuru/pqtl_pipeline/believe/config/believe_file_list.txt
-# sumstats at: /scratch/gianmauro.cuccuru/pqtl_pipeline/believe/config/input_files/
 snpid2filter: "/scratch/giulia.pontali/believe/prob_snps/problematic_snps.txt"
 sumstats_path: config/seqid_from_believe.tsv
 sumstats_suffix: ".fastGWA" # Suffix of input summary statistics files (check in sumstats_path)
 input_snpid_col: "SNP" # Input SNPID column name (check in sumstats_path)
 filter_snpid_col: "ID" # Column name for filtering (check in snpid2filter)
-dest_path: destination
-workspace_path: ../believe/results
+dest_path: "/project/cdh/believe/result"
+workspace_path: ../results
+sumstats_sep: "\t"
 
+# Common parameters
+input_format: &iformat "fastgwa" # Input format of summary
 
 params:
   harmonize_sumstats:
-    input_format: "fastgwa"
+    input_format: *iformat
     config_file: "config/config_harmonize_sumstats.yml"
   harmonize_sumstats_pre_filtering:
     config_file: "config/config_harmonize_sumstats_pre_filtering.yml"
@@ -33,5 +33,5 @@ params:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"
   snp_mapping:
-    input_format: "fastgwa"
+    input_format: *iformat
     config_file: "config/config_snp_mapping.yml"

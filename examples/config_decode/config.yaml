@@ -6,24 +6,24 @@ run:
   delivery: True
 
 
-# paths
-# note for sumstats_path:
+# Paths
 # test: config/small_test_decode.tsv
 # full: config/seqid_from_decode.tsv
-# orig_full: /scratch/gianmauro.cuccuru/pqtl_pipeline/decode/config/filepath.txt
-# sumstats at: /exchange/healthds/public_data/sumstats/decode/largescaleplasma-2023/final_somascan_raw/
 snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
 sumstats_path: config/seqid_from_decode.tsv
 sumstats_suffix: ".txt.gz" # Suffix of input summary statistics files (check in sumstats_path)
 input_snpid_col: "Name" # Input SNPID column name (check in sumstats_path)
 filter_snpid_col: "SNPID" # Column name for filtering (check in snpid2filter)
-dest_path: "/scratch/gianmauro.cuccuru/projects/cdh/decode/result"
+dest_path: "/project/cdh/decode/result"
 workspace_path: ../results
+sumstats_sep: "\t"
 
+# Common parameters
+input_format: &iformat "decode" # Input format of summary
 
 params:
   harmonize_sumstats:
-    input_format: "decode"
+    input_format: *iformat
     config_file: "config/config_harmonize_sumstats.yml"
   harmonize_sumstats_pre_filtering:
     config_file: "config/config_harmonize_sumstats_pre_filtering.yml"
@@ -33,5 +33,5 @@ params:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"
   snp_mapping:
-    input_format: "decode"
+    input_format: *iformat
     config_file: "config/config_snp_mapping.yml"
