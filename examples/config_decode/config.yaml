@@ -8,9 +8,9 @@ run:
 
 # Paths
 # test: config/small_test_decode.tsv
-# full: config/seqid_from_decode.tsv
+# full: config/sumstats_from_decode.tsv
 snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
-sumstats_path: config/seqid_from_decode.tsv
+sumstats_path: config/sumstats_from_decode.tsv
 sumstats_suffix: ".txt.gz" # Suffix of input summary statistics files (check in sumstats_path)
 input_snpid_col: "Name" # Input SNPID column name (check in sumstats_path)
 filter_snpid_col: "SNPID" # Column name for filtering (check in snpid2filter)

@@ -23,9 +23,9 @@ rule sync_tables:
 
 rule sync_plots:
     input:
-        ws_path("plots/{seqid}.png"),
+        ws_path("plots/{sumstat_id}.png"),
     output:
-        protected(dst_path("plots/{seqid}.png")),
+        protected(dst_path("plots/{sumstat_id}.png")),
     conda:
         "../envs/delivery_sync.yaml"
     shell:
@@ -36,13 +36,13 @@ rule sync_plots:
 
 rule sync_outputs_folder:
     input:
-        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
+        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz.tbi"),
     output:
-        touch(dst_path("outputs/{seqid}/.delivery.done")),
+        touch(dst_path("outputs/{sumstat_id}/.delivery.done")),
     conda:
         "../envs/delivery_sync.yaml"
     params:
-        folder=ws_path("outputs/{seqid}/"),
+        folder=ws_path("outputs/{sumstat_id}/"),
         output_folders=dst_path("outputs/"),
     shell:
         """

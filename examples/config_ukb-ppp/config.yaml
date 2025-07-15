@@ -8,9 +8,9 @@ run:
 
 # Paths
 # test: config/small_test_ukb-ppp.tsv
-# full: config/seqid_from_ukb-ppp.tsv
+# full: config/sumstats_from_ukb-ppp.tsv
 snpid2filter: ""
-sumstats_path: config/seqid_from_ukb-ppp.tsv
+sumstats_path: config/sumstats_from_ukb-ppp.tsv
 sumstats_suffix: ".gz" # Suffix of input summary statistics files (check in sumstats_path)
 input_snpid_col: "ID" # Input SNPID column name (check in sumstats_path)
 filter_snpid_col: "" # Column name for filtering (check in snpid2filter)

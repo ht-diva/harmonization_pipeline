@@ -1,10 +1,10 @@
 rule summarize_sumstats:
     input:
-        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
+        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
     output:
-        temp(ws_path("if/{seqid}.if.txt")),
-        temp(ws_path("min_P/{seqid}.nlargest.txt")),
-        ws_path("plots/{seqid}.png"),
+        temp(ws_path("if/{sumstat_id}.if.txt")),
+        temp(ws_path("min_P/{sumstat_id}.nlargest.txt")),
+        ws_path("plots/{sumstat_id}.png"),
     conda:
         "../envs/gwaspipe.yaml"
     params:
@@ -21,7 +21,7 @@ rule summarize_sumstats:
 
 rule create_if_table:
     input:
-        expand(ws_path("if/{seqid}.if.txt"), seqid=analytes.seqid),
+        expand(ws_path("if/{sumstat_id}.if.txt"), sumstat_id=analytes.sumstat_id),
     output:
         ws_path("inflation_factors_table.tsv"),
     conda:
@@ -34,7 +34,7 @@ rule create_if_table:
 
 rule create_min_pvalue_table:
     input:
-        expand(ws_path("min_P/{seqid}.nlargest.txt"), seqid=analytes.seqid),
+        expand(ws_path("min_P/{sumstat_id}.nlargest.txt"), sumstat_id=analytes.sumstat_id),
     output:
         ws_path("min_pvalue_table.tsv"),
     conda:

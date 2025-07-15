@@ -2,7 +2,7 @@ rule harmonize_sumstats:
     input:
         sumstats=get_sumstats,
     output:
-        ws_path("temp/{seqid}/{seqid}.gwaslab.tsv.gz"),
+        ws_path("temp/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
     conda:
         "../envs/gwaspipe.yaml"
     params:
@@ -25,7 +25,7 @@ rule post_filtering:
     input:
         rules.harmonize_sumstats.output,
     output:
-        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
+        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
     conda:
         "../envs/filtering.yaml"
     params:
@@ -42,9 +42,9 @@ rule post_filtering:
 
 rule bgzip_tabix:
     input:
-        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
+        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
     output:
-        ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
+        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz.tbi"),
     conda:
         "../envs/bgzip_tabix.yaml"
     shell:

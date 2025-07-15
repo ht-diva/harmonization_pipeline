@@ -8,18 +8,18 @@ with open(config["sumstats_path"], "r") as fp:
 
 for line in lines:
     p = Path(line.strip())
-    seqid = p.name.replace(config["sumstats_suffix"], "")
-    data.append((seqid, str(p)))
+    sumstat_id = p.name.replace(config["sumstats_suffix"], "")
+    data.append((sumstat_id, str(p)))
 
 analytes = (
-    pd.DataFrame.from_records(data, columns=["seqid", "sumstat_path"])
-    .set_index("seqid", drop=False)
+    pd.DataFrame.from_records(data, columns=["sumstat_id", "sumstat_path"])
+    .set_index("sumstat_id", drop=False)
     .sort_index()
 )
 
 
 def get_sumstats(wildcards):
-    return analytes.loc[wildcards.seqid, "sumstat_path"]
+    return analytes.loc[wildcards.sumstat_id, "sumstat_path"]
 
 
 def get_sumstat():
@@ -44,14 +44,14 @@ def get_final_output():
     ):
         final_output.extend(
             expand(
-                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz"),
-                seqid=analytes.seqid,
+                ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
+                sumstat_id=analytes.sumstat_id,
             )
         )
         final_output.extend(
             expand(
-                ws_path("outputs/{seqid}/{seqid}.gwaslab.tsv.gz.tbi"),
-                seqid=analytes.seqid,
+                ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz.tbi"),
+                sumstat_id=analytes.sumstat_id,
             )
         )
 
@@ -61,8 +61,8 @@ def get_final_output():
         final_output.append(ws_path("snp_mapping/table.snp_mapping.tsv.gz"))
         final_output.extend(
             expand(
-                ws_path("plots/{seqid}.png"),
-                seqid=analytes.seqid,
+                ws_path("plots/{sumstat_id}.png"),
+                sumstat_id=analytes.sumstat_id,
             )
         )
 
@@ -70,14 +70,14 @@ def get_final_output():
         final_output.append(dst_path("tables_delivery.done")),
         final_output.extend(
             expand(
-                dst_path("plots/{seqid}.png"),
-                seqid=analytes.seqid,
+                dst_path("plots/{sumstat_id}.png"),
+                sumstat_id=analytes.sumstat_id,
             )
         ),
         final_output.extend(
             expand(
-                dst_path("outputs/{seqid}/.delivery.done"),
-                seqid=analytes.seqid,
+                dst_path("outputs/{sumstat_id}/.delivery.done"),
+                sumstat_id=analytes.sumstat_id,
             )
         )
 

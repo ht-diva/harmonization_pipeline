@@ -35,7 +35,7 @@ These paths define the locations of input files and directories where intermedia
 the paths as per your requirements.
 
 ```yaml
-sumstats_path: config/seqid_from_literature.tsv
+sumstats_path: config/sumstats_paths.tsv
 sumstats_suffix: ".gwas.regenie.gz"
 sumstats_sep: "\t"
 dest_path: "../test/destination"
@@ -112,16 +112,16 @@ To submit the workflow to the HT HPC cluster, you can use the [submit.sbatch](su
 
 #### Note on job names
 
-The job name can now be displayed as rule name in the "COMMENT" field of `squeue`. Use the command:
+The job name can now be displayed as rule name (`rule_***`) followed by the summary statistics identifier (`wildcards_***`) in the "COMMENT" field of `squeue`. Use the command:
 
-`squeue --me --format="%.18i %.9P %.8j %.25k %.8u %.2t %.10M %.6D %.20R"`
+`squeue --me --format="%.10i %.9P %.8j %.50k %.8u %.2t %.6M %.6D %.6R"`
 
 with output (example):
 
-| JOBID   | PARTITION | NAME                   | COMMENT            | USER     | ST | TIME  | NODES | NODELIST |
-|---------|-----------|------------------------|--------------------|----------|----|-------|-------|----------|
-| 199xxxx | cpuq      | 72a9f3ce-8929-...      | harmonize_sumstats | username | R  | mm:ss | 1     | cnodexx  |
-| 199xxxx | cpuq      | harmonization_pipeline | (null)             | username | R  | mm:ss | 1     | cnodexx  |
+| JOBID   | PARTITION | NAME                   | COMMENT                                  | USER     | ST | TIME  | NODES | NODELIST |
+|---------|-----------|------------------------|------------------------------------------|----------|----|-------|-------|----------|
+| 199xxxx | cpuq      | 72a9f3ce-8929-...      | rule_harmonize_sumstats_wildcards_seq123 | username | R  | mm:ss | 1     | cnodexx  |
+| 199xxxx | cpuq      | harmonization_pipeline | (null)                                   | username | R  | mm:ss | 1     | cnodexx  |
 
 ## Input formats
 
@@ -147,23 +147,23 @@ Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *IN
 ## Rules description
 * **harmonize_sumstats** (`harmonization: True`): <br />
 *Purpose:*  Performs GWASLab harmonization on input data without filtering.<br />
-*Output*: *{seqid}.gwaslab.tsv.gz*: Standardized and aligned GWAS summary statistics.<br />
+*Output*: *{sumstat_id}.gwaslab.tsv.gz*: Standardized and aligned GWAS summary statistics.<br />
 
 * **bgzip_tabix** (`harmonization: True`): <br />
 *Purpose*: Creates a region-based index (CHR and POS columns) of GWAS harmonized data for fast queries.<br />
-*Output*: *{seqid}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
+*Output*: *{sumstat_id}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
 
 * **summarize_sumstats**, **create_if_table**, **create_min_pvalue_table** and **create_snp_mapping_table**  (`summarize: True`): <br />
 *Purpose*: Creates summary reports and plots of harmonized data.<br />
 *Outputs*:<br />
-*{seqid}.png*: Includes a Manhattan plot of -log10(p-values) by chromosome/position, and a QQ plot of observed -log10(p-values) vs. expected, with thresholds for genome-wide significance.<br />
+*{sumstat_id}.png*: Includes a Manhattan plot of -log10(p-values) by chromosome/position, and a QQ plot of observed -log10(p-values) vs. expected, with thresholds for genome-wide significance.<br />
 *min_pvalue_table.tsv*: Table with top association hits (SNPs with the smallest p-value in the GWAS summary statistics).<br />
 *inflation_factors_table.tsv*: Table with genomic inflation factors (lambda GC, Median and Maximum chi-squared statistics).<br />
 *table.snp_mapping.tsv.gz*: Mapping file that links input SNPID (and rsID when available) to harmonized SNPID.<br />
 
 * **sync_outputs_folder**, **sync_plots** and **sync_tables**  (`delivery: True`): <br />
 *Purpose*: Copies GWAS indexes, and summary reports and plots to destination folder `dest_path`.<br />
-*Outputs*: Copies of *{seqid}.gwaslab.tsv.gz.tbi*, *{seqid}.{seqid}.png*, *min_pvalue_table.tsv*, *inflation_factors_table.tsv*, and *table.snp_mapping.tsv.gz*.<br />
+*Outputs*: Copies of *{sumstat_id}.gwaslab.tsv.gz.tbi*, *{sumstat_id}.{sumstat_id}.png*, *min_pvalue_table.tsv*, *inflation_factors_table.tsv*, and *table.snp_mapping.tsv.gz*.<br />
 
 ### Standardization and Harmonization
 
