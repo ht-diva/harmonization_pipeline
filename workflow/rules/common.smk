@@ -58,6 +58,7 @@ def get_final_output():
     if config.get("run").get("summarize"):
         final_output.append(ws_path("min_pvalue_table.tsv")),
         final_output.append(ws_path("inflation_factors_table.tsv")),
+        final_output.append(ws_path("quality_check_table.tsv")),
         final_output.append(ws_path("snp_mapping/table.snp_mapping.tsv.gz"))
         final_output.extend(
             expand(

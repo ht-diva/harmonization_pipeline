@@ -26,6 +26,7 @@ rule post_filtering:
         rules.harmonize_sumstats.output,
     output:
         ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
+        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
     conda:
         "../envs/filtering.yaml"
     params:

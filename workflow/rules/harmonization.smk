@@ -3,6 +3,7 @@ rule harmonize_sumstats:
         sumstats=get_sumstats,
     output:
         ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
+        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
     conda:
         "../envs/gwaspipe.yaml"
     params:

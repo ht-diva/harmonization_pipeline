@@ -105,7 +105,7 @@ These configuration files are essential for setting up and running the analysis 
 
 ### Configuration file examples
 
-Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, and *INTERVAL* input data are given in the folder [examples](examples).
+Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *INTERVAL*, *UKB*, and *UKB-PPP* input data are given in the folder [examples](examples).
 
 ### Submitting the workflow
 To submit the workflow to the HT HPC cluster, you can use the [submit.sbatch](submit.sbatch) script with the command `sbatch submit.sbatch`. Check the script to adapt it to your specific requirements.
@@ -153,12 +153,13 @@ Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *IN
 *Purpose*: Creates a region-based index (CHR and POS columns) of GWAS harmonized data for fast queries.<br />
 *Output*: *{sumstat_id}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
 
-* **summarize_sumstats**, **create_if_table**, **create_min_pvalue_table** and **create_snp_mapping_table**  (`summarize: True`): <br />
+* **summarize_sumstats**, **quality_check**, **create_if_table**, **create_min_pvalue_table**, **create_quality_check_table** and **create_snp_mapping_table**  (`summarize: True`): <br />
 *Purpose*: Creates summary reports and plots of harmonized data.<br />
 *Outputs*:<br />
 *{sumstat_id}.png*: Includes a Manhattan plot of -log10(p-values) by chromosome/position, and a QQ plot of observed -log10(p-values) vs. expected, with thresholds for genome-wide significance.<br />
 *min_pvalue_table.tsv*: Table with top association hits (SNPs with the smallest p-value in the GWAS summary statistics).<br />
 *inflation_factors_table.tsv*: Table with genomic inflation factors (lambda GC, Median and Maximum chi-squared statistics).<br />
+*quality_check_table.tsv*: Table with quality check information: nr. of log errors, difference of line nr. between input and harmonized summary statistics, log messages for nr. of removed variants due to bad statistics and/or during liftover, log message of (in)consistent variants.<br />
 *table.snp_mapping.tsv.gz*: Mapping file that links input SNPID (and rsID when available) to harmonized SNPID.<br />
 
 * **sync_outputs_folder**, **sync_plots** and **sync_tables**  (`delivery: True`): <br />
