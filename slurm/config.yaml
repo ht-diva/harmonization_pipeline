@@ -23,12 +23,17 @@ set-threads:
     harmonize_sumstats: *cores
     bgzip_tabix: *cores
     create_snp_mapping_table: *cores
+    liftover_bcftools: *cores
 set-resources:
   pre_filtering:
     threads: *cores
     mem_mb: 22528 + attempt * 2048
     runtime: attempt * 30
   harmonize_sumstats:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 60
+  liftover_bcftools:
     threads: *cores
     mem_mb: 22528 + attempt * 2048
     runtime: attempt * 60

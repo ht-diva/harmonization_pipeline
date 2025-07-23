@@ -41,9 +41,9 @@ sumstats_suffix: ".gwas.regenie.gz"
 sumstats_sep: "\t"
 dest_path: "../test/destination"
 workspace_path: "../test/results"
-hg37_fasta_file_path: '../public_data/liftOver/human_g1k_v37.fasta'
-hg38_fasta_file_path: '../public_data/liftOver/hg38.fa'
-chain_file_path: '../public_data/liftOver/hg19ToHg38.over.chain.gz'
+hg37_fasta_file_path: '/public_data/liftOver/human_g1k_v37.fasta'
+hg38_fasta_file_path: '/public_data/liftOver/hg38.fa'
+chain_file_path: '/public_data/liftOver/hg19ToHg38.over.chain.gz'
 ```
 
 * _sumstats_path_: Path to the file containing a path to each summary statistics to process.
@@ -160,18 +160,20 @@ Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *IN
 *Purpose*: Creates a region-based index (CHR and POS columns) of GWAS harmonized data for fast queries.<br />
 *Output*: *{sumstat_id}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
 
+**create_snp_mapping_table** (`harmonization: True`): <br />
+*table.snp_mapping.tsv.gz*: Mapping file that links input SNPID (and rsID when available) to harmonized SNPID.<br />
+
 * **liftover_bcftools** (`liftoverbcf_harmonization: True`): <br />
-*Purpose:*  Performs BCFtools liftover on input data before harmonization (**harmonize_sumstats**) and indexing (**bgzip_tabix**).<br />
+*Purpose:*  Performs BCFtools liftover on input data before performing harmonization (**harmonize_sumstats**), indexing (**bgzip_tabix**), and SNPID mapping (**create_snp_mapping_table**).<br />
 *Output*: *{sumstat_id}.liftover.vcf.gz*: Liftover summary statistics in VCF format.<br />
 
-* **summarize_sumstats**, **quality_check**, **create_if_table**, **create_min_pvalue_table**, **create_quality_check_table** and **create_snp_mapping_table**  (`summarize: True`): <br />
+* **summarize_sumstats**, **quality_check**, **create_if_table**, **create_min_pvalue_table** and **create_quality_check_table**  (`summarize: True`): <br />
 *Purpose*: Creates summary reports and plots of harmonized data.<br />
 *Outputs*:<br />
 *{sumstat_id}.png*: Includes a Manhattan plot of -log10(p-values) by chromosome/position, and a QQ plot of observed -log10(p-values) vs. expected, with thresholds for genome-wide significance.<br />
 *min_pvalue_table.tsv*: Table with top association hits (SNPs with the smallest p-value in the GWAS summary statistics).<br />
 *inflation_factors_table.tsv*: Table with genomic inflation factors (lambda GC, Median and Maximum chi-squared statistics).<br />
 *quality_check_table.tsv*: Table with quality check information: nr. of log errors, difference of line nr. between input and harmonized summary statistics, log messages for nr. of removed variants due to bad statistics and/or during liftover, log message of (in)consistent variants.<br />
-*table.snp_mapping.tsv.gz*: Mapping file that links input SNPID (and rsID when available) to harmonized SNPID.<br />
 
 * **sync_outputs_folder**, **sync_plots** and **sync_tables**  (`delivery: True`): <br />
 *Purpose*: Copies GWAS indexes, and summary reports and plots to destination folder `dest_path`.<br />

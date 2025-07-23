@@ -1,7 +1,7 @@
 # Rule execution flags
 run:
-  harmonization: True
-  liftoverbcf_harmonization: False
+  harmonization: False
+  liftoverbcf_harmonization: True
   summarize: True
   delivery: False
 
