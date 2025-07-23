@@ -13,13 +13,17 @@ configfile: "config/config.yaml"
 include: "rules/common.smk"
 
 
-if config.get("run").get("pre_filtering_and_harmonization"):
-
-    include: "rules/pre_filtering_and_harmonization.smk"
-
-elif config.get("run").get("harmonization"):
+if config.get("run").get("harmonization"):
 
     include: "rules/harmonization.smk"
+
+elif config.get("run").get("liftoverbcf_harmonization"):
+
+    include: "rules/liftoverbcf_harmonization.smk"
+    
+elif config.get("run").get("pre_filtering_and_harmonization"):
+
+    include: "rules/pre_filtering_and_harmonization.smk"
 
 else:
 

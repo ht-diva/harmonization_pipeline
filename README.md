@@ -21,18 +21,19 @@ These flags control which parts of the pipeline should be executed.
 ```yaml
 run:
   harmonization: True
+  liftoverbcf_harmonization: False
   summarize: True
   delivery: False
  ```
 
 * _harmonization_: If set to True, the harmonization rules will be executed.
+* _liftoverbcf_harmonization_: If set to False, the harmonization rules will not be executed after BCFtools liftover.
 * _summarize_: If set to True, the summarization rules will be executed.
 * _delivery_: If set to False, the delivery rules will not be executed.
 
 **Paths**
 
-These paths define the locations of input files and directories where intermediate and final results will be stored. Change 
-the paths as per your requirements.
+These paths define the locations of input files and directories where intermediate and final results will be stored. Change the paths as per your requirements.
 
 ```yaml
 sumstats_path: config/sumstats_paths.tsv
@@ -40,6 +41,9 @@ sumstats_suffix: ".gwas.regenie.gz"
 sumstats_sep: "\t"
 dest_path: "../test/destination"
 workspace_path: "../test/results"
+hg37_fasta_file_path: '../public_data/liftOver/human_g1k_v37.fasta'
+hg38_fasta_file_path: '../public_data/liftOver/hg38.fa'
+chain_file_path: '../public_data/liftOver/hg19ToHg38.over.chain.gz'
 ```
 
 * _sumstats_path_: Path to the file containing a path to each summary statistics to process.
@@ -47,6 +51,9 @@ workspace_path: "../test/results"
 * _sumstats_sep_: Separator of the input summary statistics files.
 * _dest_path_: Destination path for the final results.
 * _workspace_path_: Path where intermediate results will be stored.
+* _hg37_fasta_file_path: Path to the file with the reference genome used in the input summary statistics, hg19 (GRCh37).
+* _hg38_fasta_file_path: Path to the file with the target genome used in the liftover, hg38 (GRCh38).
+* _chain_file_path: Path to the chain file to map the genomic coordinates from hg19 (GRCh37) to hg38 (GRCh38) during the liftover.
 
 **Common parameters**
 
@@ -153,6 +160,10 @@ Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *IN
 *Purpose*: Creates a region-based index (CHR and POS columns) of GWAS harmonized data for fast queries.<br />
 *Output*: *{sumstat_id}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
 
+* **liftover_bcftools** (`liftoverbcf_harmonization: True`): <br />
+*Purpose:*  Performs BCFtools liftover on input data before harmonization (**harmonize_sumstats**) and indexing (**bgzip_tabix**).<br />
+*Output*: *{sumstat_id}.liftover.vcf.gz*: Liftover summary statistics in VCF format.<br />
+
 * **summarize_sumstats**, **quality_check**, **create_if_table**, **create_min_pvalue_table**, **create_quality_check_table** and **create_snp_mapping_table**  (`summarize: True`): <br />
 *Purpose*: Creates summary reports and plots of harmonized data.<br />
 *Outputs*:<br />
@@ -184,4 +195,5 @@ See also the [GWASLab website](https://cloufield.github.io/gwaslab/).
 ## DAGs
 Check the dags for:
 * the [default](dag_default.svg) option<br />
+* the [BCFtools liftover](dag_liftoverbcftools.svg) option<br />
 * with the [delivery](dag_delivery.svg) option<br />

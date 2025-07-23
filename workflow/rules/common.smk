@@ -39,6 +39,7 @@ def get_final_output():
 
     if (
         config.get("run").get("harmonization")
+        or config.get("run").get("liftoverbcf_harmonization")
         or config.get("run").get("pre_filtering_and_harmonization")
         or config.get("run").get("harmonization_and_post_filtering")
     ):

@@ -1,6 +1,7 @@
 # Rule execution flags
 run:
-  harmonization: True
+  harmonization: False
+  liftoverbcf_harmonization: True
   summarize: True
   delivery: False
 
@@ -11,6 +12,9 @@ sumstats_suffix: ".gwas.regenie.gz" # Suffix of input summary statistics files (
 sumstats_sep: "\t"
 dest_path: "../test/destination"
 workspace_path: "../test/results"
+hg37_fasta_file_path: '/group/diangelantonio/public_data/liftOver/human_g1k_v37.fasta'
+hg38_fasta_file_path: '/group/diangelantonio/public_data/liftOver/hg38.fa'
+chain_file_path: '/group/diangelantonio/public_data/liftOver/hg19ToHg38.over.chain.gz'
 
 # Common parameters
 input_format: &iformat "regenie" # Input format of summary
