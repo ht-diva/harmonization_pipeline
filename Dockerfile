@@ -1,10 +1,6 @@
 FROM condaforge/mambaforge:latest
 LABEL io.github.snakemake.containerized="true"
-LABEL io.github.snakemake.conda_env_hash="0d70f86ab4cdf0b849f5ea0e4cb275d19d25e19f900d4d4b4e1ea93fcee86a77"
-
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt install -y build-essential libz-dev && rm -rf /var/lib/apt/lists/*
-
+LABEL io.github.snakemake.conda_env_hash="9ec76966e0bfeeb2b203a51e2ef3d18b7e0248fb78cee5712f6b81a2404f5ec2"
 
 # Step 1: Retrieve conda environments
 
@@ -80,6 +76,20 @@ COPY workflow/envs/filtering.yaml /conda-envs/31fc19a9498faffb09aa18f9246db95e/e
 RUN mkdir -p /conda-envs/116beb8c905cb806000f6edfc3da85bf
 COPY workflow/envs/gwaspipe.yaml /conda-envs/116beb8c905cb806000f6edfc3da85bf/environment.yaml
 
+# Conda environment:
+#   source: workflow/envs/liftover_bcftools.yaml
+#   prefix: /conda-envs/bb7d3ca556579c4e816225676dfd5175
+#   name: liftover_bcftools
+#   channels:
+#     - bioconda
+#     - conda-forge
+#   dependencies:
+#     - bcftools=1.22
+#     - htslib=1.22
+#     - bcftools-liftover-plugin
+RUN mkdir -p /conda-envs/bb7d3ca556579c4e816225676dfd5175
+COPY workflow/envs/liftover_bcftools.yaml /conda-envs/bb7d3ca556579c4e816225676dfd5175/environment.yaml
+
 # Step 2: Generate conda environments
 
 RUN mamba env create --prefix /conda-envs/6e056d31662ab0bd2fd3fba49416042f --file /conda-envs/6e056d31662ab0bd2fd3fba49416042f/environment.yaml && \
@@ -87,4 +97,5 @@ RUN mamba env create --prefix /conda-envs/6e056d31662ab0bd2fd3fba49416042f --fil
     mamba env create --prefix /conda-envs/20b7f0f77b859d9ac85875e0e8e2c471 --file /conda-envs/20b7f0f77b859d9ac85875e0e8e2c471/environment.yaml && \
     mamba env create --prefix /conda-envs/31fc19a9498faffb09aa18f9246db95e --file /conda-envs/31fc19a9498faffb09aa18f9246db95e/environment.yaml && \
     mamba env create --prefix /conda-envs/116beb8c905cb806000f6edfc3da85bf --file /conda-envs/116beb8c905cb806000f6edfc3da85bf/environment.yaml && \
+    mamba env create --prefix /conda-envs/bb7d3ca556579c4e816225676dfd5175 --file /conda-envs/bb7d3ca556579c4e816225676dfd5175/environment.yaml && \
     mamba clean --all -y

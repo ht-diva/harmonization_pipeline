@@ -1,6 +1,29 @@
-rule liftover_bcftools:
+rule pre_filtering:
     input:
         sumstats=get_sumstats,
+    output:
+        ws_path("temp/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
+    conda:
+        "../envs/filtering.yaml"
+    params:
+        snpid2filter=config.get("snpid2filter"),
+        input_snpid_col=config.get("input_snpid_col"),
+        filter_snpid_col=config.get("filter_snpid_col"),
+        sumstats_sep=config.get("sumstats_sep"),
+    shell:
+        "python workflow/scripts/filtering_by_snipid.py "
+        "-i {input} "
+        "--input_separator '{params.sumstats_sep}' "
+        "-o {output} "
+        "-f {params.snpid2filter} "
+        "--input_snpid_column {params.input_snpid_col} "
+        "--filter_snpid_column {params.filter_snpid_col}"
+
+
+rule liftover_bcftools:
+    input:
+        sumstats=rules.pre_filtering.output,
+        #sumstats=get_sumstats,
     output:
         vcf=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.liftover.vcf.gz")),
     conda:

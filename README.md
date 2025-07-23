@@ -51,9 +51,9 @@ chain_file_path: '../public_data/liftOver/hg19ToHg38.over.chain.gz'
 * _sumstats_sep_: Separator of the input summary statistics files.
 * _dest_path_: Destination path for the final results.
 * _workspace_path_: Path where intermediate results will be stored.
-* _hg37_fasta_file_path: Path to the file with the reference genome used in the input summary statistics, hg19 (GRCh37).
-* _hg38_fasta_file_path: Path to the file with the target genome used in the liftover, hg38 (GRCh38).
-* _chain_file_path: Path to the chain file to map the genomic coordinates from hg19 (GRCh37) to hg38 (GRCh38) during the liftover.
+* _hg37_fasta_file_path_: Path to the file with the reference genome used in the input summary statistics, hg19 (GRCh37).
+* _hg38_fasta_file_path_: Path to the file with the target genome used in the liftover, hg38 (GRCh38).
+* _chain_file_path_: Path to the chain file to map the genomic coordinates from hg19 (GRCh37) to hg38 (GRCh38) during the liftover.
 
 **Common parameters**
 
