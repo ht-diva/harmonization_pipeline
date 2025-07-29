@@ -46,7 +46,7 @@ steps:
   write_tsv:
     params:
       run: True
-      workspace: "outputs"
+      workspace: "temp"
       workspace_subfolder: True
     gl_params:
       fmt: "gwaslab"
@@ -58,7 +58,7 @@ steps:
           mtime: 1
 
 
-# Filename transformation, e.g.: seq.3007.7.liftover.vcf.gz
+# Filename transformation, e.g.: seq.10390.21.sorted.filtered.TBL
 filename_mask: [ True, True, True, False, False, False]
 filename_sep: '.'
 

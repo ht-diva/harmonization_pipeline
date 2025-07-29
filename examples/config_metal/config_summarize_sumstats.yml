@@ -16,7 +16,7 @@ steps:
     params:
       run: True
     gl_params:
-      to_fill: ['MLOG10P', 'Z', 'CHISQ', 'EAF']
+      to_fill: ['MLOG10P', 'Z']
       overwrite: False
       extreme: True
   report_min_pvalue:

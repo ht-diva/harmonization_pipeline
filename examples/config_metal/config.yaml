@@ -1,0 +1,44 @@
+run:
+  pre_filtering_and_harmonization: False
+  harmonization: False
+  liftoverbcf_harmonization: True
+  harmonization_and_post_filtering: False
+  summarize: True
+  delivery: True
+
+
+# Paths
+# test: config/small_test_interval.tsv
+# full: config/sumstats_from_interval.tsv
+snpid2filter: "/exchange/healthds/pQTL/results/CHRIS/infoscore_HRC_pQTL_harmonized_snpid.csv"
+sumstats_path: config/small_test_metal.tsv
+sumstats_suffix: ".sorted.filtered.TBL" # Suffix of input summary statistics files (check in sumstats_path)
+input_snpid_col: "ID" # Input SNPID column name (check in sumstats_path)
+filter_snpid_col: "SNPID" # Column name for filtering (check in snpid2filter)
+dest_path: "/project/cdh/metal/results"
+workspace_path: ../results
+sumstats_sep: "\t"
+hg37_fasta_file_path: '/group/diangelantonio/public_data/liftOver/human_g1k_v37.fasta'
+hg38_fasta_file_path: '/group/diangelantonio/public_data/liftOver/hg38.fa'
+chain_file_path: '/group/diangelantonio/public_data/liftOver/hg19ToHg38.over.chain.gz'
+
+# Common parameters
+input_format: &iformat "metal_het" # Input format of summary
+
+params:
+  harmonize_sumstats:
+    input_format: "vcf"
+    config_file: "config/config_harmonize_sumstats.yml"
+  harmonize_sumstats_pre_filtering:
+    config_file: "config/config_harmonize_sumstats_pre_filtering.yml"
+  harmonize_sumstats_post_filtering:
+    config_file: "config/config_harmonize_sumstats_post_filtering.yml"
+  summarize_sumstats:
+    input_format: "gwaslab"
+    config_file: "config/config_summarize_sumstats.yml"
+  snp_mapping:
+    input_format: "vcf"
+    config_file: "config/config_snp_mapping.yml"
+  to_vcf:
+    input_format: *iformat
+    config_file: "config/config_to_vcf.yaml"

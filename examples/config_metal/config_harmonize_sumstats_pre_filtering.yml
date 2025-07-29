@@ -29,7 +29,7 @@ steps:
     params:
       run: True
     gl_params:
-      to_fill: ['MLOG10P', 'Z', 'CHISQ', 'EAF']
+      to_fill: ['MLOG10P', 'Z']
       overwrite: False
       extreme: True
   harmonize: # see https://cloufield.github.io/gwaslab/Harmonization/
@@ -58,7 +58,7 @@ steps:
           mtime: 1
 
 
-# Filename transformation, e.g.: seq.3007.7.liftover.vcf.gz
+# Filename transformation, e.g.: seq.10390.21.sorted.filtered.TBL
 filename_mask: [ True, True, True, False, False, False]
 filename_sep: '.'
 

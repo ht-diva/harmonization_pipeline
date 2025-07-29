@@ -3,7 +3,8 @@ run:
   harmonization: False
   liftoverbcf_harmonization: True
   summarize: True
-  delivery: False
+  delivery: True
+  pre_filtering_and_harmonization: True
 
 
 # Paths
@@ -32,3 +33,7 @@ params:
   to_vcf:
     input_format: *iformat
     config_file: "config/config_to_vcf.yaml"
+  harmonize_sumstats_pre_filtering:
+    config_file: "config/config_harmonize_sumstats_pre_filtering.yml"
+  harmonize_sumstats_post_filtering:
+    config_file: "config/config_harmonize_sumstats_post_filtering.yml"
