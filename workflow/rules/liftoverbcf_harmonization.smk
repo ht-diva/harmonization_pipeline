@@ -1,6 +1,28 @@
-rule liftover_bcftools:
+rule convert_to_vcf:
     input:
         sumstats=get_sumstats,
+    output:
+        vcf=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.vcf")),
+    conda:
+        "../envs/gwaspipe.yaml"
+    params:
+        format=config.get("params").get("to_vcf").get("input_format"),
+        config_file=config.get("params").get("to_vcf").get("config_file"),
+        output_path=config.get("workspace_path"),
+        sumstats_sep=config.get("sumstats_sep"),
+    shell:
+        "gwaspipe "
+        "-f {params.format} "
+        "-c {params.config_file} "
+        "-s '{params.sumstats_sep}' "
+        "--study_label {sumstat_id} "
+        "-i {input.sumstats} "
+        "-o {params.output_path}"
+
+
+rule liftover_bcftools:
+    input:
+        sumstats=rules.convert_to_vcf.output.vcf,
     output:
         vcf=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.liftover.vcf.gz")),
     conda:
@@ -10,7 +32,13 @@ rule liftover_bcftools:
         hg38=config.get("hg38_fasta_file_path"),
         chain_file=config.get("chain_file_path"),
     shell:
-        "workflow/scripts/liftover_bcftools.sh {input.sumstats} {params.hg37} {params.hg38} {params.chain_file} {output.vcf} {threads}"
+        "workflow/scripts/liftover_bcftools.sh "
+        " {input.sumstats} "
+        " {params.hg37} "
+        " {params.hg38} "
+        " {params.chain_file} "
+        " {output.vcf} "
+        "{threads}"
 
 
 rule harmonize_sumstats:
@@ -49,7 +77,6 @@ rule bgzip_tabix:
 rule create_snp_mapping_table:
     input:
         sumstats=expand(ws_path("temp/{sumstat_id}/{sumstat_id}.liftover.vcf.gz"), sumstat_id=analytes.sumstat_id.iloc[0]),
-        #sumstats=get_sumstat(),
     output:
         ws_path("snp_mapping/table.snp_mapping.tsv.gz"),
     conda:

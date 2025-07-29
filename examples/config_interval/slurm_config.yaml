@@ -32,11 +32,11 @@ set-resources:
     runtime: attempt * 30
   harmonize_sumstats:
     threads: *cores
-    mem_mb: 22528 + attempt * 2048
+    mem_mb: 45056 + attempt * 2048
     runtime: attempt * 60
   convert_to_vcf:
     threads: *cores
-    mem_mb: 22528 + attempt * 2048
+    mem_mb: 45056 + attempt * 2048
     runtime: attempt * 60
   liftover_bcftools:
     threads: *cores
@@ -63,7 +63,7 @@ set-resources:
     runtime: attempt * 5
   create_snp_mapping_table:
     threads: *cores
-    mem_mb: 22528 + attempt * 2048
+    mem_mb: 45056 + attempt * 2048
     runtime: attempt * 60
   sync_tables:
     runtime: attempt * 10

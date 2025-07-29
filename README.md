@@ -160,11 +160,16 @@ Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *IN
 *Purpose*: Creates a region-based index (CHR and POS columns) of GWAS harmonized data for fast queries.<br />
 *Output*: *{sumstat_id}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
 
-**create_snp_mapping_table** (`harmonization: True`): <br />
-*table.snp_mapping.tsv.gz*: Mapping file that links input SNPID (and rsID when available) to harmonized SNPID.<br />
+* **create_snp_mapping_table** (`harmonization: True`): <br />
+*Purpose:* Creates mapping table to match input data and harmonized summary statistics.<br />
+*Output*: *table.snp_mapping.tsv.gz*: Table that links input SNPID (and rsID when available) to harmonized SNPID.<br />
+
+* **convert_to_vcf** (`liftoverbcf_harmonization: True`): <br />
+*Purpose:* Convert input data to VCF, i.e. the format required for BCFtools liftover (**liftover_bcftools** ).<br />
+*Output*: *{sumstat_id}.vcf*: Summary statistics in VCF format.<br />
 
 * **liftover_bcftools** (`liftoverbcf_harmonization: True`): <br />
-*Purpose:*  Performs BCFtools liftover on input data before performing harmonization (**harmonize_sumstats**), indexing (**bgzip_tabix**), and SNPID mapping (**create_snp_mapping_table**).<br />
+*Purpose:*  Performs BCFtools liftover on the VCF-converted input before performing harmonization (**harmonize_sumstats**), indexing (**bgzip_tabix**), and SNPID mapping (**create_snp_mapping_table**).<br />
 *Output*: *{sumstat_id}.liftover.vcf.gz*: Liftover summary statistics in VCF format.<br />
 
 * **summarize_sumstats**, **quality_check**, **create_if_table**, **create_min_pvalue_table** and **create_quality_check_table**  (`summarize: True`): <br />
