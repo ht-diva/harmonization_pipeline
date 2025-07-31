@@ -3,6 +3,7 @@ rule convert_to_vcf:
         sumstats=get_sumstats,
     output:
         vcf=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.vcf")),
+        log=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.vcf.log")),
     conda:
         "../envs/gwaspipe.yaml"
     params:
@@ -25,6 +26,8 @@ rule liftover_bcftools:
         sumstats=rules.convert_to_vcf.output.vcf,
     output:
         vcf=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.liftover.vcf.gz")),
+        csi=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.liftover.vcf.gz.csi")),
+        log=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.liftover.log")),
     conda:
         "../envs/liftover_bcftools.yaml"
     params:
@@ -33,20 +36,22 @@ rule liftover_bcftools:
         chain_file=config.get("chain_file_path"),
     shell:
         "workflow/scripts/liftover_bcftools.sh "
-        " {input.sumstats} "
-        " {params.hg37} "
-        " {params.hg38} "
-        " {params.chain_file} "
-        " {output.vcf} "
-        "{threads}"
+        "{input.sumstats} "
+        "{params.hg37} "
+        "{params.hg38} "
+        "{params.chain_file} "
+        "{output.vcf} "
+        "{threads} "
+        "{output.log} "
 
 
 rule harmonize_sumstats:
     input:
-        sumstats=rules.liftover_bcftools.output.vcf,
+        sumstats_liftover=rules.liftover_bcftools.output.vcf,
+        log_liftover=rules.liftover_bcftools.output.log,
     output:
-        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
-        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
+        sumstats=ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
+        log=ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
     conda:
         "../envs/gwaspipe.yaml"
     params:
@@ -59,8 +64,10 @@ rule harmonize_sumstats:
         "-f {params.format} "
         "-c {params.config_file} "
         "-s '{params.sumstats_sep}' "
-        "-i {input.sumstats} "
-        "-o {params.output_path}"
+        "-i {input.sumstats_liftover} "
+        "-o {params.output_path} && "
+        "echo $'\\n### BCFtools Liftover log:\\n' >> {output.log} && "
+        "cat {input.log_liftover} >> {output.log}"
 
 
 rule bgzip_tabix:

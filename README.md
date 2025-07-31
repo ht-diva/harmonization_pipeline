@@ -144,6 +144,7 @@ Possible input formats for summary statistics (see [formatbook.json](workflow/sc
 * *fuma*
 * *pickle*
 * *metal_het*
+* *gwascatalog_hm*
 
 ### Configuration files
 
