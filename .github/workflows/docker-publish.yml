@@ -2,7 +2,7 @@ name: Docker
 
 on:
   push:
-    branches: [ "main", "liftover_bcftools" ]
+    branches: [ "main" ]
     paths:
       - 'Dockerfile'
       - 'workflow/envs/**'
@@ -93,6 +93,6 @@ jobs:
           git add workflow/Snakefile
           git add Dockerfile
           git commit -m "Updated Snakefile with new container tag"
-          git push origin liftover_bcftools
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -65,7 +65,8 @@ rule harmonize_sumstats:
         "-c {params.config_file} "
         "-s '{params.sumstats_sep}' "
         "-i {input.sumstats_liftover} "
-        "-o {params.output_path} && "
+        "-o {params.output_path} "
+        "--bcfliftover && "
         "echo $'\\n### BCFtools Liftover log:\\n' >> {output.log} && "
         "cat {input.log_liftover} >> {output.log}"
 
@@ -99,4 +100,5 @@ rule create_snp_mapping_table:
         "-c {params.config_file} "
         "-s '{params.sumstats_sep}' "
         "-i {input.sumstats} "
-        "-o {params.output_path}"
+        "-o {params.output_path} "
+        "--bcfliftover"
