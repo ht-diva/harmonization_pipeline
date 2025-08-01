@@ -61,6 +61,8 @@ steps:
 
 # Filename transformation, e.g.: ukb-b-16946.vcf.gz
 filename_mask: [ True, False, False]
+# Filename transformation, with BCFtools liftover, e.g.: ukb-a-545.liftover.vcf.gz
+#filename_mask: [ True, False, False, False]
 filename_sep: '.'
 
 # IO

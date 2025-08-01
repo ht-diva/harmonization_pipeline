@@ -46,6 +46,7 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
     log_error_nr = 0
     badstat_log = []
     liftover_log = []
+    invalid_chr_log = []
     inconsistent_log = []
 
     timestamp_pat = re.compile(r'^[\d:/\s-]+-\s*')
@@ -58,6 +59,10 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
                 badstat_log.append(line)
             if "removed unmapped variants" in line.lower():
                 liftover_log.append(line)
+            if "dropped variants during bcftools liftover" in line.lower():
+                liftover_log.append(line)
+            if "invalid chromosome notations" in line.lower():
+                invalid_chr_log.append(line)
             if "not consistent" in line.lower():
                 inconsistent_log.append(line)
             if "variants with inconsistent values" in line.lower():
@@ -65,6 +70,7 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
 
     badstat_log = badstat_log or ["NONE"]
     liftover_log = liftover_log or ["NONE"]
+    invalid_chr_log = invalid_chr_log or ["NONE"]
     inconsistent_log = inconsistent_log or ["NONE"]
 
     header = "\t".join([
@@ -77,6 +83,7 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
         "Nr_ErrorsLog",
         "Log_BadStatistics",
         "Log_Liftover",
+        "Log_InvalidChr",
         "Log_Inconsistency"
     ])
 
@@ -90,6 +97,7 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
         str(log_error_nr),
         "; ".join(badstat_log),
         "; ".join(liftover_log),
+        "; ".join(invalid_chr_log),
         "; ".join(inconsistent_log)
     ]
 

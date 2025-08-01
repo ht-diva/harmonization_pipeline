@@ -16,7 +16,7 @@ steps:
     params:
       run: True
     gl_params:
-      to_fill: ['MLOG10P', 'Z', 'CHISQ', 'EAF']
+      to_fill: ['MLOG10P', 'Z']
       overwrite: False
       extreme: True
   report_min_pvalue:
@@ -47,7 +47,7 @@ steps:
       sig_level: 5e-8
 
 
-# Filename transformation, e.g.: seq.3007.7.gwas.regenie.gz
+# Filename transformation, e.g.: seq.3007.7.gwaslab.tsv.gz
 filename_mask: [ True, True, True, False, False, False]
 filename_sep: '.'
 
