@@ -1,16 +1,16 @@
 ---
 # common parameters
-n_cores: &cores 4
+n_cores: &cores 8
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
   - 1: 'basic_check'
   - 2: 'infer_build'
   - 3: 'fill_data'
-  - 4: 'harmonize'
-  - 5: 'sort_alphabetically'
-  - 6: 'write_tsv'
-
+  - 4: 'liftover'
+  - 5: 'harmonize'
+  - 6: 'sort_alphabetically'
+  - 7: 'write_snp_mapping'
 
 steps:
   basic_check: # see https://cloufield.github.io/gwaslab/Standardization/
@@ -29,38 +29,38 @@ steps:
     params:
       run: True
     gl_params:
-      to_fill: ['MLOG10P', 'Z', 'CHISQ', 'EAF']
+      to_fill: [ 'MLOG10P' ]
       overwrite: False
       extreme: True
   harmonize: # see https://cloufield.github.io/gwaslab/Harmonization/
     params:
       run: True
     gl_params:
-      basic_check: False
+      basic_check: True
       n_cores: *cores
+  liftover: # see https://cloufield.github.io/gwaslab/LiftOver/
+    params:
+      run: True
+    gl_params:
+      n_cores: *cores
+      from_build: "19"
+      to_build: "38"
+      remove: True
   sort_alphabetically:
     params:
       run: True
     gl_params:
       n_cores: *cores
-  write_tsv:
+  write_snp_mapping: # see https://cloufield.github.io/gwaslab/Standardization/
     params:
       run: True
-      workspace: "temp"
-      workspace_subfolder: True
+      workspace: "snp_mapping"
+      workspace_subfolder: False
     gl_params:
-      fmt: "gwaslab"
-      xymt_number: True
-      to_csvargs:
-        compression:
-          method: "gzip"
-          compresslevel: 1
-          mtime: 1
+      fmt: "snp_mapping"
 
-
-# Filename transformation, e.g.: seq.3007.7.gwas.regenie.gz
-filename_mask: [ True, True, True, False, False, False]
-filename_sep: '.'
+# Filename transformation, e.g.: 2025_05_13_eGFR.min_singlevariant51kGSA-TOPMEDr3-GWAS_eGFR.min.regenie.gz
+filename_mask: [ True, True, True, False, False]
 
 # IO
 root_path: "results"

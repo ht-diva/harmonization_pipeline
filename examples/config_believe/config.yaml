@@ -1,6 +1,6 @@
 run:
-  pre_filtering_and_harmonization: False
-  harmonization: True
+  pre_filtering_and_harmonization: True
+  harmonization: False
   harmonization_and_post_filtering: False
   summarize: True
   delivery: True

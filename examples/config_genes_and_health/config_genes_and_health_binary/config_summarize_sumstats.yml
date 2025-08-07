@@ -1,6 +1,6 @@
 ---
 # common parameters
-n_cores: &cores 4
+n_cores: &cores 8
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
@@ -47,8 +47,8 @@ steps:
       sig_level: 5e-8
 
 
-# Filename transformation, e.g.: seq.10000.28.gwaslab.tsv.gz
-filename_mask: [ True, True, True, False, False, False]
+# Filename transformation, e.g.: 2025_05_23_N70_singlevariant51kGSA-TOPMEDr3-GWAS_N70.gwaslab.tsv.gz
+filename_mask: [ True, False, False, False]
 filename_sep: '.'
 
 # IO

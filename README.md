@@ -144,13 +144,12 @@ Possible input formats for summary statistics (see [formatbook.json](workflow/sc
 * *fuma*
 * *pickle*
 * *metal_het*
-* *gwascatalog_hm*
 
 ### Configuration files
 
 This pipeline requires 6 configuration files in the folder [config](config): the main configuration file [config/config.yaml](config/config.yaml), and 5 rule-based configuration files where to specify the parameters of each step of the rule.
 
-Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *INTERVAL* and *UKBiobank* input data are given in the folder [examples](examples).
+Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *Genes & Health*, *INTERVAL*, *Meta-CHRIS-INTERVAL*, *UK Biobank* and *UKB-PPP* input data are given in the folder [examples](examples).
 
 ## Rules description
 * **harmonize_sumstats** (`harmonization: True`): <br />
