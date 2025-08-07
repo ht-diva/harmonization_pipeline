@@ -112,7 +112,7 @@ These configuration files are essential for setting up and running the analysis 
 
 ### Configuration file examples
 
-Examples of configuration files for *BELIEVE*, *CHRIS*, *Decode*, *FinnGen*, *INTERVAL*, *UKB*, and *UKB-PPP* input data are given in the folder [examples](examples).
+Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *INTERVAL*, *UKB*, and *UKB-PPP* input data are given in the folder [examples](examples).
 
 ### Submitting the workflow
 To submit the workflow to the HT HPC cluster, you can use the [submit.sbatch](submit.sbatch) script with the command `sbatch submit.sbatch`. Check the script to adapt it to your specific requirements.
@@ -132,7 +132,7 @@ with output (example):
 
 ## Input formats
 
-Possible input formats for summary statistics (see [formatbook.json](workflow/scripts/gwaspipe/data/formatbook.json) for more options to add):
+Possible input formats for summary statistics (see [formatbook.json](https://github.com/ht-diva/gwaspipe/blob/dev/data/formatbook.json) for more options to add):
 * *finngen*
 * *vcf*
 * *decode*
