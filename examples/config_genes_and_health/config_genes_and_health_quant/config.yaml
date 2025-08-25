@@ -7,9 +7,9 @@ run:
 # Paths
 # test: config/small_test_genes_and_health_quant.tsv
 # full: config/sumstats_from_genes_and_health_quant.tsv
-sumstats_path: config/sumstats_from_genes_and_health.tsv
+sumstats_path: config/sumstats_from_genes_and_health_quant.tsv
 sumstats_suffix: ".regenie.gz" # Suffix of input summary statistics files (check in sumstats_path)
-dest_path: "/project/cdh/genes_and_health_quant/result"
+dest_path: "/project/cdh/genes_and_health_quant/results"
 workspace_path: ../results
 sumstats_sep: " "
 

@@ -9,7 +9,7 @@ run:
 # full: config/sumstats_from_genes_and_health_binary.tsv
 sumstats_path: config/sumstats_from_genes_and_health_binary.tsv
 sumstats_suffix: ".regenie.gz" # Suffix of input summary statistics files (check in sumstats_path)
-dest_path: "/project/cdh/genes_and_health_binary/result"
+dest_path: "/project/cdh/genes_and_health_binary/results"
 workspace_path: ../results
 sumstats_sep: " "
 

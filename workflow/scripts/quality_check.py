@@ -16,7 +16,7 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
     # Count lines of input GWAS sumstats
     # Skeep metadata if VCF file
     open_fun = gzip.open if gwas_sumstats.suffix == ".gz" else open
-    if gwas_sumstats.suffix in {".vcf", ".vcf.gz"}:
+    if gwas_sumstats.suffix in {".vcf"} or gwas_sumstats.suffixes[-2:] == [".vcf", ".gz"]:
         nr_input = sum(1 for line in open_fun(gwas_sumstats, "rt") if not line.startswith("#"))
     else:
         nr_input = sum(1 for _ in open_fun(gwas_sumstats, "rt")) - 1
