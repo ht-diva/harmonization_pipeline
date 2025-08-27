@@ -17,6 +17,10 @@ if config.get("run").get("harmonization"):
 
     include: "rules/harmonization.smk"
 
+elif config.get("run").get("gwascatalog"):
+
+    include: "rules/gwascatalog_harmonization.smk"
+    
 elif config.get("run").get("liftoverbcf_harmonization"):
 
     include: "rules/liftoverbcf_harmonization.smk"

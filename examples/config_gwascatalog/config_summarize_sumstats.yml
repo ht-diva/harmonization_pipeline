@@ -1,0 +1,57 @@
+---
+# common parameters
+n_cores: &cores 4
+
+# This is an ordered dict that contains the order in which the steps are run.
+run_sequence: !!omap
+  - 1: 'fill_data'
+  - 2: 'report_min_pvalue'
+  - 3: 'report_harmonization_summary'
+  - 4: 'report_inflation_factors'
+  - 5: 'qq_manhattan_plots'
+
+
+steps:
+  fill_data: # see https://cloufield.github.io/gwaslab/Conversion/#fill_data
+    params:
+      run: True
+    gl_params:
+      to_fill: ['MLOG10P', 'Z', 'BETA', 'P' ]
+      overwrite: False
+      extreme: True
+  report_min_pvalue:
+    params:
+      run: True
+      workspace: "min_P"
+  report_harmonization_summary:
+    params:
+      run: True
+      workspace: "outputs"
+      workspace_subfolder: True
+  report_inflation_factors:
+    params:
+      run: True
+      workspace: "if"
+  qq_manhattan_plots:
+    params:
+      run: True
+      workspace: "plots"
+      dist: 2
+    gl_params:
+      mode: 'mqq'
+      stratified: True
+      maf_bins: [ [ 0, 0.01 ], [ 0.01, 0.05 ], [ 0.05, 1 ] ]
+      scaled: True
+      build: "38"
+      skip: 1
+      sig_level: 5e-8
+
+
+# Filename transformation, e.g.: GCST90245818.gwaslab.tsv.gz
+filename_mask: [ True, False, False, False]
+filename_sep: '.'
+
+# IO
+root_path: "results"
+log_filename: "gwaspipe.log"
+formatbook_path: "workflow/scripts/gwaspipe/data/formatbook.json"     # fill this var if you want to provide a custom formatbook

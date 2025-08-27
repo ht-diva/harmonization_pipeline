@@ -29,7 +29,7 @@ steps:
     params:
       run: True
     gl_params:
-      to_fill: ['MLOG10P', 'Z' ]
+      to_fill: ['MLOG10P', 'Z', 'BETA', 'P' ]
       overwrite: False
       extreme: True
   harmonize: # see https://cloufield.github.io/gwaslab/Harmonization/
@@ -57,8 +57,8 @@ steps:
           mtime: 1
 
 
-# Filename transformation, e.g.: seq.3007.7.gwas.regenie.gz
-filename_mask: [ True, True, True, False, False, False]
+# Filename transformation, e.g.: GCST90245818.h.tsv.gz
+filename_mask: [ True, False, False, False]
 filename_sep: '.'
 
 # IO

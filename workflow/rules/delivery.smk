@@ -25,6 +25,29 @@ rule sync_tables:
         rsync -rlptoDvzc {input.table_qc} {params.table_qc}"""
 
 
+rule sync_tables_nosnpmap:
+    input:
+        table_minp=ws_path("min_pvalue_table.tsv"),
+        table_if=ws_path("inflation_factors_table.tsv"),
+        table_qc=ws_path("quality_check_table.tsv"),
+    output:
+        touch(protected(dst_path("tables_delivery.done"))),
+    conda:
+        "../envs/delivery_sync.yaml"
+    params:
+        table_minp=dst_path("min_pvalue_table.tsv"),
+        table_if=dst_path("inflation_factors_table.tsv"),
+        table_qc=dst_path("quality_check_table.tsv"),
+    shell:
+        """
+        rsync -rlptoDvz {input.table_minp} {params.table_minp} && \
+        rsync -rlptoDvzc {input.table_minp} {params.table_minp} && \
+        rsync -rlptoDvz {input.table_if} {params.table_if} && \
+        rsync -rlptoDvzc {input.table_if} {params.table_if} && \
+        rsync -rlptoDvz {input.table_qc} {params.table_qc} && \
+        rsync -rlptoDvzc {input.table_qc} {params.table_qc}"""
+
+
 rule sync_plots:
     input:
         ws_path("plots/{sumstat_id}.png"),
@@ -52,3 +75,19 @@ rule sync_outputs_folder:
         """
         rsync -rlptoDvz --chmod "D755,F644" {params.folder} {params.output_folders} && \
         rsync -rlptoDvzc {params.folder} {params.output_folders}"""
+
+
+rule sync_snp_mapping_folder:
+    input:
+        ws_path("snp_mapping/{sumstat_id}/{sumstat_id}.table.snp_mapping.tsv.gz"),
+    output:
+        touch(dst_path("snp_mapping/{sumstat_id}/.snp_mapping.delivery.done")),
+    conda:
+        "../envs/delivery_sync.yaml"
+    params:
+        folder=ws_path("snp_mapping/{sumstat_id}/"),
+        snp_mapping_folders=dst_path("snp_mapping/"),
+    shell:
+        """
+        rsync -rlptoDvz --chmod "D755,F644" {params.folder} {params.snp_mapping_folders} && \
+        rsync -rlptoDvzc {params.folder} {params.snp_mapping_folders}"""
