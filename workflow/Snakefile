@@ -4,7 +4,7 @@ from snakemake.utils import min_version
 min_version("8.4.1")
 
 
-containerized: "docker://ghcr.io/ht-diva/harmonization_pipeline:65a9dab"
+containerized: "docker://ghcr.io/ht-diva/harmonization_pipeline:31b0120"
 
 
 configfile: "config/config.yaml"
