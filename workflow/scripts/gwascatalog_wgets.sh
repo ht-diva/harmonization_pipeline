@@ -15,14 +15,14 @@ if [[ -z "$LINE" ]]; then
 fi
 
 output_path=$(echo "$LINE" | cut -f2)
-url=$(echo "$LINE" | cut -f4)
+url=$(echo "$LINE" | cut -f3)
 study_id=$(basename "$url")
 output_dir=$(dirname "$output_path")
 
-# Get correct file name (must contain the study ID and preferably EFO term)
+# Get correct file name (preferably with EFO term)
 file_list=$(wget -qO- "${url}/harmonised/" | grep -o 'href="[^"]\+\.h\.tsv\.gz"' | sed 's/href="//' | sed 's/"$//')
-efo_file=$(echo "$file_list" | grep "$study_id" | grep -- '-EFO_' | head -n1)
-non_efo_file=$(echo "$file_list" | grep "$study_id" | grep -v -- '-EFO_' | head -n1)
+efo_file=$(echo "$file_list" | grep -- '-EFO_' | head -n1)
+non_efo_file=$(echo "$file_list" | grep -v -- '-EFO_' | head -n1)
 if [[ -n "$efo_file" ]]; then
   target_basename="$efo_file"
 elif [[ -n "$non_efo_file" ]]; then
@@ -45,7 +45,7 @@ wget \
   -nd \
   -e robots=off \
   --accept="$target_basename,$target_basename-meta.yaml,md5sum.txt" \
-  -P "$output_path" \
+  -P "$output_dir" \
   "${url}/harmonised/"
 
 # Check format
@@ -67,6 +67,15 @@ else
   echo "$(date '+%Y/%m/%d %H:%M:%S') MD5 mismatch for $filename" | tee -a "$LOG_FILE"
   echo "Expected: $expected_md5" | tee -a "$LOG_FILE"
   echo "Actual: $actual_md5" | tee -a "$LOG_FILE"
+fi
+
+# Rename downloaded file to match output path
+if [[ -f "$hfile" ]]; then
+  mv "$hfile" "$output_path"
+  echo "$(date '+%Y/%m/%d %H:%M:%S') Renamed $(basename "$hfile") to $(basename "$output_path")" | tee -a "$LOG_FILE"
+else
+  echo "$(date '+%Y/%m/%d %H:%M:%S') ERROR: Expected downloaded file not found for renaming." | tee -a "$LOG_FILE"
+  exit 1
 fi
 
 echo "$(date '+%Y/%m/%d %H:%M:%S') Done with $SUMSTAT_ID." | tee -a "$LOG_FILE"

@@ -46,9 +46,9 @@ steps:
     params:
       run: True
       workspace: "snp_mapping"
-      workspace_subfolder: False
+      workspace_subfolder: True
     gl_params:
-      fmt: "snp_mapping_rsid"
+      fmt: "snp_mapping"
 
 # Filename transformation, e.g.: GCST90245818.h.tsv.gz
 filename_mask: [ True, False, False, False]

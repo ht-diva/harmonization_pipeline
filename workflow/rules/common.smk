@@ -16,11 +16,11 @@ if config.get("run").get("gwascatalog"):
         if parsed.scheme not in ("http", "https") or not parsed.netloc:
             raise ValueError(f"Invalid URL: '{url}'")
         sumstat_id = Path(url).name
-        sumstat_path = f"{workspace_path}/temp/gwascatalog/{sumstat_id}/{sumstat_id}.h.tsv.gz"
+        sumstat_path = Path(f"{workspace_path}/temp/gwascatalog/{sumstat_id}/{sumstat_id}.h.tsv.gz")
         rows.append(f"{sumstat_id}\t{sumstat_path}\t{url}")
 
     with open(Path("config/sumstats_from_gwascatalog.tsv"), "w") as out:
-        out.write("\n".join(rows))
+        out.write("\n".join(rows) + "\n")
 
     # Define input for the rules
     data = []
@@ -103,7 +103,7 @@ def get_final_output():
         if config.get("run").get("gwascatalog"):
             final_output.extend(
                 expand(
-                    ws_path("snp_mapping/{sumstat_id}/{sumstat_id}.table.snp_mapping.tsv.gz"),
+                    ws_path("snp_mapping/{sumstat_id}/table.snp_mapping.tsv.gz"),
                     sumstat_id=analytes.sumstat_id,
                 )
             )            

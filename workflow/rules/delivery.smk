@@ -79,7 +79,7 @@ rule sync_outputs_folder:
 
 rule sync_snp_mapping_folder:
     input:
-        ws_path("snp_mapping/{sumstat_id}/{sumstat_id}.table.snp_mapping.tsv.gz"),
+        ws_path("snp_mapping/{sumstat_id}/table.snp_mapping.tsv.gz"),
     output:
         touch(dst_path("snp_mapping/{sumstat_id}/.snp_mapping.delivery.done")),
     conda:
