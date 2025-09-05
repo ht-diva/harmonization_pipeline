@@ -50,6 +50,7 @@ wget \
 
 # Check format
 hfile=$(find "$output_dir" -maxdepth 1 -name '*.h.tsv.gz')
+mfile=$(find "$output_dir" -maxdepth 1 -name '*-meta.yaml')
 if zcat "$hfile" | head -n 1 | grep -q "hm_variant_id"; then
   echo "gwascatalog_hm_custom" > "$FORMAT"
 else
@@ -69,10 +70,12 @@ else
   echo "Actual: $actual_md5" | tee -a "$LOG_FILE"
 fi
 
-# Rename downloaded file to match output path
+# Rename downloaded files to match output path
 if [[ -f "$hfile" ]]; then
   mv "$hfile" "$output_path"
+  mv "$mfile" "$output_dir/$SUMSTAT_ID.h.tsv.gz-meta.yaml"
   echo "$(date '+%Y/%m/%d %H:%M:%S') Renamed $(basename "$hfile") to $(basename "$output_path")" | tee -a "$LOG_FILE"
+  echo "$(date '+%Y/%m/%d %H:%M:%S') Renamed $(basename "$mfile") to ${SUMSTAT_ID}.h.tsv.gz-meta.yaml" | tee -a "$LOG_FILE"
 else
   echo "$(date '+%Y/%m/%d %H:%M:%S') ERROR: Expected downloaded file not found for renaming." | tee -a "$LOG_FILE"
   exit 1

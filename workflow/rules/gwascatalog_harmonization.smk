@@ -2,9 +2,10 @@ rule gwascatalog_wget:
     input:
         sumstats_path=config.get("sumstats_path"),
     output:
-        sumstats=ws_path(temp("temp/gwascatalog/{sumstat_id}/{sumstat_id}.h.tsv.gz")),
-        format=ws_path(temp("temp/gwascatalog/{sumstat_id}/{sumstat_id}.format.txt")),
-        log=ws_path(temp("temp/gwascatalog/{sumstat_id}/{sumstat_id}.gwascatalog_wget.log")),
+        sumstats=temp(ws_path("temp/gwascatalog/{sumstat_id}/{sumstat_id}.h.tsv.gz")),
+        metadata=temp(ws_path("temp/gwascatalog/{sumstat_id}/{sumstat_id}.h.tsv.gz-meta.yaml")),
+        format=temp(ws_path("temp/gwascatalog/{sumstat_id}/{sumstat_id}.format.txt")),
+        log=temp(ws_path("temp/gwascatalog/{sumstat_id}/{sumstat_id}.gwascatalog_wget.log")),
     conda:
         "../envs/gwascatalog_wget.yaml"
     shell:

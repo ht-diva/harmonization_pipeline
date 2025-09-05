@@ -2,7 +2,7 @@ name: Docker
 
 on:
   push:
-    branches: [ "main", "gwascatalog" ]
+    branches: [ "main" ]
     paths:
       - 'Dockerfile'
       - 'workflow/envs/**'
@@ -16,6 +16,7 @@ env:
 
 jobs:
   build:
+    if: ${{ !startsWith(github.event.head_commit.message, 'Merge') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -93,6 +94,6 @@ jobs:
           git add workflow/Snakefile
           git add Dockerfile
           git commit -m "Updated Snakefile with new container tag"
-          git push origin gwascatalog
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
