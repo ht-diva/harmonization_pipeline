@@ -42,6 +42,10 @@ set-resources:
     threads: *cores
     mem_mb: 22528 + attempt * 2048
     runtime: attempt * 60
+  gwascatalog_wget:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 30  
   post_filtering:
     threads: *cores
     mem_mb: 22528 + attempt * 2048
@@ -67,9 +71,14 @@ set-resources:
     runtime: attempt * 60
   sync_tables:
     runtime: attempt * 10
+  sync_tables_nosnpmap:
+    runtime: attempt * 10
   sync_plots:
     mem_mb: 1024 + attempt * 1024
     runtime: attempt * 30
   sync_outputs_folder:
+    mem_mb: 1024 + attempt * 1024
+    runtime: attempt * 60
+  sync_snp_mapping_folder:
     mem_mb: 1024 + attempt * 1024
     runtime: attempt * 60

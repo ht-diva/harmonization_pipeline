@@ -1,0 +1,84 @@
+executor: slurm
+jobs: 250
+software-deployment-method:
+   - conda
+   - apptainer
+retries: 3
+max-jobs-per-second: 10
+max-status-checks-per-second: 1
+local-cores: 1
+cores: &cores 4
+latency-wait: 60
+keep-going: True
+rerun-incomplete: False
+printshellcmds: True
+scheduler: ilp
+
+default-resources:
+    slurm_partition: cpuq
+    mem_mb: attempt * 512
+    threads: 1
+    runtime: attempt * 5
+set-threads:
+    harmonize_sumstats: *cores
+    bgzip_tabix: *cores
+    create_snp_mapping_table: *cores
+    convert_to_vcf: *cores
+    liftover_bcftools: *cores
+set-resources:
+  pre_filtering:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 30
+  harmonize_sumstats:
+    threads: *cores
+    mem_mb: 45056 + attempt * 2048
+    runtime: attempt * 60
+  convert_to_vcf:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 60
+  liftover_bcftools:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 60
+  gwascatalog_wget:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 30  
+  post_filtering:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 30
+  summarize_sumstats:
+    threads: *cores
+    mem_mb: 22528 + attempt * 2048
+    runtime: attempt * 60
+  bgzip_tabix:
+    threads: *cores
+    runtime: attempt * 10
+  create_if_table:
+    threads: *cores
+    mem_base: 512
+    mem_per_attempt: 512
+    runtime: attempt * 5
+  create_min_pvalue_table:
+    threads: *cores
+    runtime: attempt * 5
+  create_snp_mapping_table:
+    threads: *cores
+    mem_mb: 45056 + attempt * 2048
+    runtime: attempt * 60
+  sync_tables:
+    runtime: attempt * 10
+  sync_tables_nosnpmap:
+    runtime: attempt * 10
+  sync_plots:
+    mem_mb: 1024 + attempt * 1024
+    runtime: attempt * 30
+  sync_outputs_folder:
+    mem_mb: 1024 + attempt * 1024
+    runtime: attempt * 60
+  sync_snp_mapping_folder:
+    mem_mb: 1024 + attempt * 1024
+    runtime: attempt * 60

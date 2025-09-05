@@ -1,0 +1,12 @@
+name: gwascatalog_wget
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - htslib=1.16
+  - wget
+  - coreutils
+  - grep
+  - sed
+  - findutils

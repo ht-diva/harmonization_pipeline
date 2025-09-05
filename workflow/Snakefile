@@ -4,7 +4,7 @@ from snakemake.utils import min_version
 min_version("8.4.1")
 
 
-containerized: "docker://ghcr.io/ht-diva/harmonization_pipeline:10f563b"
+containerized: "docker://ghcr.io/ht-diva/harmonization_pipeline:31b0120"
 
 
 configfile: "config/config.yaml"
@@ -17,6 +17,10 @@ if config.get("run").get("harmonization"):
 
     include: "rules/harmonization.smk"
 
+elif config.get("run").get("gwascatalog"):
+
+    include: "rules/gwascatalog_harmonization.smk"
+    
 elif config.get("run").get("liftoverbcf_harmonization"):
 
     include: "rules/liftoverbcf_harmonization.smk"

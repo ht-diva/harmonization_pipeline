@@ -1,18 +1,20 @@
 # Rule execution flags
 run:
   harmonization: False
-  liftoverbcf_harmonization: True
+  liftoverbcf_harmonization: False
+  gwascatalog: True
   summarize: True
   delivery: True
   pre_filtering_and_harmonization: True
 
 
 # Paths
-sumstats_path: config/local.txt
+sumstats_path: config/sumstats_from_gwascatalog.tsv
+sumstats_url: config/urls_gwascatalog_test.tsv
 sumstats_suffix: ".gwas.regenie.gz" # Suffix of input summary statistics files (check it in the sumstats_path list)
 sumstats_sep: "\t"
-dest_path: "../test/destination"
-workspace_path: "../test/results"
+dest_path: "../destination"
+workspace_path: "../results"
 hg37_fasta_file_path: '/group/diangelantonio/public_data/liftOver/human_g1k_v37.fasta'
 hg38_fasta_file_path: '/group/diangelantonio/public_data/liftOver/hg38.fa'
 chain_file_path: '/group/diangelantonio/public_data/liftOver/hg19ToHg38.over.chain.gz'

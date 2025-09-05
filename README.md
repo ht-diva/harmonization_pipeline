@@ -22,12 +22,14 @@ These flags control which parts of the pipeline should be executed.
 run:
   harmonization: True
   liftoverbcf_harmonization: False
+  gwascatalog: False
   summarize: True
   delivery: False
  ```
 
 * _harmonization_: If set to True, the harmonization rules will be executed.
 * _liftoverbcf_harmonization_: If set to False, the harmonization rules will not be executed after BCFtools liftover.
+* _gwascatalog_: If set to False, the summary statistics will not be downloaded by GWAS Catalog.
 * _summarize_: If set to True, the summarization rules will be executed.
 * _delivery_: If set to False, the delivery rules will not be executed.
 
@@ -37,23 +39,25 @@ These paths define the locations of input files and directories where intermedia
 
 ```yaml
 sumstats_path: config/sumstats_paths.tsv
+sumstats_url: config/urls_gwascatalog_test.tsv
 sumstats_suffix: ".gwas.regenie.gz"
 sumstats_sep: "\t"
-dest_path: "../test/destination"
-workspace_path: "../test/results"
+dest_path: "../destination"
+workspace_path: "../results"
 hg37_fasta_file_path: '/public_data/liftOver/human_g1k_v37.fasta'
 hg38_fasta_file_path: '/public_data/liftOver/hg38.fa'
 chain_file_path: '/public_data/liftOver/hg19ToHg38.over.chain.gz'
 ```
 
 * _sumstats_path_: Path to the file containing a path to each summary statistics to process.
+* _sumstats_url_: Path to the file containing a url to each summary statistics to download from GWAS Catalog (only when `gwascatalog: True`).
 * _sumstats_suffix_: Common suffix of the input summary statistics files.
 * _sumstats_sep_: Separator of the input summary statistics files.
 * _dest_path_: Destination path for the final results.
 * _workspace_path_: Path where intermediate results will be stored.
-* _hg37_fasta_file_path_: Path to the file with the reference genome used in the input summary statistics, hg19 (GRCh37).
-* _hg38_fasta_file_path_: Path to the file with the target genome used in the liftover, hg38 (GRCh38).
-* _chain_file_path_: Path to the chain file to map the genomic coordinates from hg19 (GRCh37) to hg38 (GRCh38) during the liftover.
+* _hg37_fasta_file_path_: Path to the file with the reference genome used in the input summary statistics, hg19 (GRCh37) (only when `liftoverbcf_harmonization: True`).
+* _hg38_fasta_file_path_: Path to the file with the target genome used in the liftover, hg38 (GRCh38) (only when `liftoverbcf_harmonization: True`).
+* _chain_file_path_: Path to the chain file to map the genomic coordinates from hg19 (GRCh37) to hg38 (GRCh38) during the liftover (only when `liftoverbcf_harmonization: True`).
 
 **Common parameters**
 
@@ -144,12 +148,14 @@ Possible input formats for summary statistics (see [formatbook.json](https://git
 * *fuma*
 * *pickle*
 * *metal_het*
+* *ssf_custom*
+* *gwascatalog_hm_custom*
 
 ### Configuration files
 
 This pipeline requires 6 configuration files in the folder [config](config): the main configuration file [config/config.yaml](config/config.yaml), and 5 rule-based configuration files where to specify the parameters of each step of the rule.
 
-Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *Genes & Health*, *INTERVAL*, *Meta-CHRIS-INTERVAL*, *UK Biobank* and *UKB-PPP* input data are given in the folder [examples](examples).
+Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *Genes & Health*, *GWAS Catalog*, *INTERVAL*, *Meta-CHRIS-INTERVAL*, *UK Biobank* and *UKB-PPP* input data are given in the folder [examples](examples).
 
 ## Rules description
 * **harmonize_sumstats** (`harmonization: True`): <br />
@@ -162,15 +168,19 @@ Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *Genes & Hea
 
 * **create_snp_mapping_table** (`harmonization: True`): <br />
 *Purpose:* Creates mapping table to match input data and harmonized summary statistics.<br />
-*Output*: *table.snp_mapping.tsv.gz*: Table that links input SNPID (and rsID when available) to harmonized SNPID.<br />
+*Output*: *table.snp_mapping.tsv.gz*: Table that links input SNPID (and rsID when available) to harmonized SNPID. Note that in case `gwascatalog: True`, SNPID mapping is generated for each summary statistics.<br />
 
 * **convert_to_vcf** (`liftoverbcf_harmonization: True`): <br />
 *Purpose:* Convert input data to VCF, i.e. the format required for BCFtools liftover (**liftover_bcftools** ).<br />
 *Output*: *{sumstat_id}.vcf*: Summary statistics in VCF format.<br />
 
 * **liftover_bcftools** (`liftoverbcf_harmonization: True`): <br />
-*Purpose:*  Performs BCFtools liftover on the VCF-converted input before performing harmonization (**harmonize_sumstats**), indexing (**bgzip_tabix**), and SNPID mapping (**create_snp_mapping_table**).<br />
+*Purpose:* Performs BCFtools liftover on the VCF-converted input before performing harmonization (**harmonize_sumstats**), indexing (**bgzip_tabix**), and SNPID mapping (**create_snp_mapping_table**).<br />
 *Output*: *{sumstat_id}.liftover.vcf.gz*: Liftover summary statistics in VCF format.<br />
+
+* **gwascatalog_wget** (`gwascatalog: True`): <br />
+*Purpose:* Downloads summary statistics from GWAS Catalog before performing harmonization (**harmonize_sumstats**), indexing (**bgzip_tabix**), and per-sumstat_id SNPID mapping (**create_snp_mapping_table**).<br />
+*Output*: *{sumstat_id}.h.tsv.gz* and *{sumstat_id}.format.txt*: Summary statistics from GWAS Catalog and format (*gwascatalog_hm* or *gwascatalog*).<br />
 
 * **summarize_sumstats**, **quality_check**, **create_if_table**, **create_min_pvalue_table** and **create_quality_check_table**  (`summarize: True`): <br />
 *Purpose*: Creates summary reports and plots of harmonized data.<br />
@@ -183,6 +193,10 @@ Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *Genes & Hea
 * **sync_outputs_folder**, **sync_plots** and **sync_tables**  (`delivery: True`): <br />
 *Purpose*: Copies GWAS indexes, and summary reports and plots to destination folder `dest_path`.<br />
 *Outputs*: Copies of *{sumstat_id}.gwaslab.tsv.gz.tbi*, *{sumstat_id}.{sumstat_id}.png*, *min_pvalue_table.tsv*, *inflation_factors_table.tsv*, and *table.snp_mapping.tsv.gz*.<br />
+
+* **sync_snp_mapping_folder** (`gwascatalog: True`): <br />
+*Purpose*: Copies per-sumstat_id SNPID mapping to destination folder `dest_path`.<br />
+*Outputs*: Copies of *{sumstat_id}.table.snp_mapping.tsv.gz*.<br />
 
 ### Standardization and Harmonization
 
@@ -203,4 +217,5 @@ See also the [GWASLab website](https://cloufield.github.io/gwaslab/).
 Check the dags for:
 * the [default](dag_default.svg) option<br />
 * the [BCFtools liftover](dag_liftoverbcftools.svg) option<br />
+* the [GWAS Catalog](dag_gwascatalog.svg) option<br />
 * with the [delivery](dag_delivery.svg) option<br />
