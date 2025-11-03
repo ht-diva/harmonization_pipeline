@@ -116,7 +116,7 @@ These configuration files are essential for setting up and running the analysis 
 
 ### Configuration file examples
 
-Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *Genes & Health*, *INTERVAL*, *Meta-CHRIS-INTERVAL*, *UK Biobank* and *UKB-PPP* input data are given in the folder [examples](examples).
+Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *Genes & Health*, *GTEx*, *GWAS Catalog*, *INTERVAL*, *Meta-CHRIS-INTERVAL*, *UK Biobank* and *UKB-PPP* input data are given in the folder [examples](examples).
 
 ### Submitting the workflow
 To submit the workflow to the HT HPC cluster, you can use the [submit.sbatch](submit.sbatch) script with the command `sbatch submit.sbatch`. Check the script to adapt it to your specific requirements.
@@ -150,12 +150,13 @@ Possible input formats for summary statistics (see [formatbook.json](https://git
 * *metal_het*
 * *ssf_custom*
 * *gwascatalog_hm_custom*
+* *gtex*
 
 ### Configuration files
 
 This pipeline requires 6 configuration files in the folder [config](config): the main configuration file [config/config.yaml](config/config.yaml), and 5 rule-based configuration files where to specify the parameters of each step of the rule.
 
-Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *Genes & Health*, *GWAS Catalog*, *INTERVAL*, *Meta-CHRIS-INTERVAL*, *UK Biobank* and *UKB-PPP* input data are given in the folder [examples](examples).
+Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *Genes & Health*, *GTEx*, *GWAS Catalog*, *INTERVAL*, *Meta-CHRIS-INTERVAL*, *UK Biobank* and *UKB-PPP* input data are given in the folder [examples](examples).
 
 ## Rules description
 * **harmonize_sumstats** (`harmonization: True`): <br />

@@ -1,0 +1,28 @@
+run:
+  harmonization: True
+  summarize: True
+  delivery: True
+
+
+# Paths
+# test: config/small_test_gtex.tsv
+# full: config/sumstats_from_gtex.tsv
+sumstats_path: config/sumstats_from_gtex.tsv
+sumstats_suffix: ".csv.gz" # Suffix of input summary statistics files (check in sumstats_path)
+dest_path: "/project/cdh/gtex/results"
+workspace_path: ../results
+sumstats_sep: ","
+
+# Common parameters
+input_format: &iformat "gtex" # Input format of summary
+
+params:
+  harmonize_sumstats:
+    input_format: *iformat
+    config_file: "config/config_harmonize_sumstats.yml"
+  summarize_sumstats:
+    input_format: "gwaslab"
+    config_file: "config/config_summarize_sumstats.yml"
+  snp_mapping:
+    input_format: *iformat
+    config_file: "config/config_snp_mapping.yml"
