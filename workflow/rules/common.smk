@@ -117,7 +117,10 @@ def get_final_output():
         )
 
     if config.get("run").get("delivery"):
-        final_output.append(dst_path("tables_delivery.done")),
+        if config.get("run").get("gwascatalog"):
+            final_output.append(dst_path("tables_delivery_nosnpmap.done")),
+        else:
+            final_output.append(dst_path("tables_delivery.done")),
         final_output.extend(
             expand(
                 dst_path("plots/{sumstat_id}.png"),

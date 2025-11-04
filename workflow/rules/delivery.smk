@@ -31,7 +31,7 @@ rule sync_tables_nosnpmap:
         table_if=ws_path("inflation_factors_table.tsv"),
         table_qc=ws_path("quality_check_table.tsv"),
     output:
-        touch(protected(dst_path("tables_delivery.done"))),
+        touch(protected(dst_path("tables_delivery_nosnpmap.done"))),
     conda:
         "../envs/delivery_sync.yaml"
     params:
