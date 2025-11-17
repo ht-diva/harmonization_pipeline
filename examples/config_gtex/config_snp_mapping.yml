@@ -1,6 +1,6 @@
 ---
 # common parameters
-n_cores: &cores 3
+n_cores: &cores 4
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
