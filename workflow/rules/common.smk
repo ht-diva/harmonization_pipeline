@@ -96,6 +96,14 @@ def get_final_output():
             )
         )
 
+    if config.get("run").get("to_parquet"):
+        final_output.extend(
+            expand(
+                ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.parquet"),
+                sumstat_id=analytes.sumstat_id,
+            )
+        )
+
     if config.get("run").get("summarize"):
         final_output.append(ws_path("min_pvalue_table.tsv")),
         final_output.append(ws_path("inflation_factors_table.tsv")),

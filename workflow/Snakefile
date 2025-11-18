@@ -20,7 +20,7 @@ if config.get("run").get("harmonization"):
 elif config.get("run").get("gwascatalog"):
 
     include: "rules/gwascatalog_harmonization.smk"
-    
+
 elif config.get("run").get("liftoverbcf_harmonization"):
 
     include: "rules/liftoverbcf_harmonization.smk"
@@ -33,6 +33,9 @@ else:
 
     include: "rules/post_filtering_and_harmonization.smk"
 
+if config.get("run").get("to_parquet"):
+
+    include: "rules/to_parquet.smk"
 
 include: "rules/summarize.smk"
 

@@ -2,6 +2,7 @@ run:
   harmonization: True
   summarize: True
   delivery: True
+  to_parquet: True
 
 
 # Paths

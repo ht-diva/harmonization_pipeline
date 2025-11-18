@@ -25,6 +25,7 @@ run:
   gwascatalog: False
   summarize: True
   delivery: False
+  to_parquet: False
  ```
 
 * _harmonization_: If set to True, the harmonization rules will be executed.
@@ -32,6 +33,7 @@ run:
 * _gwascatalog_: If set to False, the summary statistics will not be downloaded by GWAS Catalog.
 * _summarize_: If set to True, the summarization rules will be executed.
 * _delivery_: If set to False, the delivery rules will not be executed.
+* _to_parquet_: If set to True, the harmonized summary statistics will be available in parquet format, along with .tsv.gz.
 
 **Paths**
 
@@ -166,6 +168,10 @@ Examples of configuration files for *BELIEVE*, *Decode*, *FinnGen*, *Genes & Hea
 * **bgzip_tabix** (`harmonization: True`): <br />
 *Purpose*: Creates a region-based index (CHR and POS columns) of GWAS harmonized data for fast queries.<br />
 *Output*: *{sumstat_id}.gwaslab.tsv.gz.tbi*: Index of GWAS harmonized data.<br />
+
+* **to_parquet** (`to_parquet: True`): <br />
+*Purpose:*  Convert harmonized summary statistics from *.tsv.gz* to *parquet* format.<br />
+*Output*: *{sumstat_id}.gwaslab.parquet*: Standardized and aligned GWAS summary statistics in *parquet* format.<br />
 
 * **create_snp_mapping_table** (`harmonization: True`): <br />
 *Purpose:* Creates mapping table to match input data and harmonized summary statistics.<br />
