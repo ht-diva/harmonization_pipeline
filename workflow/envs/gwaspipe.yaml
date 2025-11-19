@@ -7,4 +7,4 @@ dependencies:
   - pip==24
   - mscorefonts
   - pip:
-      - git+https://github.com/ht-diva/gwaspipe.git@712944e
+      - git+https://github.com/ht-diva/gwaspipe.git@08fbb3d

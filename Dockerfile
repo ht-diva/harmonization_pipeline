@@ -84,7 +84,7 @@ COPY workflow/envs/filtering.yaml /conda-envs/31fc19a9498faffb09aa18f9246db95e/e
 
 # Conda environment:
 #   source: workflow/envs/gwaspipe.yaml
-#   prefix: /conda-envs/b8ce59d968b60f65eb89656a355281b5
+#   prefix: /conda-envs/d4b1c3b77c51040be67dca3a6624a1d6
 #   name: gwaspipe
 #   channels:
 #     - conda-forge
@@ -94,9 +94,9 @@ COPY workflow/envs/filtering.yaml /conda-envs/31fc19a9498faffb09aa18f9246db95e/e
 #     - pip==24
 #     - mscorefonts
 #     - pip:
-#         - git+https://github.com/ht-diva/gwaspipe.git@712944e
-RUN mkdir -p /conda-envs/b8ce59d968b60f65eb89656a355281b5
-COPY workflow/envs/gwaspipe.yaml /conda-envs/b8ce59d968b60f65eb89656a355281b5/environment.yaml
+#         - git+https://github.com/ht-diva/gwaspipe.git@08fbb3d
+RUN mkdir -p /conda-envs/d4b1c3b77c51040be67dca3a6624a1d6
+COPY workflow/envs/gwaspipe.yaml /conda-envs/d4b1c3b77c51040be67dca3a6624a1d6/environment.yaml
 
 # Conda environment:
 #   source: workflow/envs/liftover_bcftools.yaml
@@ -119,6 +119,6 @@ RUN mamba env create --prefix /conda-envs/6e056d31662ab0bd2fd3fba49416042f --fil
     mamba env create --prefix /conda-envs/20b7f0f77b859d9ac85875e0e8e2c471 --file /conda-envs/20b7f0f77b859d9ac85875e0e8e2c471/environment.yaml && \
     mamba env create --prefix /conda-envs/1952d8a40f9d550db08b42e8de561992 --file /conda-envs/1952d8a40f9d550db08b42e8de561992/environment.yaml && \
     mamba env create --prefix /conda-envs/31fc19a9498faffb09aa18f9246db95e --file /conda-envs/31fc19a9498faffb09aa18f9246db95e/environment.yaml && \
-    mamba env create --prefix /conda-envs/b8ce59d968b60f65eb89656a355281b5 --file /conda-envs/b8ce59d968b60f65eb89656a355281b5/environment.yaml && \
+    mamba env create --prefix /conda-envs/d4b1c3b77c51040be67dca3a6624a1d6 --file /conda-envs/d4b1c3b77c51040be67dca3a6624a1d6/environment.yaml && \  
     mamba env create --prefix /conda-envs/bb7d3ca556579c4e816225676dfd5175 --file /conda-envs/bb7d3ca556579c4e816225676dfd5175/environment.yaml && \
     mamba clean --all -y
