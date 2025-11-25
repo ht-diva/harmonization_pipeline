@@ -58,8 +58,8 @@ steps:
           mtime: 1
 
 
-# Filename transformation, e.g.: Whole_Blood.v10.allpairs.csv.gz
-filename_mask: [ True, False, False, False, False]
+# Filename transformation, e.g.: Whole_Blood.v10.ENSG00000289620.1.csv.gz
+filename_mask: [ True, True, True, True, False, False]
 filename_sep: '.'
 
 # IO

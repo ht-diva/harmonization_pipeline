@@ -8,6 +8,8 @@ from pathlib import Path
 @click.option("-i", "--input_path", required=True, help="Input path")
 @click.option("-o", "--output_path", required=True, help="Output path")
 def main(input_path, output_path):
+    input_path = Path(input_path)
+    output_path = Path(output_path)
 
     df = pd.read_csv(
         input_path,

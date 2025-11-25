@@ -1,14 +1,14 @@
 run:
   harmonization: True
   summarize: True
-  delivery: False
+  delivery: True
   to_parquet: True
 
 
 # Paths
 # test: config/small_test_gtex.tsv
 # full: config/sumstats_from_gtex.tsv
-sumstats_path: config/small_test_gtex.tsv
+sumstats_path: config/sumstats_from_gtex.tsv
 sumstats_suffix: ".csv.gz" # Suffix of input summary statistics files (check in sumstats_path)
 dest_path: "/project/cdh/gtex/results"
 workspace_path: ../results

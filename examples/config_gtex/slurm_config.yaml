@@ -30,16 +30,14 @@ set-resources:
     runtime: attempt * 30
   harmonize_sumstats:
     threads: *cores
-    mem_mb: 45056 + attempt * 2048
-    runtime: attempt * 60
+    runtime: attempt * 30
   post_filtering:
     threads: *cores
     mem_mb: 22528 + attempt * 2048
     runtime: attempt * 30
   summarize_sumstats:
     threads: *cores
-    mem_mb: 22528 + attempt * 2048
-    runtime: attempt * 60
+    runtime: attempt * 30
   bgzip_tabix:
     threads: *cores
     runtime: attempt * 10
@@ -53,13 +51,18 @@ set-resources:
     runtime: attempt * 5
   create_snp_mapping_table:
     threads: *cores
-    mem_mb: 45056 + attempt * 2048
-    runtime: attempt * 60
+    runtime: attempt * 30
+  quality_check:
+    mem_mb: 1024 + attempt * 1024
+    runtime: attempt * 10
+  to_parquet:
+    mem_mb: 1024 + attempt * 1024
+    runtime: attempt * 10
   sync_tables:
     runtime: attempt * 10
   sync_plots:
     mem_mb: 1024 + attempt * 1024
-    runtime: attempt * 30
+    runtime: attempt * 10
   sync_outputs_folder:
     mem_mb: 1024 + attempt * 1024
-    runtime: attempt * 60
+    runtime: attempt * 20

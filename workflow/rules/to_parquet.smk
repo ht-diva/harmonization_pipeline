@@ -6,6 +6,6 @@ rule to_parquet:
     conda:
         "../envs/filtering.yaml"
     shell:
-        "workflow/scripts/to_parquet.py "
+        "python workflow/scripts/to_parquet.py "
         "-i {input} "
         "-o {output} "

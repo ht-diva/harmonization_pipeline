@@ -47,8 +47,8 @@ steps:
       sig_level: 5e-8
 
 
-# Filename transformation, e.g.: Whole_Blood.gwaslab.tsv.gz
-filename_mask: [ True, False, False, False]
+# Filename transformation, e.g.: Whole_Blood.v10.ENSG00000289620.1.gwaslab.tsv.gz
+filename_mask: [ True, True, True, True, False, False, False]
 filename_sep: '.'
 
 # IO
