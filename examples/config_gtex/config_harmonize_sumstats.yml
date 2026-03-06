@@ -10,6 +10,7 @@ run_sequence: !!omap
   - 4: 'harmonize'
   - 5: 'sort_alphabetically'
   - 6: 'write_tsv'
+  - 7: 'write_parquet'
 
 
 steps:
@@ -56,7 +57,11 @@ steps:
           method: "gzip"
           compresslevel: 1
           mtime: 1
-
+  write_parquet:
+    params:
+      run: True
+      workspace: "outputs"
+      workspace_subfolder: True
 
 # Filename transformation, e.g.: Whole_Blood.v10.ENSG00000289620.1.csv.gz
 filename_mask: [ True, True, True, True, False, False]

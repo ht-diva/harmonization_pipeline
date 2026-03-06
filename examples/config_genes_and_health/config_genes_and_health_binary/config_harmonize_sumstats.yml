@@ -9,7 +9,8 @@ run_sequence: !!omap
   - 3: 'fill_data'
   - 4: 'harmonize'
   - 5: 'sort_alphabetically'
-  - 6: 'write_tsv'
+  - 6: 'check_ambiguous_snps'
+  - 7: 'write_tsv'
 
 
 steps:
@@ -43,6 +44,11 @@ steps:
       run: True
     gl_params:
       n_cores: *cores
+  check_ambiguous_snps:
+    params:
+      run: True
+      workspace: "outputs"
+      workspace_subfolder: True
   write_tsv:
     params:
       run: True

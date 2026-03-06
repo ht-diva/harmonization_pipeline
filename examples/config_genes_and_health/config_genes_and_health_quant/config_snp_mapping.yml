@@ -9,7 +9,8 @@ run_sequence: !!omap
   - 3: 'fill_data'
   - 4: 'harmonize'
   - 5: 'sort_alphabetically'
-  - 6: 'write_snp_mapping'
+  - 6: 'check_ambiguous_snps'
+  - 7: 'write_snp_mapping'
 
 steps:
   basic_check: # see https://cloufield.github.io/gwaslab/Standardization/
@@ -42,6 +43,11 @@ steps:
       run: True
     gl_params:
       n_cores: *cores
+  check_ambiguous_snps:
+    params:
+      run: True
+      workspace: "snp_mapping"
+      workspace_subfolder: False
   write_snp_mapping: # see https://cloufield.github.io/gwaslab/Standardization/
     params:
       run: True

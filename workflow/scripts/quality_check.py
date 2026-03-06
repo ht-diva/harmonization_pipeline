@@ -48,6 +48,10 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
     liftover_log = []
     invalid_chr_log = []
     inconsistent_log = []
+    duplicated_snps_log = []
+    ambiguous_snps_log = []
+    multiallelic_snps_log = []
+    multiallelic_loci_log = []
 
     timestamp_pat = re.compile(r'^[\d:/\s-]+-\s*')
     with harm_log.open("r") as fp:
@@ -67,11 +71,23 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
                 inconsistent_log.append(line)
             if "variants with inconsistent values" in line.lower():
                 inconsistent_log.append(line)
+            if "dropped duplicated snps" in line.lower():
+                duplicated_snps_log.append(line)
+            if "dropped ambiguous snps" in line.lower():
+                ambiguous_snps_log.append(line)
+            if "multi-allelic snps" in line.lower():
+                multiallelic_snps_log.append(line)
+            if "multi-allelic positions" in line.lower():
+                multiallelic_loci_log.append(line)
 
     badstat_log = badstat_log or ["NONE"]
     liftover_log = liftover_log or ["NONE"]
     invalid_chr_log = invalid_chr_log or ["NONE"]
     inconsistent_log = inconsistent_log or ["NONE"]
+    duplicated_snps_log = duplicated_snps_log or ["NONE"]
+    ambiguous_snps_log = ambiguous_snps_log or ["NONE"]
+    multiallelic_snps_log = multiallelic_snps_log or ["NONE"]
+    multiallelic_loci_log = multiallelic_loci_log or ["NONE"]
 
     header = "\t".join([
         "GWAS_SumStats",
@@ -84,7 +100,11 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
         "Log_BadStatistics",
         "Log_Liftover",
         "Log_InvalidChr",
-        "Log_Inconsistency"
+        "Log_Inconsistency",
+        "Log_DuplicatedSNPs",
+        "Log_AmbiguousSNPs",
+        "Log_MultiAllelicSNPs",
+        "Log_MultiAllelicLoci",
     ])
 
     data = [
@@ -98,7 +118,11 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
         "; ".join(badstat_log),
         "; ".join(liftover_log),
         "; ".join(invalid_chr_log),
-        "; ".join(inconsistent_log)
+        "; ".join(inconsistent_log),
+        "; ".join(duplicated_snps_log),
+        "; ".join(ambiguous_snps_log),
+        "; ".join(multiallelic_snps_log),
+        "; ".join(multiallelic_loci_log)
     ]
 
     output = Path(output_path)

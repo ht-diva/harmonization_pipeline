@@ -33,10 +33,6 @@ else:
 
     include: "rules/post_filtering_and_harmonization.smk"
 
-if config.get("run").get("to_parquet"):
-
-    include: "rules/to_parquet.smk"
-
 include: "rules/summarize.smk"
 
 

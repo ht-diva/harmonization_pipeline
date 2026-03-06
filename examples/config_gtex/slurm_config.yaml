@@ -55,9 +55,6 @@ set-resources:
   quality_check:
     mem_mb: 1024 + attempt * 1024
     runtime: attempt * 10
-  to_parquet:
-    mem_mb: 1024 + attempt * 1024
-    runtime: attempt * 10
   sync_tables:
     runtime: attempt * 10
   sync_plots:
