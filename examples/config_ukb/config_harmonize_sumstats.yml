@@ -18,9 +18,9 @@ steps:
     params:
       run: True
     gl_params:
-      n_cores: *cores
+      threads: *cores
       normalize: True
-      fixid_args:
+      fix_id_kwargs:
         fixid: True
         overwrite: True
   infer_build: # see https://cloufield.github.io/gwaslab/InferBuild/
@@ -38,12 +38,12 @@ steps:
       run: True
     gl_params:
       basic_check: True
-      n_cores: *cores
+      threads: *cores
   liftover: # see https://cloufield.github.io/gwaslab/LiftOver/
     params:
       run: True
     gl_params:
-      n_cores: *cores
+      threads: *cores
       from_build: "19"
       to_build: "38"
       remove: True
@@ -51,7 +51,7 @@ steps:
     params:
       run: True
     gl_params:
-      n_cores: *cores
+      threads: *cores
   write_tsv:
     params:
       run: True

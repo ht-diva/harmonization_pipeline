@@ -14,7 +14,7 @@ steps:
     params:
       run: True
     gl_params:
-      n_cores: *cores
+      threads: *cores
       normalize: True
   infer_build: # see https://cloufield.github.io/gwaslab/InferBuild/
     params:

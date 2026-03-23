@@ -16,9 +16,9 @@ steps:
     params:
       run: True
     gl_params:
-      n_cores: *cores
+      threads: *cores
       normalize: True
-      fixid_args:
+      fix_id_kwargs:
         fixid: True
         overwrite: True
   infer_build: # see https://cloufield.github.io/gwaslab/InferBuild/
@@ -36,12 +36,12 @@ steps:
       run: True
     gl_params:
       basic_check: False
-      n_cores: *cores
+      threads: *cores
   sort_alphabetically:
     params:
       run: True
     gl_params:
-      n_cores: *cores
+      threads: *cores
   write_snp_mapping: # see https://cloufield.github.io/gwaslab/Standardization/
     params:
       run: True
