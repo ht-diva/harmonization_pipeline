@@ -73,6 +73,16 @@ def dst_path(file_path):
     return str(Path(config.get("dest_path"), file_path))
 
 
+def get_sumstat_pre_filtering():
+    sumstat_id = analytes.iloc[0]["sumstat_id"]
+    return ws_path(f"temp/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz")
+
+
+def get_sumstat_post_filtering():
+    sumstat_id = analytes.iloc[0]["sumstat_id"]
+    return ws_path(f"outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz")
+
+
 def get_final_output():
     final_output = []
 

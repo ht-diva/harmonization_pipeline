@@ -10,7 +10,8 @@ from pathlib import Path
 @click.option("-o", "--output_path", required=True, help="Output path")
 @click.option("-f", "--filter_path", required=True, help="Snipid to filter path")
 @click.option("--filter_snpid_column", default='SNPID', help="filter SNPID column")
-def main(input_path, input_separator, input_compression, input_snpid_column, output_path, filter_path, filter_snpid_column):
+@click.option("--filter_keep", default=False, is_flag=True, help="Whether to keep the SNPIDs or remove them")
+def main(input_path, input_separator, input_compression, input_snpid_column, output_path, filter_path, filter_snpid_column, filter_keep):
     input = Path(input_path)
     snpid = Path(filter_path)
 
@@ -20,7 +21,10 @@ def main(input_path, input_separator, input_compression, input_snpid_column, out
     else:
         sumstat_df = pd.read_csv(input, sep=input_separator)
 
-    sumstat_df = sumstat_df[~sumstat_df[input_snpid_column].isin(snpid_df[filter_snpid_column])]
+    if filter_keep:
+        sumstat_df = sumstat_df[sumstat_df[input_snpid_column].isin(snpid_df[filter_snpid_column])]
+    else:
+        sumstat_df = sumstat_df[~sumstat_df[input_snpid_column].isin(snpid_df[filter_snpid_column])]
 
     sumstat_df.to_csv(output_path, sep='\t', compression='gzip', index=False)
 

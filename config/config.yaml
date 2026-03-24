@@ -1,15 +1,18 @@
 run:
-  harmonization: True
+  pre_filtering_and_harmonization: True
+  harmonization: False
+  harmonization_and_post_filtering: False
   summarize: True
-  delivery: True
+  delivery: False
 
 
 # Paths
 sumstats_path: config/local.txt
-sumstats_suffix: ".gwas.regenie.gz" # Suffix of input summary statistics files (check in sumstats_path)c
+sumstats_suffix: ".gwas.regenie.gz" # Suffix of input summary statistics files (check in sumstats_path)
 dest_path: "/project/cdh/interval/result"
 workspace_path: ../results
 sumstats_sep: "\t"
+filter_keep: true
 
 
 # Common parameters
@@ -19,6 +22,10 @@ params:
   harmonize_sumstats:
     input_format: *iformat
     config_file: "config/config_harmonize_sumstats.yml"
+  harmonize_sumstats_pre_filtering:
+    config_file: "config/config_harmonize_sumstats_pre_filtering.yml"
+  harmonize_sumstats_post_filtering:
+    config_file: "config/config_harmonize_sumstats_post_filtering.yml"
   summarize_sumstats:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"

@@ -10,6 +10,7 @@ rule pre_filtering:
         input_snpid_col=config.get("input_snpid_col"),
         filter_snpid_col=config.get("filter_snpid_col"),
         sumstats_sep=config.get("sumstats_sep"),
+        filter_keep_flag=lambda wc: "--filter_keep" if config.get("filter_keep", False) else "",
     shell:
         "python workflow/scripts/filtering_by_snipid.py "
         "-i {input} "
@@ -17,7 +18,8 @@ rule pre_filtering:
         "-o {output} "
         "-f {params.snpid2filter} "
         "--input_snpid_column {params.input_snpid_col} "
-        "--filter_snpid_column {params.filter_snpid_col}"
+        "--filter_snpid_column {params.filter_snpid_col} "
+        "{params.filter_keep_flag}"
 
 
 rule harmonize_sumstats:
@@ -55,7 +57,7 @@ rule bgzip_tabix:
 
 rule create_snp_mapping_table:
     input:
-        sumstats=get_sumstat(),
+        sumstats=get_sumstat_pre_filtering(),
     output:
         ws_path("snp_mapping/table.snp_mapping.tsv.gz"),
     conda:
