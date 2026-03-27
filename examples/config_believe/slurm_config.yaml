@@ -30,6 +30,10 @@ set-resources:
     threads: *cores
     mem_mb: 45056 + attempt * 2048
     runtime: attempt * 30
+  post_filtering:
+    threads: *cores
+    mem_mb: 45056 + attempt * 2048
+    runtime: attempt * 30
   harmonize_sumstats:
     threads: *cores
     mem_mb: 22528 + attempt * 2048
@@ -46,10 +50,6 @@ set-resources:
     threads: *cores
     mem_mb: 22528 + attempt * 2048
     runtime: attempt * 30  
-  post_filtering:
-    threads: *cores
-    mem_mb: 22528 + attempt * 2048
-    runtime: attempt * 30
   summarize_sumstats:
     threads: *cores
     mem_mb: 22528 + attempt * 2048

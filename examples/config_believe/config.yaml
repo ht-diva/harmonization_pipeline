@@ -1,15 +1,15 @@
 run:
-  pre_filtering_and_harmonization: True
+  pre_filtering_and_harmonization: False
   harmonization: False
-  harmonization_and_post_filtering: False
+  harmonization_and_post_filtering: True
   summarize: True
-  delivery: True
+  delivery: False
 
 
 # Paths
 # test: config/small_test_believe.tsv
 # full: config/sumstats_from_believe.tsv
-snpid2filter: "config/pre_filtering_snps.txt"
+snpid2filter: "/scratch/giulia.pontali/multiallelic_test/genomics_QC_pipeline/results/pgen/qc_harmonised/all_chroms_qced_harmonized.pvar"
 sumstats_path: config/sumstats_from_believe.tsv
 sumstats_suffix: ".fastGWA" # Suffix of input summary statistics files (check in sumstats_path)
 input_snpid_col: "SNP" # Input SNPID column name (check in sumstats_path)
@@ -17,6 +17,7 @@ filter_snpid_col: "ID" # Column name for filtering (check in snpid2filter)
 dest_path: "/project/cdh/believe/results"
 workspace_path: ../results
 sumstats_sep: "\t"
+filter_keep: true
 
 # Common parameters
 input_format: &iformat "fastgwa" # Input format of summary
@@ -33,5 +34,5 @@ params:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"
   snp_mapping:
-    input_format: *iformat
+    input_format: "gwaslab"
     config_file: "config/config_snp_mapping.yml"

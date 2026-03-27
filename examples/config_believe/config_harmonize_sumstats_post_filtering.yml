@@ -9,7 +9,9 @@ run_sequence: !!omap
   - 3: 'fill_data'
   - 4: 'harmonize'
   - 5: 'sort_alphabetically'
-  - 6: 'write_tsv'
+  - 6: 'check_ambiguous_snps'
+  - 7: 'write_tsv'
+  - 8: 'write_parquet'
 
 
 steps:
@@ -40,6 +42,11 @@ steps:
       run: True
     gl_params:
       threads: *cores
+  check_ambiguous_snps:
+    params:
+      run: True
+      workspace: "outputs"
+      workspace_subfolder: True
   write_tsv:
     params:
       run: True
@@ -53,6 +60,14 @@ steps:
           method: "gzip"
           compresslevel: 1
           mtime: 1
+  write_parquet:
+    params:
+      run: True
+      workspace: "outputs"
+      workspace_subfolder: True
+    gl_params:
+      fmt: "gwaslab"
+      tab_fmt: "parquet"
 
 
 # Filename transformation, e.g.: seq.10000.28.fastGWA

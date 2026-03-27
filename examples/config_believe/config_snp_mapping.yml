@@ -47,8 +47,8 @@ steps:
     gl_params:
       fmt: "snp_mapping"
 
-# Filename transformation, e.g.: seq.10000.28.fastGWA
-filename_mask: [ True, True, True, False]
+# Filename transformation, e.g.: seq.10000.28.gwaslab.tsv.gz
+filename_mask: [ True, True, True, False, False, False]
 filename_sep: '.'
 
 # IO
