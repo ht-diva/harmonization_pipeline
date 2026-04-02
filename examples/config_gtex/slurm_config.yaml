@@ -1,10 +1,10 @@
 executor: slurm
-jobs: 250
+jobs: 400
 software-deployment-method:
    - conda
    - apptainer
 retries: 3
-max-jobs-per-second: 100
+max-jobs-per-second: 400
 max-status-checks-per-second: 1
 local-cores: 1
 cores: &cores 4
@@ -29,6 +29,7 @@ set-resources:
     mem_mb: 22528 + attempt * 2048
     runtime: attempt * 30
   harmonize_sumstats:
+    mem_mb: 22528 + attempt * 2048
     threads: *cores
     runtime: attempt * 30
   post_filtering:
@@ -36,6 +37,7 @@ set-resources:
     mem_mb: 22528 + attempt * 2048
     runtime: attempt * 30
   summarize_sumstats:
+    mem_mb: 22528 + attempt * 2048
     threads: *cores
     runtime: attempt * 30
   bgzip_tabix:
@@ -50,6 +52,7 @@ set-resources:
     threads: *cores
     runtime: attempt * 5
   create_snp_mapping_table:
+    mem_mb: 22528 + attempt * 2048
     threads: *cores
     runtime: attempt * 30
   quality_check:

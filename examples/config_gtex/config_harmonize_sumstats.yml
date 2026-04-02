@@ -68,6 +68,9 @@ steps:
       run: True
       workspace: "outputs"
       workspace_subfolder: True
+    gl_params:
+      fmt: "gwaslab"
+      tab_fmt: "parquet"
 
 # Filename transformation, e.g.: Whole_Blood.v10.ENSG00000289620.1.csv.gz
 filename_mask: [ True, True, True, True, False, False]
