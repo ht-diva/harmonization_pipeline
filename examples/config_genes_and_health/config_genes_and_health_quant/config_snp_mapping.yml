@@ -58,6 +58,7 @@ steps:
 
 # Filename transformation, e.g.: 2025_05_13_eGFR.min_singlevariant51kGSA-TOPMEDr3-GWAS_eGFR.min.regenie.gz
 filename_mask: [ True, True, True, False, False]
+filename_sep: '.'
 
 # IO
 root_path: "results"

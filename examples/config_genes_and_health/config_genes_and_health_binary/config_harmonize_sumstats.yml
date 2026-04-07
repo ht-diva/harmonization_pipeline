@@ -11,6 +11,7 @@ run_sequence: !!omap
   - 5: 'sort_alphabetically'
   - 6: 'check_ambiguous_snps'
   - 7: 'write_tsv'
+  - 8: 'write_parquet'
 
 
 steps:
@@ -62,10 +63,19 @@ steps:
           method: "gzip"
           compresslevel: 1
           mtime: 1
+  write_parquet:
+    params:
+      run: True
+      workspace: "outputs"
+      workspace_subfolder: True
+    gl_params:
+      fmt: "gwaslab"
+      tab_fmt: "parquet"
 
 
 # Filename transformation, e.g.: 2025_05_23_N70_singlevariant51kGSA-TOPMEDr3-GWAS_N70.regenie.gz
 filename_mask: [ True, False, False]
+filename_sep: '.'
 
 # IO
 root_path: "results"

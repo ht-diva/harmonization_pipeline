@@ -55,6 +55,9 @@ set-resources:
     threads: *cores
     mem_mb: 67584 + attempt * 2048
     runtime: attempt * 60
+  quality_check:
+    mem_mb: 2048 + attempt * 2048
+    runtime: attempt * 10
   sync_tables:
     runtime: attempt * 10
   sync_plots:

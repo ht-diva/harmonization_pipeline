@@ -1,7 +1,7 @@
 run:
   harmonization: True
   summarize: True
-  delivery: True
+  delivery: False
 
 
 # Paths
