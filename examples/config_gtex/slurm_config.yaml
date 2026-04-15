@@ -29,20 +29,20 @@ set-resources:
     mem_mb: 22528 + attempt * 2048
     runtime: attempt * 30
   harmonize_sumstats:
-    mem_mb: 22528 + attempt * 2048
+    mem_mb: 2048 + attempt * 2048
     threads: *cores
-    runtime: attempt * 30
+    runtime: attempt * 15
   post_filtering:
     threads: *cores
     mem_mb: 22528 + attempt * 2048
     runtime: attempt * 30
   summarize_sumstats:
-    mem_mb: 22528 + attempt * 2048
+    mem_mb: 2048 + attempt * 2048
     threads: *cores
-    runtime: attempt * 30
+    runtime: attempt * 15
   bgzip_tabix:
     threads: *cores
-    runtime: attempt * 10
+    runtime: attempt * 5
   create_if_table:
     threads: *cores
     mem_base: 512
@@ -52,9 +52,9 @@ set-resources:
     threads: *cores
     runtime: attempt * 5
   create_snp_mapping_table:
-    mem_mb: 22528 + attempt * 2048
+    mem_mb: 2048 + attempt * 2048
     threads: *cores
-    runtime: attempt * 30
+    runtime: attempt * 15
   quality_check:
     mem_mb: 1024 + attempt * 1024
     runtime: attempt * 10
