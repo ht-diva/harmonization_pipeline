@@ -34,5 +34,5 @@ params:
     input_format: "gwaslab"
     config_file: "config/config_summarize_sumstats.yml"
   snp_mapping:
-    input_format: "gwaslab"
+    input_format: *iformat
     config_file: "config/config_snp_mapping.yml"

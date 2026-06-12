@@ -59,7 +59,8 @@ rule bgzip_tabix:
 
 rule create_snp_mapping_table:
     input:
-        sumstats=get_sumstat_post_filtering(),
+        sumstats=get_sumstat(),
+        sumstats_post=get_sumstat_post_filtering(),
     output:
         ws_path("snp_mapping/table.snp_mapping.tsv.gz"),
     conda:
@@ -75,4 +76,7 @@ rule create_snp_mapping_table:
         "-c {params.config_file} "
         "-s '{params.sumstats_sep}' "
         "-i {input.sumstats} "
-        "-o {params.output_path}"
+        "-o {params.output_path} && "
+        "bash workflow/scripts/filter_snp_mapping.sh "
+        "{input.sumstats_post} "
+        "{output}"
