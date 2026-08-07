@@ -22,18 +22,24 @@ rule summarize_sumstats:
 rule quality_check:
     input:
         gwas_sumstats=get_sumstats,
-        harm_sumstats=ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
+        harm_sumstats=expand(
+            ws_path(
+                "outputs/{{sumstat_id}}/"
+                "{{sumstat_id}}.gwaslab.{output_format}"
+            ),
+            output_format=OUTPUT_FORMATS,
+        ),
         harm_log=ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
     output:
         temp(ws_path("qc/{sumstat_id}.qc.txt")),
     conda:
-        "../envs/create_report_table.yaml"
+        "../envs/filtering.yaml"
     params:
-        sumstats_sep=config.get("sumstats_sep"),
+        harm_sumstats_args=lambda wc, input: " ".join(f"-hs {path}" for path in input.harm_sumstats),
     shell:
         "python workflow/scripts/quality_check.py "
         "-gs {input.gwas_sumstats} "
-        "-hs {input.harm_sumstats} "
+        "{params.harm_sumstats_args} "
         "-l {input.harm_log} "
         "-o {output}"
 

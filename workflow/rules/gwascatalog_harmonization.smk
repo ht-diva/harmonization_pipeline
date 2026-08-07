@@ -17,7 +17,13 @@ rule harmonize_sumstats:
         sumstats=get_sumstats,
         format=ws_path("temp/gwascatalog/{sumstat_id}/{sumstat_id}.format.txt"),
     output:
-        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
+        expand(
+            ws_path(
+                "outputs/{{sumstat_id}}/"
+                "{{sumstat_id}}.gwaslab.{output_format}"
+            ),
+            output_format=OUTPUT_FORMATS,
+        ),
         ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
     conda:
         "../envs/gwaspipe.yaml"

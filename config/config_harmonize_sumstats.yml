@@ -1,6 +1,11 @@
 ---
 # common parameters
 n_cores: &cores 4
+genome_assembly: GRCh38
+reference_resources:
+  hapmap3_coordinates: "GWASLab 4.0.2 bundled HapMap3 tables"
+assembly_validation:
+  min_hapmap3_matches: 10000
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
@@ -41,8 +46,6 @@ steps:
   sort_alphabetically:
     params:
       run: True
-    gl_params:
-      threads: *cores
   write_tsv:
     params:
       run: True

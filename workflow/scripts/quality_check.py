@@ -1,16 +1,17 @@
 import click
 import gzip
 import re
+import pyarrow.parquet as pq
+
 from pathlib import Path
 
 @click.command()
 @click.option("-gs", "--gwas_sumstats_path", required=True, help="GWAS summary statistics path")
-@click.option("-hs", "--harm_sumstats_path", required=True, help="Harmonized summary statistics path")
+@click.option("-hs", "--harm_sumstats_path", required=True, multiple=True, help="Harmonized summary statistics path(s)")
 @click.option("-l", "--harm_log_path", required=True, help="Harmonization log path")
 @click.option("-o", "--output_path", required=True, help="Output path")
 def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
     gwas_sumstats = Path(gwas_sumstats_path)
-    harm_sumstats = Path(harm_sumstats_path)
     harm_log = Path(harm_log_path)
 
     # Count lines of input GWAS sumstats
@@ -21,26 +22,44 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
     else:
         nr_input = sum(1 for _ in open_fun(gwas_sumstats, "rt")) - 1
 
-    # Count lines of harmonized sumstats
-    nr_lines = 0
-    lines2 = []
-    with gzip.open(harm_sumstats, "rt") as fp:
-        for line in fp:
-            nr_lines += 1
-            line = line.rstrip("\n")
-            if line:
-                lines2.append(line)
-                if len(lines2) > 2:
-                    lines2.pop(0)
-    nr_harm = max(0, nr_lines - 1)
+    # Harmonized sumstats
+    harm_status_tsv = harm_status_parquet = "NONE"
+    nr_harm_tsv = nr_harm_parquet = None
+    harm_sumstats_folder = None
 
-    # Check whether the file is corrupt,
-    # i.e. unexpected end with last two lines of unequal length
-    input_separator = "\t"
-    harm_status = "CORRUPT" if len(lines2[0].split(input_separator)) != len(lines2[1].split(input_separator)) else "OK"
+    for harm_sumstats in harm_sumstats_path:
+        harm_sumstats = Path(harm_sumstats)
+        harm_sumstats_folder = harm_sumstats.parent
 
-    # Calculate line difference
-    nr_delta = nr_input - nr_harm
+        if harm_sumstats.name.lower().endswith(".tsv.gz"):
+            nr_lines = 0
+            lines2 = []
+            with gzip.open(harm_sumstats, "rt") as fp:
+                for line in fp:
+                    nr_lines += 1
+                    line = line.rstrip("\n")
+                    if line:
+                        lines2.append(line)
+                        if len(lines2) > 2:
+                            lines2.pop(0)
+
+            # Count lines of harmonized sumstats
+            nr_harm_tsv = max(0, nr_lines - 1)
+
+            # Check whether the file is corrupt,
+            # i.e. unexpected end with last two lines of unequal length
+            input_separator = "\t"
+            harm_status_tsv = "CORRUPT" if len(lines2[0].split(input_separator)) != len(lines2[1].split(input_separator)) else "OK"
+
+        if harm_sumstats.name.lower().endswith(".parquet"):
+            try:
+                metadata = pq.read_metadata(harm_sumstats)
+                nr_harm_parquet = metadata.num_rows
+                harm_status_parquet = "OK"
+            except Exception:
+                nr_harm_parquet = None
+                harm_status_parquet = "CORRUPT"
+
 
     # Log information
     log_error_nr = 0
@@ -65,7 +84,7 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
                 liftover_log.append(line)
             if "dropped variants during bcftools liftover" in line.lower():
                 liftover_log.append(line)
-            if "invalid chromosome notations" in line.lower():
+            if "unrecognized chromosome notations" in line.lower():
                 invalid_chr_log.append(line)
             if "not consistent" in line.lower():
                 inconsistent_log.append(line)
@@ -92,10 +111,11 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
     header = "\t".join([
         "GWAS_SumStats",
         "Harm_SumStats",
-        "Harm_Status",
+        "Harm_Status_tsv",
+        "Harm_Status_parquet",
         "Nr_InputLines",
-        "Nr_HarmLines",
-        "Nr_DeltaLines",
+        "Nr_HarmLines_tsv",
+        "Nr_HarmLines_parquet",
         "Nr_ErrorsLog",
         "Log_BadStatistics",
         "Log_Liftover",
@@ -109,11 +129,12 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
 
     data = [
         str(gwas_sumstats),
-        str(harm_sumstats),
-        str(harm_status),
+        str(harm_sumstats_folder),
+        str(harm_status_tsv),
+        str(harm_status_parquet),
         str(nr_input),
-        str(nr_harm),
-        str(nr_delta),
+        str(nr_harm_tsv),
+        str(nr_harm_parquet),
         str(log_error_nr),
         "; ".join(badstat_log),
         "; ".join(liftover_log),

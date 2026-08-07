@@ -17,6 +17,9 @@ filter_keep: true
 
 # Common parameters
 input_format: &iformat "regenie" # Input format of summary
+output_formats:
+  - tsv.gz
+  - parquet
 
 params:
   harmonize_sumstats:

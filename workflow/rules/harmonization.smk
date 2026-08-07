@@ -2,7 +2,13 @@ rule harmonize_sumstats:
     input:
         sumstats=get_sumstats,
     output:
-        ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
+        expand(
+            ws_path(
+                "outputs/{{sumstat_id}}/"
+                "{{sumstat_id}}.gwaslab.{output_format}"
+            ),
+            output_format=OUTPUT_FORMATS,
+        ),
         ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
     conda:
         "../envs/gwaspipe.yaml"

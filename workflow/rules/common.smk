@@ -3,6 +3,18 @@ from urllib.parse import urlparse
 import pandas as pd
 
 
+# Check output formats
+OUTPUT_FORMATS = config.get("output_formats", ["tsv.gz"])
+SUPPORTED_OUTPUT_FORMATS = {"tsv.gz", "parquet"}
+unknown_formats = (set(OUTPUT_FORMATS) - SUPPORTED_OUTPUT_FORMATS)
+
+if unknown_formats:
+    raise ValueError(
+        "Unsupported output formats: "
+        + ", ".join(sorted(unknown_formats))
+    )
+
+
 if config.get("run").get("gwascatalog"):
 
     # Make paths from urls
@@ -95,8 +107,9 @@ def get_final_output():
     ):
         final_output.extend(
             expand(
-                ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
+                ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.{output_format}"),
                 sumstat_id=analytes.sumstat_id,
+                output_format=OUTPUT_FORMATS,
             )
         )
         final_output.extend(

@@ -2,7 +2,13 @@ rule harmonize_sumstats:
     input:
         sumstats=get_sumstats,
     output:
-        sumstats=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz")),
+        sumstats=temp(
+            expand(ws_path(
+                "temp/{{sumstat_id}}/"
+                "{{sumstat_id}}.gwaslab.{output_format}"
+            ),
+            output_format=OUTPUT_FORMATS)
+        ),
         log=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.gwaslab.log")),
     conda:
         "../envs/gwaspipe.yaml"
@@ -27,7 +33,13 @@ rule post_filtering:
         sumstats=rules.harmonize_sumstats.output.sumstats,
         log=rules.harmonize_sumstats.output.log,
     output:
-        sumstats=ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.tsv.gz"),
+        sumstats=expand(
+            ws_path(
+                "outputs/{{sumstat_id}}/"
+                "{{sumstat_id}}.gwaslab.{output_format}"
+            ),
+            output_format=OUTPUT_FORMATS,
+        ),
         log=ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
     conda:
         "../envs/filtering.yaml"
@@ -35,10 +47,12 @@ rule post_filtering:
         snpid2filter=config.get("snpid2filter"),
         filter_snpid_col=config.get("filter_snpid_col"),
         filter_keep_flag=lambda wc: "--filter_keep" if config.get("filter_keep", False) else "",
+        input_args=lambda wc, input: " ".join(f"-i {path}" for path in input.sumstats),
+        output_args=lambda wc, output: " ".join(f"-o {path}" for path in output.sumstats),
     shell:
         "python workflow/scripts/filtering_by_snipid.py "
-        "-i {input.sumstats} "
-        "-o {output.sumstats} "
+        "{params.input_args} "
+        "{params.output_args} "
         "-f {params.snpid2filter} "
         "--input_snpid_column SNPID "
         "--filter_snpid_column {params.filter_snpid_col} "

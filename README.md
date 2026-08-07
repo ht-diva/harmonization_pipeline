@@ -65,9 +65,13 @@ These parameters are used across different steps of the pipeline.
 
 ```yaml
 input_format: &iformat "regenie"
+output_formats:
+  - tsv.gz
+  - parquet
 ```
 
 * _input_format_: Defines the input format for summary statistics and aliased as &iformat. Check the Input formats section for more details.
+* _output_formats_: Defines the output format(s) for summary statistics. Default: *tsv.gz*. Currently supported output formats: *tsv.gz* and *parquet*.
 
 **Parameters for Specific Steps**
 
