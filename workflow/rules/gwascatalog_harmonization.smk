@@ -25,6 +25,7 @@ rule harmonize_sumstats:
             output_format=OUTPUT_FORMATS,
         ),
         ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
+        ws_path("outputs/{sumstat_id}/{sumstat_id}.provenance.json"),
     conda:
         "../envs/gwaspipe.yaml"
     params:

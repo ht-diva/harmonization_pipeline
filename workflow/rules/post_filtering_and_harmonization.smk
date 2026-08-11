@@ -10,6 +10,7 @@ rule harmonize_sumstats:
             output_format=OUTPUT_FORMATS)
         ),
         log=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.gwaslab.log")),
+        provenance=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.provenance.json")),
     conda:
         "../envs/gwaspipe.yaml"
     params:
@@ -32,6 +33,7 @@ rule post_filtering:
     input:
         sumstats=rules.harmonize_sumstats.output.sumstats,
         log=rules.harmonize_sumstats.output.log,
+        provenance=rules.harmonize_sumstats.output.provenance,
     output:
         sumstats=expand(
             ws_path(
@@ -41,6 +43,7 @@ rule post_filtering:
             output_format=OUTPUT_FORMATS,
         ),
         log=ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
+        provenance=ws_path("outputs/{sumstat_id}/{sumstat_id}.provenance.json"),
     conda:
         "../envs/filtering.yaml"
     params:
@@ -57,7 +60,8 @@ rule post_filtering:
         "--input_snpid_column SNPID "
         "--filter_snpid_column {params.filter_snpid_col} "
         "{params.filter_keep_flag} && "
-        "cp {input.log} {output.log}"
+        "cp {input.log} {output.log} &&"
+        "cp {input.provenance} {output.provenance}"
 
 
 rule bgzip_tabix:
