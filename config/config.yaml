@@ -1,7 +1,7 @@
 run:
   pre_filtering_and_harmonization: False
-  harmonization: False
-  harmonization_and_post_filtering: True
+  harmonization: True
+  harmonization_and_post_filtering: False
   summarize: True
   delivery: False
 

@@ -9,6 +9,7 @@ containerized: "docker://ghcr.io/ht-diva/harmonization_pipeline:c17f896"
 
 configfile: "config/config.yaml"
 
+include: "rules/config_checks.smk"
 
 include: "rules/common.smk"
 
