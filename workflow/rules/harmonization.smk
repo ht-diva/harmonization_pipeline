@@ -11,6 +11,7 @@ rule harmonize_sumstats:
         ),
         ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
         ws_path("outputs/{sumstat_id}/{sumstat_id}.provenance.json"),
+        ([ws_path("outputs/{sumstat_id}/{sumstat_id}.unmapped_variants.tsv.gz")] if IF_LIFTOVERGWASLAB else []),
     conda:
         "../envs/gwaspipe.yaml"
     params:

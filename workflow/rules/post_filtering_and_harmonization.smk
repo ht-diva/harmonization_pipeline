@@ -11,6 +11,7 @@ rule harmonize_sumstats:
         ),
         log=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.gwaslab.log")),
         provenance=temp(ws_path("temp/{sumstat_id}/{sumstat_id}.provenance.json")),
+        unmapped=temp(([ws_path("temp/{sumstat_id}/{sumstat_id}.unmapped_variants.tsv.gz")] if IF_LIFTOVERGWASLAB else [])),
     conda:
         "../envs/gwaspipe.yaml"
     params:
@@ -34,6 +35,7 @@ rule post_filtering:
         sumstats=rules.harmonize_sumstats.output.sumstats,
         log=rules.harmonize_sumstats.output.log,
         provenance=rules.harmonize_sumstats.output.provenance,
+        unmapped=rules.harmonize_sumstats.output.unmapped,
     output:
         sumstats=expand(
             ws_path(
@@ -44,6 +46,7 @@ rule post_filtering:
         ),
         log=ws_path("outputs/{sumstat_id}/{sumstat_id}.gwaslab.log"),
         provenance=ws_path("outputs/{sumstat_id}/{sumstat_id}.provenance.json"),
+        unmapped=([ws_path("outputs/{sumstat_id}/{sumstat_id}.unmapped_variants.tsv.gz")] if IF_LIFTOVERGWASLAB else []),
     conda:
         "../envs/filtering.yaml"
     params:
@@ -52,6 +55,7 @@ rule post_filtering:
         filter_keep_flag=lambda wc: "--filter_keep" if config.get("filter_keep", False) else "",
         input_args=lambda wc, input: " ".join(f"-i {path}" for path in input.sumstats),
         output_args=lambda wc, output: " ".join(f"-o {path}" for path in output.sumstats),
+        unmapped_copy=lambda wc, input, output: (f"cp {input.unmapped[0]} {output.unmapped[0]}" if IF_LIFTOVERGWASLAB else "true"),
     shell:
         "python workflow/scripts/filtering_by_snipid.py "
         "{params.input_args} "
@@ -60,8 +64,9 @@ rule post_filtering:
         "--input_snpid_column SNPID "
         "--filter_snpid_column {params.filter_snpid_col} "
         "{params.filter_keep_flag} && "
-        "cp {input.log} {output.log} &&"
-        "cp {input.provenance} {output.provenance}"
+        "cp {input.log} {output.log} && "
+        "cp {input.provenance} {output.provenance} && "
+        "{params.unmapped_copy}"
 
 
 rule bgzip_tabix:

@@ -80,7 +80,7 @@ def main(gwas_sumstats_path, harm_sumstats_path, harm_log_path, output_path):
                 log_error_nr += 1
             if "variants with bad statistics" in line.lower():
                 badstat_log.append(line)
-            if "removed unmapped variants" in line.lower():
+            if "unmapped variants to" in line.lower():
                 liftover_log.append(line)
             if "dropped variants during bcftools liftover" in line.lower():
                 liftover_log.append(line)

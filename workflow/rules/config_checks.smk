@@ -2,6 +2,9 @@ from pathlib import Path
 import yaml
 
 
+# Check whether GWASLab workflow include liftover
+IF_LIFTOVERGWASLAB = False
+
 # Check whether configured output formats are supported by the workflow
 OUTPUT_FORMATS = config.get("output_formats", ["tsv.gz"])
 SUPPORTED_OUTPUT_FORMATS = {"tsv.gz", "parquet"}
@@ -38,6 +41,10 @@ if active_options:
 
     run_sequence = harmonization_config["run_sequence"]
     run_steps = [step for _, step in run_sequence]
+
+    # GWASLab liftover?
+    if "liftover" in run_steps:
+        IF_LIFTOVERGWASLAB = True
 
     # TSV is always required
     if "write_tsv" not in run_steps:
