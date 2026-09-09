@@ -42,8 +42,6 @@ steps:
   sort_alphabetically:
     params:
       run: True
-    gl_params:
-      threads: *cores
   write_snp_mapping: # see https://cloufield.github.io/gwaslab/Standardization/
     params:
       run: True

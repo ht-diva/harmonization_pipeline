@@ -44,8 +44,6 @@ steps:
   sort_alphabetically:
     params:
       run: True
-    gl_params:
-      threads: *cores
   check_ambiguous_snps:
     params:
       run: True

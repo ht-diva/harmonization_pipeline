@@ -4,7 +4,7 @@ software-deployment-method:
    - conda
    - apptainer
 retries: 3
-max-jobs-per-second: 100
+max-jobs-per-second: 10
 max-status-checks-per-second: 1
 local-cores: 1
 cores: &cores 4
@@ -28,11 +28,7 @@ set-threads:
 set-resources:
   pre_filtering:
     threads: *cores
-    mem_mb: 45056 + attempt * 2048
-    runtime: attempt * 30
-  post_filtering:
-    threads: *cores
-    mem_mb: 45056 + attempt * 2048
+    mem_mb: 22528 + attempt * 2048
     runtime: attempt * 30
   harmonize_sumstats:
     threads: *cores
@@ -50,25 +46,34 @@ set-resources:
     threads: *cores
     mem_mb: 22528 + attempt * 2048
     runtime: attempt * 30  
+  post_filtering:
+    threads: *cores
+    mem_mb: 11264 + attempt * 2048
+    runtime: attempt * 30
   summarize_sumstats:
     threads: *cores
-    mem_mb: 22528 + attempt * 2048
-    runtime: attempt * 60
+    mem_mb: 11264 + attempt * 2048
+    runtime: attempt * 30
   bgzip_tabix:
     threads: *cores
-    runtime: attempt * 10
+    mem_mb: attempt * 200 
+    runtime: attempt * 5
   create_if_table:
     threads: *cores
-    mem_base: 512
-    mem_per_attempt: 512
+    mem_mb: attempt * 200
     runtime: attempt * 5
   create_min_pvalue_table:
     threads: *cores
+    mem_mb: attempt * 200
     runtime: attempt * 5
   create_snp_mapping_table:
     threads: *cores
-    mem_mb: 45056 + attempt * 2048
+    mem_mb: 22528 + attempt * 2048
     runtime: attempt * 60
+  create_quality_check_table:
+    threads: *cores
+    mem_mb: attempt * 200
+    runtime: attempt * 5
   sync_tables:
     runtime: attempt * 10
   sync_tables_nosnpmap:

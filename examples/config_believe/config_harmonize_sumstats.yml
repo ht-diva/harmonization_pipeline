@@ -43,8 +43,6 @@ steps:
   sort_alphabetically:
     params:
       run: True
-    gl_params:
-      threads: *cores
   write_tsv:
     params:
       run: True
