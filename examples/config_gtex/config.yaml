@@ -15,6 +15,9 @@ sumstats_sep: ","
 
 # Common parameters
 input_format: &iformat "gtex" # Input format of summary
+output_formats:
+  - tsv.gz
+  - parquet
 
 params:
   harmonize_sumstats:
