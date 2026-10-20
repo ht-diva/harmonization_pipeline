@@ -1,6 +1,11 @@
 ---
 # common parameters
 n_cores: &cores 8
+genome_assembly: GRCh37
+reference_resources:
+  hapmap3_coordinates: "GWASLab 4.0.2 bundled HapMap3 tables"
+assembly_validation:
+  min_hapmap3_matches: 10000
 
 # This is an ordered dict that contains the order in which the steps are run.
 run_sequence: !!omap
@@ -22,6 +27,7 @@ steps:
       fix_id_kwargs:
         fixid: True
         overwrite: True
+        forcefixid: True
   infer_build: # see https://cloufield.github.io/gwaslab/InferBuild/
     params:
       run: True
@@ -42,15 +48,13 @@ steps:
     params:
       run: True
     gl_params:
-      threads: *cores
       from_build: "19"
       to_build: "38"
+      chain_path: "/group/diangelantonio/public_data/liftOver/hg19ToHg38.chainBridge.over.chain.gz" #bridge chain
       remove: True
   sort_alphabetically:
     params:
       run: True
-    gl_params:
-      threads: *cores
   write_snp_mapping: # see https://cloufield.github.io/gwaslab/Standardization/
     params:
       run: True
@@ -61,8 +65,6 @@ steps:
 
 # Filename transformation, e.g.: ukb-b-16946.vcf.gz
 filename_mask: [ True, False, False]
-# Filename transformation, with BCFtools liftover, e.g.: ukb-a-545.liftover.vcf.gz
-#filename_mask: [ True, False, False, False]
 filename_sep: '.'
 
 # IO

@@ -1,13 +1,13 @@
 run:
   harmonization: True
   summarize: True
-  delivery: True
+  delivery: False
 
 
 # Paths
 # test: config/small_test_ukb.tsv
 # full: config/sumstats_from_ukb.tsv
-sumstats_path: config/sumstats_from_ukb.tsv
+sumstats_path: config/small_test_ukb.tsv
 sumstats_suffix: ".vcf.gz" # Suffix of input summary statistics files (check in sumstats_path)
 dest_path: "/project/cdh/ukb/result"
 workspace_path: ../results
@@ -15,6 +15,9 @@ sumstats_sep: "\t"
 
 # Common parameters
 input_format: &iformat "vcf" # Input format of summary
+output_formats:
+  - tsv.gz
+  - parquet
 
 params:
   harmonize_sumstats:
